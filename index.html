@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aviator — IA Padrões (Posição Exata)</title>
+<title>Aviator — IA Padrões</title>
 
 <style>
 :root{
@@ -17,6 +17,8 @@
     --painel:#080f13;
     --texto:#f5f5f5;
     --cinza:#aaa;
+    --verde:#22c55e;
+    --amarelo:#ffd21c;
 }
 
 *{
@@ -117,7 +119,7 @@ h1{
 }
 
 .padrao-btn{
-    background:#ffd21c;
+    background:var(--amarelo);
     color:#111;
 }
 
@@ -175,7 +177,24 @@ h1{
 
 .regra{
     color:var(--cinza);
-    font-size:16px;
+    font-size:15px;
+    margin-top:5px;
+}
+
+.status{
+    margin-top:10px;
+    padding:10px;
+    border-radius:8px;
+    font-size:14px;
+    background:#111;
+}
+
+.status.ok{
+    color:var(--verde);
+}
+
+.status.alerta{
+    color:var(--amarelo);
 }
 
 .barra-area{
@@ -253,6 +272,7 @@ h1{
     font-size:28px;
     font-weight:bold;
     margin-top:7px;
+    letter-spacing:3px;
 }
 
 .previsao-cor{
@@ -271,6 +291,10 @@ h1{
 
 .texto-rosa{
     color:var(--rosa);
+}
+
+.texto-neutro{
+    color:var(--cinza);
 }
 
 .padroes{
@@ -292,13 +316,13 @@ h1{
 }
 
 .padrao-item{
-    padding:9px;
+    padding:10px;
     background:#12191e;
     border-radius:8px;
     display:flex;
     align-items:center;
-    gap:8px;
-    font-size:15px;
+    gap:7px;
+    font-size:14px;
 }
 
 .mini-cor{
@@ -379,18 +403,17 @@ h1{
 
 <div class="container">
 
-    <h1>Aviator — IA Padrões (Posição Exata)</h1>
+    <h1>Aviator — IA Padrões</h1>
 
     <div class="subtitulo">
-        IA baseada na posição exata das últimas 4 cores
+        Análise das últimas 4 cores por posição e padrão
     </div>
-
 
     <div class="grid">
 
-        <!-- =================================================
+        <!-- ================================
              ÁREA PRINCIPAL
-        ================================================== -->
+        ================================= -->
 
         <div class="card">
 
@@ -403,12 +426,11 @@ h1{
                     </strong>
 
                     <div class="small">
-                        Clique uma cor — a IA analisa as últimas
-                        4 posições e aponta a 2ª cor da sequência.
+                        Clique nas cores. A IA analisa
+                        exatamente as últimas 4 posições.
                     </div>
 
                 </div>
-
 
                 <div class="botoes">
 
@@ -428,7 +450,6 @@ h1{
 
             </div>
 
-
             <!-- HISTÓRICO -->
 
             <div
@@ -436,7 +457,6 @@ h1{
                 class="panel-sm"
                 style="margin-top:10px">
             </div>
-
 
             <!-- BOTÕES -->
 
@@ -462,16 +482,13 @@ h1{
 
             </div>
 
-
             <div class="small" style="margin-top:10px">
                 A = Azul | R = Roxo | V = Rosa
             </div>
 
-
             <!-- ANÁLISE -->
 
             <div id="analise"></div>
-
 
             <!-- PADRÕES -->
 
@@ -480,7 +497,7 @@ h1{
                 class="padroes">
 
                 <h3>
-                    Padrões cadastrados
+                    Regras de padrões
                 </h3>
 
                 <div
@@ -492,17 +509,15 @@ h1{
 
         </div>
 
-
-        <!-- =================================================
+        <!-- ================================
              PREVISÃO
-        ================================================== -->
+        ================================= -->
 
         <div class="card">
 
             <strong>
-                Previsão (próxima cor)
+                Análise da próxima cor
             </strong>
-
 
             <div class="previsao-box">
 
@@ -524,6 +539,7 @@ h1{
 
             </div>
 
+            <!-- BARRAS -->
 
             <div class="barra-area">
 
@@ -550,7 +566,6 @@ h1{
 
                 </div>
 
-
                 <!-- ROXO -->
 
                 <div class="barra-item">
@@ -573,7 +588,6 @@ h1{
                     </div>
 
                 </div>
-
 
                 <!-- ROSA -->
 
@@ -599,7 +613,6 @@ h1{
                 </div>
 
             </div>
-
 
             <div class="legend">
 
@@ -629,7 +642,6 @@ h1{
 
             </div>
 
-
             <div
                 class="small"
                 style="margin-top:10px">
@@ -638,7 +650,6 @@ h1{
                 <span id="lastClick">—</span>
 
             </div>
-
 
             <pre id="debug"></pre>
 
@@ -652,11 +663,13 @@ h1{
 <script>
 
 /* =========================================================
-   AVIATOR — IA PADRÕES
+   AVIATOR — SISTEMA DE PADRÕES
 ========================================================= */
 
 
-/* CORES */
+/* =========================================================
+   CORES
+========================================================= */
 
 const CORES = {
 
@@ -681,78 +694,160 @@ const CORES = {
 };
 
 
-/* HISTÓRICO */
+/* =========================================================
+   HISTÓRICO
+========================================================= */
 
 let hist = [];
 
 
 /* =========================================================
-   COMBINAÇÕES SOLICITADAS
+   REGRAS DEFINIDAS
+=========================================================
+
+   1 — QUATRO IGUAIS
+
+   RRRR → R
+   VVVV → V
+   AAAA → A
+
+
+   2 — ALTERNÂNCIA
+
+   ARAR → A
+   RARA → R
+   VRVR → V
+   RVRV → R
+   AVAV → A
+
+
+   3 — DUPLAS
+
+   VVRR → V
+   RRVV → R
+   AARR → A
+   RRAA → R
+
 ========================================================= */
-
-const combinacoesAdicionais = [
-
-    "AAAR",
-    "AAAA",
-    "VVVR",
-    "RRVV",
-    "RRRV"
-
-];
 
 
 /* =========================================================
-   REGRA PRINCIPAL
-=========================================================
-
-   A PREVISÃO É SEMPRE A 2ª COR.
-
-   Exemplo:
-
-   A A R R
-     ↑
-     A = AZUL
-
-   R R A A
-     ↑
-     R = ROXO
-
-   V V R R
-     ↑
-     V = ROSA
-
+   CALCULAR PREVISÃO
 ========================================================= */
 
 function calcularPrevisao(sequencia){
 
     if(!sequencia || sequencia.length !== 4){
 
-        return null;
+        return {
+            cor:null,
+            tipo:null
+        };
 
     }
 
-    return sequencia.charAt(1);
+
+    const a = sequencia.charAt(0);
+    const b = sequencia.charAt(1);
+    const c = sequencia.charAt(2);
+    const d = sequencia.charAt(3);
+
+
+    /* =====================================================
+       REGRA 1
+       QUATRO CORES IGUAIS
+    ===================================================== */
+
+    if(
+        a === b &&
+        b === c &&
+        c === d
+    ){
+
+        return {
+            cor:a,
+            tipo:"4 CORES IGUAIS"
+        };
+
+    }
+
+
+    /* =====================================================
+       REGRA 2
+       ALTERNÂNCIA
+
+       A R A R → A
+       R A R A → R
+       V R V R → V
+       R V R V → R
+       A V A V → A
+    ===================================================== */
+
+    if(
+        a === c &&
+        b === d &&
+        a !== b
+    ){
+
+        return {
+            cor:a,
+            tipo:"ALTERNÂNCIA"
+        };
+
+    }
+
+
+    /* =====================================================
+       REGRA 3
+       DUPLAS
+
+       V V R R → V
+       R R V V → R
+       A A R R → A
+       R R A A → R
+    ===================================================== */
+
+    if(
+        a === b &&
+        c === d &&
+        a !== c
+    ){
+
+        return {
+            cor:a,
+            tipo:"DUPLAS"
+        };
+
+    }
+
+
+    /* =====================================================
+       NENHUM PADRÃO
+    ===================================================== */
+
+    return {
+        cor:null,
+        tipo:"SEM PADRÃO CADASTRADO"
+    };
 
 }
 
 
 /* =========================================================
-   CLIQUE DO USUÁRIO
+   CLIQUE
 ========================================================= */
 
 function userClick(cor){
 
     if(!CORES[cor]){
-
         return;
-
     }
 
 
     hist.push(cor);
 
 
-    /* SOMENTE AS ÚLTIMAS 20 */
+    /* manter somente 20 */
 
     if(hist.length > 20){
 
@@ -829,11 +924,8 @@ function analisar(){
         document.getElementById("analise").innerHTML =
 
             '<div class="sequencia-box">' +
-
             'Aguardando 4 cores para analisar.' +
-
             '</div>';
-
 
         limparPrevisao();
 
@@ -842,7 +934,7 @@ function analisar(){
     }
 
 
-    /* PEGA AS ÚLTIMAS 4 */
+    /* últimas 4 */
 
     const ultimas =
         hist.slice(-4);
@@ -852,7 +944,7 @@ function analisar(){
         ultimas.join("");
 
 
-    const previsao =
+    const resultado =
         calcularPrevisao(sequencia);
 
 
@@ -864,7 +956,7 @@ function analisar(){
         });
 
 
-    document.getElementById("analise").innerHTML =
+    let html =
 
         '<div class="sequencia-box">' +
 
@@ -879,33 +971,83 @@ function analisar(){
 
         '1ª: ' + nomes[0] +
 
-        ' | 2ª: <strong>' + nomes[1] + '</strong>' +
+        ' | 2ª: ' + nomes[1] +
 
         ' | 3ª: ' + nomes[2] +
 
         ' | 4ª: ' + nomes[3] +
 
-        '</div>' +
-
-        '<div class="resultado">' +
-
-        'PRÓXIMA COR: ' +
-        CORES[previsao].nome +
-
-        '</div>' +
-
-        '<div class="regra">' +
-
-        'Regra: a próxima cor é a 2ª cor da sequência.' +
-
-        '</div>' +
-
         '</div>';
+
+
+    /* existe padrão */
+
+    if(resultado.cor){
+
+        html +=
+
+            '<div class="resultado">' +
+
+            'PRÓXIMA COR: ' +
+
+            '<span class="' +
+            CORES[resultado.cor].texto +
+            '">' +
+
+            CORES[resultado.cor].nome +
+
+            '</span>' +
+
+            '</div>' +
+
+            '<div class="regra">' +
+
+            'Padrão identificado: ' +
+            resultado.tipo +
+
+            '</div>' +
+
+            '<div class="status ok">' +
+
+            '✓ Padrão reconhecido pelas regras cadastradas.'
+
+            + '</div>';
+
+    }else{
+
+        html +=
+
+            '<div class="resultado">' +
+
+            'NENHUM PADRÃO IDENTIFICADO'
+
+            + '</div>' +
+
+            '<div class="regra">' +
+
+            'As 4 posições não correspondem às regras cadastradas.'
+
+            + '</div>' +
+
+            '<div class="status alerta">' +
+
+            '⚠ Sem previsão automática para esta sequência.'
+
+            + '</div>';
+
+    }
+
+
+    html += '</div>';
+
+
+    document.getElementById("analise")
+        .innerHTML = html;
 
 
     mostrarPrevisao(
         sequencia,
-        previsao
+        resultado.cor
     );
 
 }
@@ -932,17 +1074,7 @@ function mostrarPrevisao(
         );
 
 
-    elemento.className =
-        "previsao-cor " +
-        CORES[cor].texto;
-
-
-    elemento.textContent =
-        "PRÓXIMA: " +
-        CORES[cor].nome;
-
-
-    /* ZERA */
+    /* zerar */
 
     document.getElementById("ba")
         .style.width = "0%";
@@ -964,7 +1096,37 @@ function mostrarPrevisao(
         .textContent = "—";
 
 
-    /* 100% NA 2ª COR */
+    /* sem padrão */
+
+    if(!cor){
+
+        elemento.className =
+            "previsao-cor texto-neutro";
+
+        elemento.textContent =
+            "SEM PADRÃO";
+
+        return;
+
+    }
+
+
+    /* cor identificada */
+
+    elemento.className =
+        "previsao-cor " +
+        CORES[cor].texto;
+
+
+    elemento.textContent =
+        "PRÓXIMA: " +
+        CORES[cor].nome;
+
+
+    /* =====================================================
+       100% SOMENTE COMO REPRESENTAÇÃO
+       DA REGRA IDENTIFICADA
+    ===================================================== */
 
     if(cor === "A"){
 
@@ -1056,6 +1218,7 @@ function resetHist(){
 
     hist = [];
 
+
     document.getElementById("hist")
         .innerHTML = "";
 
@@ -1074,73 +1237,84 @@ function resetHist(){
 
 
 /* =========================================================
-   GERAR TODAS AS COMBINAÇÕES
+   PADRÕES PARA EXIBIÇÃO
 ========================================================= */
 
-function gerarCombinacoes(){
+const padroesDefinidos = [
 
-    const cores = [
-        "A",
-        "R",
-        "V"
-    ];
+    {
+        sequencia:"ARAR",
+        resultado:"A",
+        tipo:"Alternância"
+    },
 
+    {
+        sequencia:"RARA",
+        resultado:"R",
+        tipo:"Alternância"
+    },
 
-    const conjunto = new Set();
+    {
+        sequencia:"VRVR",
+        resultado:"V",
+        tipo:"Alternância"
+    },
 
+    {
+        sequencia:"RVRV",
+        resultado:"R",
+        tipo:"Alternância"
+    },
 
-    /*
-       3 x 3 x 3 x 3 = 81
-       combinações possíveis.
-    */
+    {
+        sequencia:"AVAV",
+        resultado:"A",
+        tipo:"Alternância"
+    },
 
-    for(let a = 0; a < 3; a++){
+    {
+        sequencia:"VVRR",
+        resultado:"V",
+        tipo:"Duplas"
+    },
 
-        for(let b = 0; b < 3; b++){
+    {
+        sequencia:"RRVV",
+        resultado:"R",
+        tipo:"Duplas"
+    },
 
-            for(let c = 0; c < 3; c++){
+    {
+        sequencia:"AARR",
+        resultado:"A",
+        tipo:"Duplas"
+    },
 
-                for(let d = 0; d < 3; d++){
+    {
+        sequencia:"RRAA",
+        resultado:"R",
+        tipo:"Duplas"
+    },
 
-                    const sequencia =
-                        cores[a] +
-                        cores[b] +
-                        cores[c] +
-                        cores[d];
+    {
+        sequencia:"RRRR",
+        resultado:"R",
+        tipo:"Quatro iguais"
+    },
 
+    {
+        sequencia:"VVVV",
+        resultado:"V",
+        tipo:"Quatro iguais"
+    },
 
-                    conjunto.add(
-                        sequencia
-                    );
-
-                }
-
-            }
-
-        }
-
+    {
+        sequencia:"AAAA",
+        resultado:"A",
+        tipo:"Quatro iguais"
     }
 
-
-    /*
-       Adiciona as combinações
-       solicitadas.
-
-       Set impede duplicação.
-    */
-
-    combinacoesAdicionais.forEach(
-        function(seq){
-
-            conjunto.add(seq);
-
-        }
-    );
-
-
-    return Array.from(conjunto);
-
-}
+];
 
 
 /* =========================================================
@@ -1173,16 +1347,8 @@ function showPatterns(){
     lista.innerHTML = "";
 
 
-    const combinacoes =
-        gerarCombinacoes();
-
-
-    combinacoes.forEach(
-        function(seq){
-
-            const previsao =
-                calcularPrevisao(seq);
-
+    padroesDefinidos.forEach(
+        function(padrao){
 
             const item =
                 document.createElement("div");
@@ -1201,15 +1367,13 @@ function showPatterns(){
             ){
 
                 const bolinha =
-                    document.createElement(
-                        "span"
-                    );
+                    document.createElement("span");
 
 
                 bolinha.className =
                     "mini-cor " +
                     CORES[
-                        seq.charAt(i)
+                        padrao.sequencia.charAt(i)
                     ].classe;
 
 
@@ -1220,16 +1384,14 @@ function showPatterns(){
             }
 
 
-            /* texto */
+            /* sequência */
 
             const texto =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
 
             texto.textContent =
-                seq;
+                padrao.sequencia;
 
 
             item.appendChild(
@@ -1237,22 +1399,43 @@ function showPatterns(){
             );
 
 
+            /* tipo */
+
+            const tipo =
+                document.createElement("span");
+
+
+            tipo.textContent =
+                padrao.tipo;
+
+
+            tipo.style.color =
+                "#aaa";
+
+
+            item.appendChild(
+                tipo
+            );
+
+
             /* resultado */
 
             const resultado =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
 
             resultado.className =
                 "padrao-resultado " +
-                CORES[previsao].texto;
+                CORES[
+                    padrao.resultado
+                ].texto;
 
 
             resultado.textContent =
                 "→ " +
-                CORES[previsao].nome;
+                CORES[
+                    padrao.resultado
+                ].nome;
 
 
             item.appendChild(
