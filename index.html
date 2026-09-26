@@ -1,46 +1,69 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Aviator — IA Padrões</title>
-
 <style>
+/* =========================================================
+   ENQUADRAMENTO TIPO COMPUTADOR
+   SOMENTE VISUAL — NÃO ALTERA A LÓGICA DA IA
+   ========================================================= */
+
 *{
     box-sizing:border-box;
 }
 
-html,body{
+html{
     margin:0;
     padding:0;
-    background:#0d0d0d;
-    color:#f5f5f5;
-    font-family:Arial,Helvetica,sans-serif;
+    width:100%;
+    min-height:100%;
+    zoom:1;
 }
 
 body{
+    margin:0;
+    padding:0;
+    width:100%;
     min-height:100vh;
+    background:#101010;
+    color:#f1f1f1;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:16px;
+    overflow-x:hidden;
 }
 
+/* TELA PRINCIPAL */
 .container{
     width:100%;
     max-width:1100px;
+    min-height:100vh;
     margin:0 auto;
-    padding:20px;
+    padding:24px;
 }
 
-h1{
-    margin:0 0 8px;
-    font-size:30px;
+/* EVITA O EFEITO DE LUPA */
+.container,
+.container *{
+    transform:none;
 }
 
-.subtitulo{
-    color:#aaa;
+/* CABEÇALHO */
+header{
+    width:100%;
     margin-bottom:20px;
 }
 
-.card{
+h1{
+    margin:0 0 8px 0;
+    font-size:28px;
+    line-height:1.2;
+}
+
+p{
+    line-height:1.5;
+}
+
+/* PAINÉIS */
+.card,
+.panel,
+.section{
+    width:100%;
     background:#151515;
     border-radius:16px;
     padding:20px;
@@ -48,1057 +71,285 @@ h1{
     border:1px solid #202020;
 }
 
-h2{
-    margin:0 0 15px;
-    font-size:22px;
-}
-
 /* BOTÕES */
-
-.botoes{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
-}
-
-.btn{
+button{
     border:0;
-    border-radius:13px;
-    padding:16px 25px;
-    color:#fff;
-    font-size:18px;
+    border-radius:12px;
+    padding:14px 22px;
+    font-size:17px;
     font-weight:bold;
     cursor:pointer;
-    min-width:150px;
+    margin:4px;
+    min-height:50px;
 }
 
-.btn:active{
-    opacity:.75;
+button:active{
+    transform:scale(.98);
 }
 
-.azul{
-    background:#286cf0;
-}
-
-.roxo{
-    background:#8b24f5;
-}
-
-.vermelho{
-    background:#f442a4;
-}
-
-.btn-reset{
-    background:#286cf0;
-}
-
-.btn-padroes{
-    background:#ffd21c;
-    color:#111;
-}
-
-/* HISTÓRICO */
-
-.historico{
-    min-height:92px;
-    background:#080f13;
+/* ÁREA DAS 4 CORES */
+.history,
+#history{
+    width:100%;
+    min-height:90px;
+    background:#071017;
     border-radius:12px;
     padding:18px;
     display:flex;
     align-items:center;
     gap:10px;
-    flex-wrap:wrap;
+    overflow-x:auto;
 }
 
-.bolinha{
+/* QUADRADOS DAS CORES */
+.color-box,
+.history-item{
     width:56px;
     height:56px;
-    border-radius:10px;
+    min-width:56px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-/* LEGENDA */
-
-.legenda{
-    color:#aaa;
-    font-size:18px;
-    margin-top:10px;
+/* BOTÕES DE COR */
+.color-buttons{
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:14px 0;
 }
 
-/* SEQUÊNCIA */
-
-.sequencia-box{
-    background:#080d12;
-    border-radius:14px;
-    padding:20px;
-    margin-top:20px;
-    line-height:1.8;
-    font-size:19px;
+.color-buttons button{
+    flex:1 1 200px;
 }
 
-.sequencia{
-    font-weight:bold;
+/* AZUL */
+.azul,
+.blue{
+    background:#2f6df6;
 }
 
-.resultado{
-    margin-top:18px;
-    font-size:21px;
-    font-weight:bold;
+/* ROXO */
+.roxo,
+.purple{
+    background:#8c27f5;
 }
 
-.regra{
-    color:#aaa;
-    font-size:17px;
-    margin-top:5px;
+/* VERMELHO */
+.vermelho,
+.red{
+    background:#f443a5;
 }
 
-/* PREVISÃO */
-
-.previsao{
-    background:#080f13;
+/* TEXTO DA SEQUÊNCIA */
+.sequence{
+    width:100%;
+    background:#070b0f;
     border-radius:12px;
-    padding:25px;
-    text-align:center;
-    margin-bottom:22px;
-}
-
-.previsao-titulo{
-    color:#aaa;
+    padding:20px;
+    margin-top:15px;
     font-size:17px;
-    margin-bottom:10px;
+    line-height:1.6;
 }
 
-.previsao-seq{
-    font-size:27px;
-    font-weight:bold;
+/* RESULTADO */
+.prediction{
+    width:100%;
+    background:#071017;
+    border-radius:14px;
+    padding:22px;
+    text-align:center;
+    margin-top:15px;
 }
 
-.previsao-cor{
-    font-size:38px;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-.previsao-cor.azul-texto{
-    color:#286cf0;
-}
-
-.previsao-cor.roxo-texto{
-    color:#8b24f5;
-}
-
-.previsao-cor.vermelho-texto{
-    color:#f442a4;
+.prediction h2{
+    margin:8px 0;
+    font-size:28px;
 }
 
 /* BARRAS */
-
-.barra-item{
-    margin-bottom:18px;
+.probability{
+    width:100%;
+    margin-top:18px;
 }
 
-.barra-topo{
+.probability-row{
+    width:100%;
+    margin-bottom:14px;
+}
+
+.probability-label{
     display:flex;
     justify-content:space-between;
-    font-size:20px;
+    align-items:center;
+    font-size:17px;
     margin-bottom:5px;
 }
 
-.barra{
+.bar{
+    width:100%;
     height:26px;
-    background:#242424;
-    border-radius:15px;
+    background:#252525;
+    border-radius:14px;
     overflow:hidden;
 }
 
-.barra-fill{
+.bar-fill{
     height:100%;
-    width:0%;
-    border-radius:15px;
-    transition:width .3s ease;
+    width:0;
+    border-radius:14px;
+    transition:width .25s ease;
 }
 
-.fill-azul{
+/* CORES DAS BARRAS */
+.bar-blue{
+    background:#2f6df6;
+}
+
+.bar-purple{
+    background:#8c27f5;
+}
+
+.bar-red{
+    background:#f443a5;
+}
+
+/* BOTÕES SUPERIORES */
+.top-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.reset{
     background:#286cf0;
+    color:white;
 }
 
-.fill-roxo{
-    background:#8b24f5;
+.patterns{
+    background:#ffd21c;
+    color:#111;
 }
 
-.fill-vermelho{
-    background:#f442a4;
+/* LEGENDA */
+.legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:12px;
+    font-size:16px;
 }
 
-/* SEM REGRA */
-
-.sem-regra{
-    color:#aaa;
-    text-align:center;
-    padding:20px;
-}
-
-/* PADRÕES */
-
-#listaPadroes{
-    display:none;
-}
-
-.padrao{
+.legend span{
     display:flex;
     align-items:center;
-    gap:8px;
-    margin-bottom:10px;
+    gap:7px;
 }
 
-.mini{
-    width:28px;
-    height:28px;
-    border-radius:6px;
+.legend-dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    display:inline-block;
 }
 
-/* RESPONSIVO */
+/* =========================================================
+   MODO COMPUTADOR / DESKTOP
+   ========================================================= */
 
-@media(max-width:600px){
+@media (min-width:900px){
+
+    body{
+        display:block;
+    }
 
     .container{
+        max-width:1180px;
+        padding:30px;
+    }
+
+    .card,
+    .panel,
+    .section{
+        padding:24px;
+    }
+
+    .prediction{
+        padding:26px;
+    }
+
+    .prediction h2{
+        font-size:32px;
+    }
+
+}
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width:899px){
+
+    .container{
+        width:100%;
         padding:14px;
     }
 
     h1{
+        font-size:24px;
+    }
+
+    .card,
+    .panel,
+    .section{
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .history,
+    #history{
+        min-height:82px;
+        padding:14px;
+    }
+
+    .color-box,
+    .history-item{
+        width:52px;
+        height:52px;
+        min-width:52px;
+    }
+
+    .prediction h2{
         font-size:25px;
     }
+}
 
-    .card{
-        padding:16px;
+/* CELULAR PEQUENO */
+@media (max-width:480px){
+
+    .container{
+        padding:10px;
     }
 
-    .btn{
-        min-width:0;
-        flex:1;
-        padding:15px 10px;
-        font-size:16px;
+    button{
+        font-size:15px;
+        padding:12px 16px;
     }
 
-    .bolinha{
-        width:56px;
-        height:56px;
+    .color-buttons{
+        gap:7px;
     }
 
-    .sequencia-box{
-        font-size:17px;
+    .color-buttons button{
+        flex:1 1 100%;
     }
 
-    .previsao-cor{
-        font-size:32px;
+    .prediction h2{
+        font-size:23px;
     }
 }
 </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>Aviator — IA Padrões</h1>
-
-    <div class="subtitulo">
-        Análise determinística pela posição das cores
-    </div>
-
-    <!-- CONTROLE -->
-    <div class="card">
-
-        <div class="botoes">
-
-            <button class="btn btn-reset" onclick="resetHist()">
-                Reset
-            </button>
-
-            <button class="btn btn-padroes" onclick="mostrarPadroes()">
-                Mostrar padrões
-            </button>
-
-        </div>
-
-        <!-- HISTÓRICO -->
-        <div id="historico" class="historico"></div>
-
-        <!-- BOTÕES DE CORES -->
-        <div class="botoes" style="margin-top:18px;">
-
-            <button
-                class="btn azul"
-                onclick="clicarCor('A')">
-                AZUL (A)
-            </button>
-
-            <button
-                class="btn roxo"
-                onclick="clicarCor('R')">
-                ROXO (R)
-            </button>
-
-            <button
-                class="btn vermelho"
-                onclick="clicarCor('V')">
-                VERMELHO (V)
-            </button>
-
-        </div>
-
-        <div class="legenda">
-            A = Azul | R = Roxo | V = Vermelho
-        </div>
-
-        <!-- ANÁLISE -->
-        <div id="analise"></div>
-
-    </div>
-
-
-    <!-- PRÓXIMA COR -->
-    <div class="card">
-
-        <h2>Próxima cor pela regra</h2>
-
-        <div id="previsao" class="previsao">
-
-            <div class="previsao-titulo">
-                SEQUÊNCIA ANALISADA
-            </div>
-
-            <div id="previsaoSeq" class="previsao-seq">
-                ----
-            </div>
-
-            <div id="previsaoCor" class="previsao-cor">
-                PRÓXIMA: -
-            </div>
-
-        </div>
-
-
-        <!-- AZUL -->
-        <div class="barra-item">
-
-            <div class="barra-topo">
-                <span>AZUL</span>
-                <span id="porcentagemA">—</span>
-            </div>
-
-            <div class="barra">
-                <div
-                    id="barraA"
-                    class="barra-fill fill-azul">
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- ROXO -->
-        <div class="barra-item">
-
-            <div class="barra-topo">
-                <span>ROXO</span>
-                <span id="porcentagemR">—</span>
-            </div>
-
-            <div class="barra">
-                <div
-                    id="barraR"
-                    class="barra-fill fill-roxo">
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- VERMELHO -->
-        <div class="barra-item">
-
-            <div class="barra-topo">
-                <span>VERMELHO</span>
-                <span id="porcentagemV">—</span>
-            </div>
-
-            <div class="barra">
-                <div
-                    id="barraV"
-                    class="barra-fill fill-vermelho">
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- PADRÕES -->
-    <div id="listaPadroes" class="card">
-
-        <h2>Padrões XXYY</h2>
-
-        <div id="padroesConteudo"></div>
-
-    </div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   CONFIGURAÇÃO DAS CORES
-========================================================= */
-
-const CORES = {
-
-    A:{
-        nome:"AZUL",
-        classe:"azul",
-        texto:"azul-texto"
-    },
-
-    R:{
-        nome:"ROXO",
-        classe:"roxo",
-        texto:"roxo-texto"
-    },
-
-    V:{
-        nome:"VERMELHO",
-        classe:"vermelho",
-        texto:"vermelho-texto"
-    }
-
-};
-
-
-/* =========================================================
-   HISTÓRICO
-========================================================= */
-
-let historico = [];
-
-
-/* =========================================================
-   CLICAR NA COR
-========================================================= */
-
-function clicarCor(cor){
-
-    historico.push(cor);
-
-    /*
-       Mantém somente as últimas 20 cores
-    */
-
-    if(historico.length > 20){
-        historico.shift();
-    }
-
-    atualizarHistorico();
-
-    analisar();
-
-}
-
-
-/* =========================================================
-   MOSTRAR HISTÓRICO
-========================================================= */
-
-function atualizarHistorico(){
-
-    const elemento =
-        document.getElementById("historico");
-
-    elemento.innerHTML = "";
-
-    historico.forEach(cor => {
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "bolinha " + CORES[cor].classe;
-
-        elemento.appendChild(div);
-
-    });
-
-}
-
-
-/* =========================================================
-   REGRA PRINCIPAL
-=========================================================
-
-   A REGRA É:
-
-   XXYY
-
-   A IA SEMPRE APONTA A 2ª COR DA SEQUÊNCIA.
-
-   Exemplo:
-
-   AARR
-   1ª A
-   2ª A  <-- PREVISÃO
-   3ª R
-   4ª R
-
-   Resultado = AZUL
-
-   RRAA
-   1ª R
-   2ª R  <-- PREVISÃO
-   3ª A
-   4ª A
-
-   Resultado = ROXO
-
-========================================================= */
-
-function calcularRegra(sequencia){
-
-    if(sequencia.length !== 4){
-        return null;
-    }
-
-    const c1 = sequencia[0];
-    const c2 = sequencia[1];
-    const c3 = sequencia[2];
-    const c4 = sequencia[3];
-
-
-    /*
-       Verifica se existem duas duplas:
-
-       XXYY
-
-       Exemplo:
-
-       A A R R
-       R R A A
-       V V R R
-       R R V V
-    */
-
-    if(
-        c1 === c2 &&
-        c3 === c4 &&
-        c1 !== c3
-    ){
-
-        return {
-
-            cor:c2,
-
-            texto:
-            "a próxima cor é a 2ª cor da sequência."
-
-        };
-
-    }
-
-
-    /*
-       Caso especial:
-
-       XXXX
-
-       Como a 2ª cor também é a mesma,
-       a regra continua funcionando.
-
-       AAAA -> A
-       RRRR -> R
-       VVVV -> V
-    */
-
-    if(
-        c1 === c2 &&
-        c2 === c3 &&
-        c3 === c4
-    ){
-
-        return {
-
-            cor:c2,
-
-            texto:
-            "a próxima cor é a 2ª cor da sequência."
-
-        };
-
-    }
-
-
-    /*
-       Se não formar o padrão definido,
-       não inventa uma previsão.
-    */
-
-    return null;
-
-}
-
-
-/* =========================================================
-   ANALISAR
-========================================================= */
-
-function analisar(){
-
-    const elemento =
-        document.getElementById("analise");
-
-    if(historico.length < 4){
-
-        elemento.innerHTML = `
-
-            <div class="sequencia-box">
-
-                Ainda faltam
-                <strong>${4-historico.length}</strong>
-                cor(es) para analisar.
-
-            </div>
-
-        `;
-
-        limparPrevisao();
-
-        return;
-    }
-
-
-    /*
-       PEGA SEMPRE AS ÚLTIMAS 4
-    */
-
-    const ultimas4 =
-        historico.slice(-4);
-
-    const sequencia =
-        ultimas4.join("");
-
-
-    const resultado =
-        calcularRegra(ultimas4);
-
-
-    let nomes = ultimas4.map(
-        c => CORES[c].nome
-    );
-
-
-    if(resultado){
-
-        const cor =
-            CORES[resultado.cor];
-
-
-        elemento.innerHTML = `
-
-            <div class="sequencia-box">
-
-                <div>
-                    Sequência:
-                    <strong>${sequencia}</strong>
-                </div>
-
-                <div>
-                    1ª: ${nomes[0]}
-                    |
-                    2ª: ${nomes[1]}
-                    |
-                    3ª: ${nomes[2]}
-                    |
-                    4ª: ${nomes[3]}
-                </div>
-
-                <div class="resultado">
-
-                    PRÓXIMA COR:
-                    ${cor.nome}
-
-                </div>
-
-                <div class="regra">
-
-                    Regra:
-                    ${resultado.texto}
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        mostrarPrevisao(
-            sequencia,
-            resultado.cor
-        );
-
-    }else{
-
-        elemento.innerHTML = `
-
-            <div class="sequencia-box">
-
-                <div>
-                    Sequência:
-                    <strong>${sequencia}</strong>
-                </div>
-
-                <div>
-                    1ª: ${nomes[0]}
-                    |
-                    2ª: ${nomes[1]}
-                    |
-                    3ª: ${nomes[2]}
-                    |
-                    4ª: ${nomes[3]}
-                </div>
-
-                <div class="resultado">
-                    PRÓXIMA COR: NÃO DEFINIDA
-                </div>
-
-                <div class="regra">
-
-                    Essa sequência não corresponde
-                    ao padrão XXYY definido.
-
-                </div>
-
-            </div>
-
-        `;
-
-        limparPrevisao();
-
-    }
-
-}
-
-
-/* =========================================================
-   MOSTRAR PREVISÃO
-========================================================= */
-
-function mostrarPrevisao(
-    sequencia,
-    cor
-){
-
-    const info =
-        CORES[cor];
-
-
-    document.getElementById(
-        "previsaoSeq"
-    ).textContent =
-        sequencia;
-
-
-    const previsao =
-        document.getElementById(
-            "previsaoCor"
-        );
-
-
-    previsao.textContent =
-        "PRÓXIMA: " + info.nome;
-
-
-    previsao.className =
-        "previsao-cor " + info.texto;
-
-
-    /*
-       ZERA TODAS AS BARRAS
-    */
-
-    document.getElementById(
-        "barraA"
-    ).style.width = "0%";
-
-    document.getElementById(
-        "barraR"
-    ).style.width = "0%";
-
-    document.getElementById(
-        "barraV"
-    ).style.width = "0%";
-
-
-    document.getElementById(
-        "porcentagemA"
-    ).textContent = "—";
-
-    document.getElementById(
-        "porcentagemR"
-    ).textContent = "—";
-
-    document.getElementById(
-        "porcentagemV"
-    ).textContent = "—";
-
-
-    /*
-       COLOCA 100% SOMENTE NA
-       COR DA 2ª POSIÇÃO
-    */
-
-    if(cor === "A"){
-
-        document.getElementById(
-            "barraA"
-        ).style.width = "100%";
-
-        document.getElementById(
-            "porcentagemA"
-        ).textContent = "100%";
-
-    }
-
-
-    if(cor === "R"){
-
-        document.getElementById(
-            "barraR"
-        ).style.width = "100%";
-
-        document.getElementById(
-            "porcentagemR"
-        ).textContent = "100%";
-
-    }
-
-
-    if(cor === "V"){
-
-        document.getElementById(
-            "barraV"
-        ).style.width = "100%";
-
-        document.getElementById(
-            "porcentagemV"
-        ).textContent = "100%";
-
-    }
-
-}
-
-
-/* =========================================================
-   LIMPAR PREVISÃO
-========================================================= */
-
-function limparPrevisao(){
-
-    document.getElementById(
-        "previsaoSeq"
-    ).textContent = "----";
-
-
-    const previsao =
-        document.getElementById(
-            "previsaoCor"
-        );
-
-    previsao.textContent =
-        "PRÓXIMA: NÃO DEFINIDA";
-
-    previsao.className =
-        "previsao-cor";
-
-
-    document.getElementById(
-        "barraA"
-    ).style.width = "0%";
-
-    document.getElementById(
-        "barraR"
-    ).style.width = "0%";
-
-    document.getElementById(
-        "barraV"
-    ).style.width = "0%";
-
-
-    document.getElementById(
-        "porcentagemA"
-    ).textContent = "—";
-
-    document.getElementById(
-        "porcentagemR"
-    ).textContent = "—";
-
-    document.getElementById(
-        "porcentagemV"
-    ).textContent = "—";
-
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-function resetHist(){
-
-    historico = [];
-
-    atualizarHistorico();
-
-    document.getElementById(
-        "analise"
-    ).innerHTML = "";
-
-    limparPrevisao();
-
-}
-
-
-/* =========================================================
-   MOSTRAR PADRÕES
-========================================================= */
-
-function mostrarPadroes(){
-
-    const caixa =
-        document.getElementById(
-            "listaPadroes"
-        );
-
-
-    const conteudo =
-        document.getElementById(
-            "padroesConteudo"
-        );
-
-
-    if(
-        caixa.style.display === "block"
-    ){
-
-        caixa.style.display = "none";
-
-        return;
-
-    }
-
-
-    conteudo.innerHTML = "";
-
-
-    const cores = ["A","R","V"];
-
-
-    /*
-       Mostra todos os padrões XXYY
-    */
-
-    cores.forEach(x => {
-
-        cores.forEach(y => {
-
-            if(x === y){
-
-                const seq =
-                    x+x+x+x;
-
-                adicionarPadrao(
-                    conteudo,
-                    seq,
-                    x
-                );
-
-            }else{
-
-                const seq =
-                    x+x+y+y;
-
-                adicionarPadrao(
-                    conteudo,
-                    seq,
-                    x
-                );
-
-            }
-
-        });
-
-    });
-
-
-    caixa.style.display = "block";
-
-}
-
-
-/* =========================================================
-   ADICIONAR PADRÃO
-========================================================= */
-
-function adicionarPadrao(
-    container,
-    sequencia,
-    resultado
-){
-
-    const div =
-        document.createElement("div");
-
-    div.className = "padrao";
-
-
-    for(const letra of sequencia){
-
-        const mini =
-            document.createElement("div");
-
-        mini.className =
-            "mini " +
-            CORES[letra].classe;
-
-        div.appendChild(mini);
-
-    }
-
-
-    const texto =
-        document.createElement("strong");
-
-    texto.textContent =
-        " " +
-        sequencia +
-        " → " +
-        CORES[resultado].nome;
-
-
-    div.appendChild(texto);
-
-    container.appendChild(div);
-
-}
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-atualizarHistorico();
-
-limparPrevisao();
-
-</script>
-
-</body>
-</html>
