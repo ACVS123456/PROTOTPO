@@ -402,10 +402,6 @@ Análise das últimas 4 cores por posição e padrão
 
 <div class="grid">
 
-<!-- =====================================================
-     ÁREA PRINCIPAL
-===================================================== -->
-
 <div class="card">
 
 <div class="topo">
@@ -441,17 +437,11 @@ Mostrar padrões
 
 </div>
 
-
-<!-- HISTÓRICO -->
-
 <div
 id="hist"
 class="panel-sm"
 style="margin-top:10px">
 </div>
-
-
-<!-- BOTÕES -->
 
 <div class="controles">
 
@@ -475,18 +465,11 @@ ROSA (V)
 
 </div>
 
-
 <div class="small" style="margin-top:10px">
 A = Azul | R = Roxo | V = Rosa
 </div>
 
-
-<!-- ANÁLISE -->
-
 <div id="analise"></div>
-
-
-<!-- PADRÕES -->
 
 <div
 id="patternsArea"
@@ -506,16 +489,13 @@ class="lista-padroes">
 </div>
 
 
-<!-- =====================================================
-     PREVISÃO
-===================================================== -->
+<!-- PREVISÃO -->
 
 <div class="card">
 
 <strong>
 Análise da próxima cor
 </strong>
-
 
 <div class="previsao-box">
 
@@ -542,73 +522,52 @@ PRÓXIMA: —
 
 <div class="barra-area">
 
-<!-- AZUL -->
-
 <div class="barra-item">
 
 <div class="barra-titulo">
-
 <span>AZUL</span>
-
 <span id="pa">—</span>
-
 </div>
 
 <div class="barra">
-
 <div
 id="ba"
 class="fill fill-azul">
 </div>
-
 </div>
 
 </div>
 
-
-<!-- ROXO -->
 
 <div class="barra-item">
 
 <div class="barra-titulo">
-
 <span>ROXO</span>
-
 <span id="pr">—</span>
-
 </div>
 
 <div class="barra">
-
 <div
 id="br"
 class="fill fill-roxo">
 </div>
-
 </div>
 
 </div>
 
-
-<!-- ROSA -->
 
 <div class="barra-item">
 
 <div class="barra-titulo">
-
 <span>ROSA</span>
-
 <span id="pv">—</span>
-
 </div>
 
 <div class="barra">
-
 <div
 id="bv"
 class="fill fill-rosa">
 </div>
-
 </div>
 
 </div>
@@ -643,7 +602,6 @@ ROSA
 </div>
 
 </div>
-
 
 <div
 class="small"
@@ -707,19 +665,20 @@ let hist = [];
 =========================================================
 
    Estas regras têm PRIORIDADE sobre
-   as regras genéricas.
+   os padrões genéricos.
 
 ========================================================= */
 
 const regrasEspecificas = {
 
-    "ARRA":"R",
     "RAAR":"A",
+    "ARRA":"R",
 
     "ARVR":"R",
     "RARV":"A",
 
     "AVRV":"V",
+    "AVVA":"V",
 
     "VRRV":"R",
     "RVVR":"V"
@@ -728,24 +687,24 @@ const regrasEspecificas = {
 
 
 /* =========================================================
-   PADRÕES DEFINIDOS PARA EXIBIÇÃO
+   PADRÕES DEFINIDOS
 ========================================================= */
 
 const padroesDefinidos = [
 
-    /* =========================
-       PADRÕES ESPECÍFICOS
-    ========================= */
-
-    {
-        sequencia:"ARRA",
-        resultado:"R",
-        tipo:"Específico"
-    },
+    /* =====================================================
+       REGRAS ESPECÍFICAS
+    ===================================================== */
 
     {
         sequencia:"RAAR",
         resultado:"A",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"ARRA",
+        resultado:"R",
         tipo:"Específico"
     },
 
@@ -768,6 +727,12 @@ const padroesDefinidos = [
     },
 
     {
+        sequencia:"AVVA",
+        resultado:"V",
+        tipo:"Específico"
+    },
+
+    {
         sequencia:"VRRV",
         resultado:"R",
         tipo:"Específico"
@@ -780,9 +745,9 @@ const padroesDefinidos = [
     },
 
 
-    /* =========================
+    /* =====================================================
        ALTERNÂNCIA
-    ========================= */
+    ===================================================== */
 
     {
         sequencia:"ARAR",
@@ -815,9 +780,9 @@ const padroesDefinidos = [
     },
 
 
-    /* =========================
+    /* =====================================================
        DUPLAS
-    ========================= */
+    ===================================================== */
 
     {
         sequencia:"VVRR",
@@ -844,9 +809,15 @@ const padroesDefinidos = [
     },
 
 
-    /* =========================
+    /* =====================================================
        QUATRO IGUAIS
-    ========================= */
+    ===================================================== */
+
+    {
+        sequencia:"AAAA",
+        resultado:"A",
+        tipo:"Quatro iguais"
+    },
 
     {
         sequencia:"RRRR",
@@ -857,12 +828,6 @@ const padroesDefinidos = [
     {
         sequencia:"VVVV",
         resultado:"V",
-        tipo:"Quatro iguais"
-    },
-
-    {
-        sequencia:"AAAA",
-        resultado:"A",
         tipo:"Quatro iguais"
     }
 
@@ -888,11 +853,9 @@ function calcularPrevisao(sequencia){
     }
 
 
-    /*
-    =========================================================
-    1 — REGRA ESPECÍFICA
-    =========================================================
-    */
+    /* =====================================================
+       1 — REGRAS ESPECÍFICAS
+    ===================================================== */
 
     if(
         Object.prototype.hasOwnProperty.call(
@@ -918,11 +881,9 @@ function calcularPrevisao(sequencia){
     const d = sequencia.charAt(3);
 
 
-    /*
-    =========================================================
-    2 — QUATRO IGUAIS
-    =========================================================
-    */
+    /* =====================================================
+       2 — QUATRO IGUAIS
+    ===================================================== */
 
     if(
         a === b &&
@@ -941,18 +902,9 @@ function calcularPrevisao(sequencia){
     }
 
 
-    /*
-    =========================================================
-    3 — ALTERNÂNCIA
-    =========================================================
-
-    ARAR → A
-    RARA → R
-    VRVR → V
-    RVRV → R
-    AVAV → A
-
-    */
+    /* =====================================================
+       3 — ALTERNÂNCIA
+    ===================================================== */
 
     if(
         a === c &&
@@ -971,17 +923,9 @@ function calcularPrevisao(sequencia){
     }
 
 
-    /*
-    =========================================================
-    4 — DUPLAS
-    =========================================================
-
-    VVRR → V
-    RRVV → R
-    AARR → A
-    RRAA → R
-
-    */
+    /* =====================================================
+       4 — DUPLAS
+    ===================================================== */
 
     if(
         a === b &&
@@ -1000,11 +944,9 @@ function calcularPrevisao(sequencia){
     }
 
 
-    /*
-    =========================================================
-    5 — SEM PADRÃO
-    =========================================================
-    */
+    /* =====================================================
+       5 — SEM PADRÃO
+    ===================================================== */
 
     return {
 
@@ -1027,21 +969,13 @@ function userClick(cor){
         return;
     }
 
-
     hist.push(cor);
 
-
-    /* manter últimas 20 */
-
     if(hist.length > 20){
-
         hist.shift();
-
     }
 
-
     renderHist();
-
     analisar();
 
 }
@@ -1056,20 +990,16 @@ function renderHist(){
     const box =
         document.getElementById("hist");
 
-
     box.innerHTML = "";
-
 
     hist.forEach(function(cor){
 
         const item =
             document.createElement("span");
 
-
         item.className =
             "cor-historico " +
             CORES[cor].classe;
-
 
         box.appendChild(item);
 
@@ -1120,19 +1050,14 @@ function analisar(){
     }
 
 
-    /* últimas 4 */
-
     const ultimas =
         hist.slice(-4);
-
 
     const sequencia =
         ultimas.join("");
 
-
     const resultado =
         calcularPrevisao(sequencia);
-
 
     const nomes =
         ultimas.map(function(cor){
@@ -1170,12 +1095,6 @@ function analisar(){
 
         '</div>';
 
-
-    /*
-    =========================================================
-    PADRÃO ENCONTRADO
-    =========================================================
-    */
 
     if(resultado.cor){
 
@@ -1277,8 +1196,6 @@ function mostrarPrevisao(
         );
 
 
-    /* zerar barras */
-
     document.getElementById("ba")
         .style.width = "0%";
 
@@ -1299,12 +1216,6 @@ function mostrarPrevisao(
         .textContent = "—";
 
 
-    /*
-    =========================================================
-    SEM PADRÃO
-    =========================================================
-    */
-
     if(!cor){
 
         elemento.className =
@@ -1318,12 +1229,6 @@ function mostrarPrevisao(
     }
 
 
-    /*
-    =========================================================
-    COR IDENTIFICADA
-    =========================================================
-    */
-
     elemento.className =
         "previsao-cor " +
         CORES[cor].texto;
@@ -1334,19 +1239,13 @@ function mostrarPrevisao(
         CORES[cor].nome;
 
 
-    /*
-    =========================================================
-    REPRESENTAÇÃO DA REGRA
-    =========================================================
-    */
-
     if(cor === "A"){
 
         document.getElementById("ba")
             .style.width = "100%";
 
         document.getElementById("pa")
-            .textContent = "100%";
+            .textContent = "REGRA";
 
     }
 
@@ -1357,7 +1256,7 @@ function mostrarPrevisao(
             .style.width = "100%";
 
         document.getElementById("pr")
-            .textContent = "100%";
+            .textContent = "REGRA";
 
     }
 
@@ -1368,7 +1267,7 @@ function mostrarPrevisao(
             .style.width = "100%";
 
         document.getElementById("pv")
-            .textContent = "100%";
+            .textContent = "REGRA";
 
     }
 
@@ -1394,7 +1293,6 @@ function limparPrevisao(){
 
     elemento.className =
         "previsao-cor";
-
 
     elemento.textContent =
         "PRÓXIMA: —";
@@ -1430,21 +1328,17 @@ function resetHist(){
 
     hist = [];
 
-
     document.getElementById(
         "hist"
     ).innerHTML = "";
-
 
     document.getElementById(
         "analise"
     ).innerHTML = "";
 
-
     document.getElementById(
         "lastClick"
     ).textContent = "—";
-
 
     limparPrevisao();
 
@@ -1487,14 +1381,11 @@ function showPatterns(){
             const item =
                 document.createElement("div");
 
-
             item.className =
                 "padrao-item";
 
 
-            /*
-            4 bolinhas
-            */
+            /* 4 bolinhas */
 
             for(
                 let i = 0;
@@ -1507,13 +1398,11 @@ function showPatterns(){
                         "span"
                     );
 
-
                 bolinha.className =
                     "mini-cor " +
                     CORES[
                         padrao.sequencia.charAt(i)
                     ].classe;
-
 
                 item.appendChild(
                     bolinha
@@ -1522,57 +1411,45 @@ function showPatterns(){
             }
 
 
-            /*
-            sequência
-            */
+            /* sequência */
 
             const texto =
                 document.createElement(
                     "span"
                 );
 
-
             texto.textContent =
                 padrao.sequencia;
-
 
             item.appendChild(
                 texto
             );
 
 
-            /*
-            tipo
-            */
+            /* tipo */
 
             const tipo =
                 document.createElement(
                     "span"
                 );
 
-
             tipo.textContent =
                 padrao.tipo;
 
-
             tipo.style.color =
                 "#aaa";
-
 
             item.appendChild(
                 tipo
             );
 
 
-            /*
-            resultado
-            */
+            /* resultado */
 
             const resultado =
                 document.createElement(
                     "span"
                 );
-
 
             resultado.className =
                 "padrao-resultado " +
@@ -1580,13 +1457,11 @@ function showPatterns(){
                     padrao.resultado
                 ].texto;
 
-
             resultado.textContent =
                 "→ " +
                 CORES[
                     padrao.resultado
                 ].nome;
-
 
             item.appendChild(
                 resultado
@@ -1611,7 +1486,6 @@ function showPatterns(){
 ========================================================= */
 
 renderHist();
-
 limparPrevisao();
 
 </script>
