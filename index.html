@@ -150,11 +150,6 @@ h1{
     flex:1;
 }
 
-.legenda{
-    margin-top:10px;
-    color:var(--cinza);
-}
-
 .sequencia-box{
     margin-top:18px;
     padding:18px;
@@ -336,10 +331,6 @@ h1{
     font-weight:bold;
 }
 
-#debug{
-    display:none;
-}
-
 @media(max-width:800px){
 
     .container{
@@ -403,259 +394,269 @@ h1{
 
 <div class="container">
 
-    <h1>Aviator — IA Padrões</h1>
+<h1>Aviator — IA Padrões</h1>
 
-    <div class="subtitulo">
-        Análise das últimas 4 cores por posição e padrão
-    </div>
+<div class="subtitulo">
+Análise das últimas 4 cores por posição e padrão
+</div>
 
-    <div class="grid">
+<div class="grid">
 
-        <!-- ================================
-             ÁREA PRINCIPAL
-        ================================= -->
+<!-- =====================================================
+     ÁREA PRINCIPAL
+===================================================== -->
 
-        <div class="card">
+<div class="card">
 
-            <div class="topo">
+<div class="topo">
 
-                <div>
+<div>
 
-                    <strong>
-                        Registro rápido (últimas 20 cores)
-                    </strong>
+<strong>
+Registro rápido — últimas 20 cores
+</strong>
 
-                    <div class="small">
-                        Clique nas cores. A IA analisa
-                        exatamente as últimas 4 posições.
-                    </div>
+<div class="small">
+Clique nas cores. A IA analisa exatamente
+as últimas 4 posições.
+</div>
 
-                </div>
+</div>
 
-                <div class="botoes">
+<div class="botoes">
 
-                    <button
-                        class="btn reset"
-                        onclick="resetHist()">
-                        Reset
-                    </button>
+<button
+class="btn reset"
+onclick="resetHist()">
+Reset
+</button>
 
-                    <button
-                        class="btn padrao-btn"
-                        onclick="showPatterns()">
-                        Mostrar padrões
-                    </button>
+<button
+class="btn padrao-btn"
+onclick="showPatterns()">
+Mostrar padrões
+</button>
 
-                </div>
+</div>
 
-            </div>
+</div>
 
-            <!-- HISTÓRICO -->
 
-            <div
-                id="hist"
-                class="panel-sm"
-                style="margin-top:10px">
-            </div>
+<!-- HISTÓRICO -->
 
-            <!-- BOTÕES -->
+<div
+id="hist"
+class="panel-sm"
+style="margin-top:10px">
+</div>
 
-            <div class="controles">
 
-                <button
-                    class="btn azul"
-                    onclick="userClick('A')">
-                    AZUL (A)
-                </button>
+<!-- BOTÕES -->
 
-                <button
-                    class="btn roxo"
-                    onclick="userClick('R')">
-                    ROXO (R)
-                </button>
+<div class="controles">
 
-                <button
-                    class="btn rosa"
-                    onclick="userClick('V')">
-                    ROSA (V)
-                </button>
+<button
+class="btn azul"
+onclick="userClick('A')">
+AZUL (A)
+</button>
 
-            </div>
+<button
+class="btn roxo"
+onclick="userClick('R')">
+ROXO (R)
+</button>
 
-            <div class="small" style="margin-top:10px">
-                A = Azul | R = Roxo | V = Rosa
-            </div>
+<button
+class="btn rosa"
+onclick="userClick('V')">
+ROSA (V)
+</button>
 
-            <!-- ANÁLISE -->
+</div>
 
-            <div id="analise"></div>
 
-            <!-- PADRÕES -->
+<div class="small" style="margin-top:10px">
+A = Azul | R = Roxo | V = Rosa
+</div>
 
-            <div
-                id="patternsArea"
-                class="padroes">
 
-                <h3>
-                    Regras de padrões
-                </h3>
+<!-- ANÁLISE -->
 
-                <div
-                    id="listaPadroes"
-                    class="lista-padroes">
-                </div>
+<div id="analise"></div>
 
-            </div>
 
-        </div>
+<!-- PADRÕES -->
 
-        <!-- ================================
-             PREVISÃO
-        ================================= -->
+<div
+id="patternsArea"
+class="padroes">
 
-        <div class="card">
+<h3>
+Regras cadastradas
+</h3>
 
-            <strong>
-                Análise da próxima cor
-            </strong>
+<div
+id="listaPadroes"
+class="lista-padroes">
+</div>
 
-            <div class="previsao-box">
+</div>
 
-                <div class="previsao-label">
-                    SEQUÊNCIA ANALISADA
-                </div>
+</div>
 
-                <div
-                    id="previsaoSequencia"
-                    class="previsao-sequencia">
-                    ----
-                </div>
 
-                <div
-                    id="previsaoCor"
-                    class="previsao-cor">
-                    PRÓXIMA: —
-                </div>
+<!-- =====================================================
+     PREVISÃO
+===================================================== -->
 
-            </div>
+<div class="card">
 
-            <!-- BARRAS -->
+<strong>
+Análise da próxima cor
+</strong>
 
-            <div class="barra-area">
 
-                <!-- AZUL -->
+<div class="previsao-box">
 
-                <div class="barra-item">
+<div class="previsao-label">
+SEQUÊNCIA ANALISADA
+</div>
 
-                    <div class="barra-titulo">
+<div
+id="previsaoSequencia"
+class="previsao-sequencia">
+----
+</div>
 
-                        <span>AZUL</span>
+<div
+id="previsaoCor"
+class="previsao-cor">
+PRÓXIMA: —
+</div>
 
-                        <span id="pa">—</span>
+</div>
 
-                    </div>
 
-                    <div class="barra">
+<!-- BARRAS -->
 
-                        <div
-                            id="ba"
-                            class="fill fill-azul">
-                        </div>
+<div class="barra-area">
 
-                    </div>
+<!-- AZUL -->
 
-                </div>
+<div class="barra-item">
 
-                <!-- ROXO -->
+<div class="barra-titulo">
 
-                <div class="barra-item">
+<span>AZUL</span>
 
-                    <div class="barra-titulo">
+<span id="pa">—</span>
 
-                        <span>ROXO</span>
+</div>
 
-                        <span id="pr">—</span>
+<div class="barra">
 
-                    </div>
+<div
+id="ba"
+class="fill fill-azul">
+</div>
 
-                    <div class="barra">
+</div>
 
-                        <div
-                            id="br"
-                            class="fill fill-roxo">
-                        </div>
+</div>
 
-                    </div>
 
-                </div>
+<!-- ROXO -->
 
-                <!-- ROSA -->
+<div class="barra-item">
 
-                <div class="barra-item">
+<div class="barra-titulo">
 
-                    <div class="barra-titulo">
+<span>ROXO</span>
 
-                        <span>ROSA</span>
+<span id="pr">—</span>
 
-                        <span id="pv">—</span>
+</div>
 
-                    </div>
+<div class="barra">
 
-                    <div class="barra">
+<div
+id="br"
+class="fill fill-roxo">
+</div>
 
-                        <div
-                            id="bv"
-                            class="fill fill-rosa">
-                        </div>
+</div>
 
-                    </div>
+</div>
 
-                </div>
 
-            </div>
+<!-- ROSA -->
 
-            <div class="legend">
+<div class="barra-item">
 
-                <div>
-                    <span
-                        class="dot"
-                        style="background:var(--azul)">
-                    </span>
-                    AZUL
-                </div>
+<div class="barra-titulo">
 
-                <div>
-                    <span
-                        class="dot"
-                        style="background:var(--roxo)">
-                    </span>
-                    ROXO
-                </div>
+<span>ROSA</span>
 
-                <div>
-                    <span
-                        class="dot"
-                        style="background:var(--rosa)">
-                    </span>
-                    ROSA
-                </div>
+<span id="pv">—</span>
 
-            </div>
+</div>
 
-            <div
-                class="small"
-                style="margin-top:10px">
+<div class="barra">
 
-                Último clique:
-                <span id="lastClick">—</span>
+<div
+id="bv"
+class="fill fill-rosa">
+</div>
 
-            </div>
+</div>
 
-            <pre id="debug"></pre>
+</div>
 
-        </div>
+</div>
 
-    </div>
+
+<div class="legend">
+
+<div>
+<span
+class="dot"
+style="background:var(--azul)">
+</span>
+AZUL
+</div>
+
+<div>
+<span
+class="dot"
+style="background:var(--roxo)">
+</span>
+ROXO
+</div>
+
+<div>
+<span
+class="dot"
+style="background:var(--rosa)">
+</span>
+ROSA
+</div>
+
+</div>
+
+
+<div
+class="small"
+style="margin-top:10px">
+
+Último clique:
+<span id="lastClick">—</span>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -663,7 +664,7 @@ h1{
 <script>
 
 /* =========================================================
-   AVIATOR — SISTEMA DE PADRÕES
+   AVIATOR — IA DE PADRÕES
 ========================================================= */
 
 
@@ -702,33 +703,170 @@ let hist = [];
 
 
 /* =========================================================
-   REGRAS DEFINIDAS
+   REGRAS ESPECÍFICAS
 =========================================================
 
-   1 — QUATRO IGUAIS
-
-   RRRR → R
-   VVVV → V
-   AAAA → A
-
-
-   2 — ALTERNÂNCIA
-
-   ARAR → A
-   RARA → R
-   VRVR → V
-   RVRV → R
-   AVAV → A
-
-
-   3 — DUPLAS
-
-   VVRR → V
-   RRVV → R
-   AARR → A
-   RRAA → R
+   Estas regras têm PRIORIDADE sobre
+   as regras genéricas.
 
 ========================================================= */
+
+const regrasEspecificas = {
+
+    "ARRA":"R",
+    "RAAR":"A",
+
+    "ARVR":"R",
+    "RARV":"A",
+
+    "AVRV":"V",
+
+    "VRRV":"R",
+    "RVVR":"V"
+
+};
+
+
+/* =========================================================
+   PADRÕES DEFINIDOS PARA EXIBIÇÃO
+========================================================= */
+
+const padroesDefinidos = [
+
+    /* =========================
+       PADRÕES ESPECÍFICOS
+    ========================= */
+
+    {
+        sequencia:"ARRA",
+        resultado:"R",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"RAAR",
+        resultado:"A",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"ARVR",
+        resultado:"R",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"RARV",
+        resultado:"A",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"AVRV",
+        resultado:"V",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"VRRV",
+        resultado:"R",
+        tipo:"Específico"
+    },
+
+    {
+        sequencia:"RVVR",
+        resultado:"V",
+        tipo:"Específico"
+    },
+
+
+    /* =========================
+       ALTERNÂNCIA
+    ========================= */
+
+    {
+        sequencia:"ARAR",
+        resultado:"A",
+        tipo:"Alternância"
+    },
+
+    {
+        sequencia:"RARA",
+        resultado:"R",
+        tipo:"Alternância"
+    },
+
+    {
+        sequencia:"VRVR",
+        resultado:"V",
+        tipo:"Alternância"
+    },
+
+    {
+        sequencia:"RVRV",
+        resultado:"R",
+        tipo:"Alternância"
+    },
+
+    {
+        sequencia:"AVAV",
+        resultado:"A",
+        tipo:"Alternância"
+    },
+
+
+    /* =========================
+       DUPLAS
+    ========================= */
+
+    {
+        sequencia:"VVRR",
+        resultado:"V",
+        tipo:"Duplas"
+    },
+
+    {
+        sequencia:"RRVV",
+        resultado:"R",
+        tipo:"Duplas"
+    },
+
+    {
+        sequencia:"AARR",
+        resultado:"A",
+        tipo:"Duplas"
+    },
+
+    {
+        sequencia:"RRAA",
+        resultado:"R",
+        tipo:"Duplas"
+    },
+
+
+    /* =========================
+       QUATRO IGUAIS
+    ========================= */
+
+    {
+        sequencia:"RRRR",
+        resultado:"R",
+        tipo:"Quatro iguais"
+    },
+
+    {
+        sequencia:"VVVV",
+        resultado:"V",
+        tipo:"Quatro iguais"
+    },
+
+    {
+        sequencia:"AAAA",
+        resultado:"A",
+        tipo:"Quatro iguais"
+    }
+
+];
 
 
 /* =========================================================
@@ -737,11 +875,38 @@ let hist = [];
 
 function calcularPrevisao(sequencia){
 
-    if(!sequencia || sequencia.length !== 4){
+    if(
+        !sequencia ||
+        sequencia.length !== 4
+    ){
 
         return {
             cor:null,
             tipo:null
+        };
+
+    }
+
+
+    /*
+    =========================================================
+    1 — REGRA ESPECÍFICA
+    =========================================================
+    */
+
+    if(
+        Object.prototype.hasOwnProperty.call(
+            regrasEspecificas,
+            sequencia
+        )
+    ){
+
+        return {
+
+            cor:regrasEspecificas[sequencia],
+
+            tipo:"PADRÃO ESPECÍFICO"
+
         };
 
     }
@@ -753,10 +918,11 @@ function calcularPrevisao(sequencia){
     const d = sequencia.charAt(3);
 
 
-    /* =====================================================
-       REGRA 1
-       QUATRO CORES IGUAIS
-    ===================================================== */
+    /*
+    =========================================================
+    2 — QUATRO IGUAIS
+    =========================================================
+    */
 
     if(
         a === b &&
@@ -765,23 +931,28 @@ function calcularPrevisao(sequencia){
     ){
 
         return {
+
             cor:a,
+
             tipo:"4 CORES IGUAIS"
+
         };
 
     }
 
 
-    /* =====================================================
-       REGRA 2
-       ALTERNÂNCIA
+    /*
+    =========================================================
+    3 — ALTERNÂNCIA
+    =========================================================
 
-       A R A R → A
-       R A R A → R
-       V R V R → V
-       R V R V → R
-       A V A V → A
-    ===================================================== */
+    ARAR → A
+    RARA → R
+    VRVR → V
+    RVRV → R
+    AVAV → A
+
+    */
 
     if(
         a === c &&
@@ -790,22 +961,27 @@ function calcularPrevisao(sequencia){
     ){
 
         return {
+
             cor:a,
+
             tipo:"ALTERNÂNCIA"
+
         };
 
     }
 
 
-    /* =====================================================
-       REGRA 3
-       DUPLAS
+    /*
+    =========================================================
+    4 — DUPLAS
+    =========================================================
 
-       V V R R → V
-       R R V V → R
-       A A R R → A
-       R R A A → R
-    ===================================================== */
+    VVRR → V
+    RRVV → R
+    AARR → A
+    RRAA → R
+
+    */
 
     if(
         a === b &&
@@ -814,27 +990,35 @@ function calcularPrevisao(sequencia){
     ){
 
         return {
+
             cor:a,
+
             tipo:"DUPLAS"
+
         };
 
     }
 
 
-    /* =====================================================
-       NENHUM PADRÃO
-    ===================================================== */
+    /*
+    =========================================================
+    5 — SEM PADRÃO
+    =========================================================
+    */
 
     return {
+
         cor:null,
+
         tipo:"SEM PADRÃO CADASTRADO"
+
     };
 
 }
 
 
 /* =========================================================
-   CLIQUE
+   REGISTRAR COR
 ========================================================= */
 
 function userClick(cor){
@@ -847,7 +1031,7 @@ function userClick(cor){
     hist.push(cor);
 
 
-    /* manter somente 20 */
+    /* manter últimas 20 */
 
     if(hist.length > 20){
 
@@ -864,7 +1048,7 @@ function userClick(cor){
 
 
 /* =========================================================
-   HISTÓRICO
+   RENDERIZAR HISTÓRICO
 ========================================================= */
 
 function renderHist(){
@@ -914,14 +1098,16 @@ function renderHist(){
 
 
 /* =========================================================
-   ANALISAR
+   ANALISAR ÚLTIMAS 4
 ========================================================= */
 
 function analisar(){
 
     if(hist.length < 4){
 
-        document.getElementById("analise").innerHTML =
+        document.getElementById(
+            "analise"
+        ).innerHTML =
 
             '<div class="sequencia-box">' +
             'Aguardando 4 cores para analisar.' +
@@ -961,10 +1147,15 @@ function analisar(){
         '<div class="sequencia-box">' +
 
         '<div>' +
+
         'Sequência: ' +
+
         '<strong class="sequencia">' +
+
         sequencia +
+
         '</strong>' +
+
         '</div>' +
 
         '<div>' +
@@ -980,7 +1171,11 @@ function analisar(){
         '</div>';
 
 
-    /* existe padrão */
+    /*
+    =========================================================
+    PADRÃO ENCONTRADO
+    =========================================================
+    */
 
     if(resultado.cor){
 
@@ -991,10 +1186,16 @@ function analisar(){
             'PRÓXIMA COR: ' +
 
             '<span class="' +
-            CORES[resultado.cor].texto +
+
+            CORES[
+                resultado.cor
+            ].texto +
+
             '">' +
 
-            CORES[resultado.cor].nome +
+            CORES[
+                resultado.cor
+            ].nome +
 
             '</span>' +
 
@@ -1003,15 +1204,16 @@ function analisar(){
             '<div class="regra">' +
 
             'Padrão identificado: ' +
+
             resultado.tipo +
 
             '</div>' +
 
             '<div class="status ok">' +
 
-            '✓ Padrão reconhecido pelas regras cadastradas.'
+            '✓ Padrão reconhecido pelas regras cadastradas.' +
 
-            + '</div>';
+            '</div>';
 
     }else{
 
@@ -1019,21 +1221,21 @@ function analisar(){
 
             '<div class="resultado">' +
 
-            'NENHUM PADRÃO IDENTIFICADO'
+            'NENHUM PADRÃO IDENTIFICADO' +
 
-            + '</div>' +
+            '</div>' +
 
             '<div class="regra">' +
 
-            'As 4 posições não correspondem às regras cadastradas.'
+            'As 4 posições não correspondem às regras cadastradas.' +
 
-            + '</div>' +
+            '</div>' +
 
             '<div class="status alerta">' +
 
-            '⚠ Sem previsão automática para esta sequência.'
+            '⚠ Sem previsão automática para esta sequência.' +
 
-            + '</div>';
+            '</div>';
 
     }
 
@@ -1041,8 +1243,9 @@ function analisar(){
     html += '</div>';
 
 
-    document.getElementById("analise")
-        .innerHTML = html;
+    document.getElementById(
+        "analise"
+    ).innerHTML = html;
 
 
     mostrarPrevisao(
@@ -1074,7 +1277,7 @@ function mostrarPrevisao(
         );
 
 
-    /* zerar */
+    /* zerar barras */
 
     document.getElementById("ba")
         .style.width = "0%";
@@ -1096,7 +1299,11 @@ function mostrarPrevisao(
         .textContent = "—";
 
 
-    /* sem padrão */
+    /*
+    =========================================================
+    SEM PADRÃO
+    =========================================================
+    */
 
     if(!cor){
 
@@ -1111,7 +1318,11 @@ function mostrarPrevisao(
     }
 
 
-    /* cor identificada */
+    /*
+    =========================================================
+    COR IDENTIFICADA
+    =========================================================
+    */
 
     elemento.className =
         "previsao-cor " +
@@ -1123,10 +1334,11 @@ function mostrarPrevisao(
         CORES[cor].nome;
 
 
-    /* =====================================================
-       100% SOMENTE COMO REPRESENTAÇÃO
-       DA REGRA IDENTIFICADA
-    ===================================================== */
+    /*
+    =========================================================
+    REPRESENTAÇÃO DA REGRA
+    =========================================================
+    */
 
     if(cor === "A"){
 
@@ -1219,102 +1431,24 @@ function resetHist(){
     hist = [];
 
 
-    document.getElementById("hist")
-        .innerHTML = "";
+    document.getElementById(
+        "hist"
+    ).innerHTML = "";
 
 
-    document.getElementById("analise")
-        .innerHTML = "";
+    document.getElementById(
+        "analise"
+    ).innerHTML = "";
 
 
-    document.getElementById("lastClick")
-        .textContent = "—";
+    document.getElementById(
+        "lastClick"
+    ).textContent = "—";
 
 
     limparPrevisao();
 
 }
-
-
-/* =========================================================
-   PADRÕES PARA EXIBIÇÃO
-========================================================= */
-
-const padroesDefinidos = [
-
-    {
-        sequencia:"ARAR",
-        resultado:"A",
-        tipo:"Alternância"
-    },
-
-    {
-        sequencia:"RARA",
-        resultado:"R",
-        tipo:"Alternância"
-    },
-
-    {
-        sequencia:"VRVR",
-        resultado:"V",
-        tipo:"Alternância"
-    },
-
-    {
-        sequencia:"RVRV",
-        resultado:"R",
-        tipo:"Alternância"
-    },
-
-    {
-        sequencia:"AVAV",
-        resultado:"A",
-        tipo:"Alternância"
-    },
-
-    {
-        sequencia:"VVRR",
-        resultado:"V",
-        tipo:"Duplas"
-    },
-
-    {
-        sequencia:"RRVV",
-        resultado:"R",
-        tipo:"Duplas"
-    },
-
-    {
-        sequencia:"AARR",
-        resultado:"A",
-        tipo:"Duplas"
-    },
-
-    {
-        sequencia:"RRAA",
-        resultado:"R",
-        tipo:"Duplas"
-    },
-
-    {
-        sequencia:"RRRR",
-        resultado:"R",
-        tipo:"Quatro iguais"
-    },
-
-    {
-        sequencia:"VVVV",
-        resultado:"V",
-        tipo:"Quatro iguais"
-    },
-
-    {
-        sequencia:"AAAA",
-        resultado:"A",
-        tipo:"Quatro iguais"
-    }
-
-];
 
 
 /* =========================================================
@@ -1358,7 +1492,9 @@ function showPatterns(){
                 "padrao-item";
 
 
-            /* 4 bolinhas */
+            /*
+            4 bolinhas
+            */
 
             for(
                 let i = 0;
@@ -1367,7 +1503,9 @@ function showPatterns(){
             ){
 
                 const bolinha =
-                    document.createElement("span");
+                    document.createElement(
+                        "span"
+                    );
 
 
                 bolinha.className =
@@ -1384,10 +1522,14 @@ function showPatterns(){
             }
 
 
-            /* sequência */
+            /*
+            sequência
+            */
 
             const texto =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
 
 
             texto.textContent =
@@ -1399,10 +1541,14 @@ function showPatterns(){
             );
 
 
-            /* tipo */
+            /*
+            tipo
+            */
 
             const tipo =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
 
 
             tipo.textContent =
@@ -1418,10 +1564,14 @@ function showPatterns(){
             );
 
 
-            /* resultado */
+            /*
+            resultado
+            */
 
             const resultado =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
 
 
             resultado.className =
