@@ -1,355 +1,1094 @@
-<style>
-/* =========================================================
-   ENQUADRAMENTO TIPO COMPUTADOR
-   SOMENTE VISUAL — NÃO ALTERA A LÓGICA DA IA
-   ========================================================= */
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviator — IA Padrões</title>
 
+<style>
 *{
     box-sizing:border-box;
 }
 
-html{
-    margin:0;
-    padding:0;
-    width:100%;
-    min-height:100%;
-    zoom:1;
-}
-
 body{
     margin:0;
-    padding:0;
-    width:100%;
-    min-height:100vh;
-    background:#101010;
-    color:#f1f1f1;
+    background:#111;
+    color:#eee;
     font-family:Arial,Helvetica,sans-serif;
-    font-size:16px;
-    overflow-x:hidden;
 }
 
-/* TELA PRINCIPAL */
 .container{
     width:100%;
-    max-width:1100px;
-    min-height:100vh;
-    margin:0 auto;
-    padding:24px;
-}
-
-/* EVITA O EFEITO DE LUPA */
-.container,
-.container *{
-    transform:none;
-}
-
-/* CABEÇALHO */
-header{
-    width:100%;
-    margin-bottom:20px;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
 }
 
 h1{
-    margin:0 0 8px 0;
+    text-align:center;
+    margin:5px 0 8px;
     font-size:28px;
-    line-height:1.2;
 }
 
-p{
-    line-height:1.5;
+.subtitulo{
+    text-align:center;
+    color:#aaa;
+    margin-bottom:20px;
 }
 
-/* PAINÉIS */
-.card,
-.panel,
-.section{
-    width:100%;
-    background:#151515;
-    border-radius:16px;
-    padding:20px;
+.top-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
     margin-bottom:18px;
-    border:1px solid #202020;
 }
 
-/* BOTÕES */
 button{
     border:0;
     border-radius:12px;
-    padding:14px 22px;
-    font-size:17px;
+    padding:15px 25px;
+    font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    margin:4px;
-    min-height:50px;
 }
 
-button:active{
-    transform:scale(.98);
-}
-
-/* ÁREA DAS 4 CORES */
-.history,
-#history{
-    width:100%;
-    min-height:90px;
-    background:#071017;
-    border-radius:12px;
-    padding:18px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    overflow-x:auto;
-}
-
-/* QUADRADOS DAS CORES */
-.color-box,
-.history-item{
-    width:56px;
-    height:56px;
-    min-width:56px;
-    border-radius:9px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* BOTÕES DE COR */
-.color-buttons{
-    width:100%;
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin:14px 0;
-}
-
-.color-buttons button{
-    flex:1 1 200px;
-}
-
-/* AZUL */
-.azul,
-.blue{
-    background:#2f6df6;
-}
-
-/* ROXO */
-.roxo,
-.purple{
-    background:#8c27f5;
-}
-
-/* VERMELHO */
-.vermelho,
-.red{
-    background:#f443a5;
-}
-
-/* TEXTO DA SEQUÊNCIA */
-.sequence{
-    width:100%;
-    background:#070b0f;
-    border-radius:12px;
-    padding:20px;
-    margin-top:15px;
-    font-size:17px;
-    line-height:1.6;
-}
-
-/* RESULTADO */
-.prediction{
-    width:100%;
-    background:#071017;
-    border-radius:14px;
-    padding:22px;
-    text-align:center;
-    margin-top:15px;
-}
-
-.prediction h2{
-    margin:8px 0;
-    font-size:28px;
-}
-
-/* BARRAS */
-.probability{
-    width:100%;
-    margin-top:18px;
-}
-
-.probability-row{
-    width:100%;
-    margin-bottom:14px;
-}
-
-.probability-label{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:17px;
-    margin-bottom:5px;
-}
-
-.bar{
-    width:100%;
-    height:26px;
-    background:#252525;
-    border-radius:14px;
-    overflow:hidden;
-}
-
-.bar-fill{
-    height:100%;
-    width:0;
-    border-radius:14px;
-    transition:width .25s ease;
-}
-
-/* CORES DAS BARRAS */
-.bar-blue{
-    background:#2f6df6;
-}
-
-.bar-purple{
-    background:#8c27f5;
-}
-
-.bar-red{
-    background:#f443a5;
-}
-
-/* BOTÕES SUPERIORES */
-.top-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-bottom:18px;
-}
-
-.reset{
-    background:#286cf0;
+.btn-reset{
+    background:#2868f2;
     color:white;
 }
 
-.patterns{
-    background:#ffd21c;
+.btn-pattern{
+    background:#ffd21a;
     color:#111;
 }
 
-/* LEGENDA */
-.legend{
+.history{
+    min-height:85px;
+    background:#071017;
+    border-radius:14px;
+    padding:18px;
     display:flex;
+    align-items:center;
+    gap:12px;
     flex-wrap:wrap;
-    gap:18px;
-    margin-top:12px;
-    font-size:16px;
+    margin-bottom:18px;
 }
 
-.legend span{
+.history-dot{
+    width:56px;
+    height:56px;
+    border-radius:10px;
+}
+
+.azul{
+    background:#2868f2;
+}
+
+.roxo{
+    background:#8b27f5;
+}
+
+.vermelho{
+    background:#f542a5;
+}
+
+.color-buttons{
+    display:flex;
+    gap:14px;
+    margin-bottom:10px;
+}
+
+.color-buttons button{
+    flex:1;
+    color:white;
+    min-height:65px;
+}
+
+.btn-azul{
+    background:#2868f2;
+}
+
+.btn-roxo{
+    background:#8b27f5;
+}
+
+.btn-vermelho{
+    background:#f542a5;
+}
+
+.legend{
+    color:#aaa;
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#080d12;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.sequence{
+    font-size:21px;
+    margin-bottom:12px;
+}
+
+.positions{
+    color:#bfc5cc;
+    font-size:17px;
+    line-height:1.7;
+}
+
+.positions strong{
+    color:white;
+}
+
+.next-text{
+    font-size:20px;
+    font-weight:bold;
+    margin-top:18px;
+}
+
+.rule{
+    color:#aaa;
+    font-size:17px;
+    margin-top:6px;
+}
+
+.prediction-card{
+    background:#111;
+    border-radius:15px;
+    padding:20px;
+}
+
+.prediction-title{
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.prediction-box{
+    background:#071017;
+    border-radius:14px;
+    padding:20px;
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.prediction-label{
+    color:#9ca3aa;
+    font-size:17px;
+}
+
+.sequence-large{
+    font-size:28px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.next-large{
+    font-size:34px;
+    font-weight:bold;
+}
+
+.bar-row{
+    margin:18px 0;
+}
+
+.bar-head{
+    display:flex;
+    justify-content:space-between;
+    font-size:20px;
+    margin-bottom:6px;
+}
+
+.bar{
+    height:25px;
+    border-radius:20px;
+    background:#222;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    width:0%;
+    border-radius:20px;
+    transition:width .35s ease;
+}
+
+.fill-azul{
+    background:#2868f2;
+}
+
+.fill-roxo{
+    background:#8b27f5;
+}
+
+.fill-vermelho{
+    background:#f542a5;
+}
+
+.footer-legend{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:20px;
+    font-size:18px;
+}
+
+.legend-item{
     display:flex;
     align-items:center;
     gap:7px;
 }
 
 .legend-dot{
-    width:12px;
-    height:12px;
+    width:22px;
+    height:22px;
     border-radius:50%;
-    display:inline-block;
 }
 
-/* =========================================================
-   MODO COMPUTADOR / DESKTOP
-   ========================================================= */
-
-@media (min-width:900px){
-
-    body{
-        display:block;
-    }
-
-    .container{
-        max-width:1180px;
-        padding:30px;
-    }
-
-    .card,
-    .panel,
-    .section{
-        padding:24px;
-    }
-
-    .prediction{
-        padding:26px;
-    }
-
-    .prediction h2{
-        font-size:32px;
-    }
-
+.status{
+    color:#999;
+    margin-top:18px;
+    font-size:16px;
 }
 
-/* =========================================================
-   CELULAR
-   ========================================================= */
+.no-rule{
+    color:#aaa;
+}
 
-@media (max-width:899px){
+@media(max-width:600px){
 
     .container{
-        width:100%;
-        padding:14px;
+        padding:12px;
     }
 
     h1{
         font-size:24px;
     }
 
-    .card,
-    .panel,
-    .section{
-        padding:16px;
-        border-radius:14px;
-    }
-
-    .history,
-    #history{
-        min-height:82px;
-        padding:14px;
-    }
-
-    .color-box,
-    .history-item{
-        width:52px;
-        height:52px;
-        min-width:52px;
-    }
-
-    .prediction h2{
-        font-size:25px;
-    }
-}
-
-/* CELULAR PEQUENO */
-@media (max-width:480px){
-
-    .container{
-        padding:10px;
-    }
-
-    button{
-        font-size:15px;
-        padding:12px 16px;
-    }
-
     .color-buttons{
-        gap:7px;
+        gap:8px;
     }
 
     .color-buttons button{
-        flex:1 1 100%;
+        padding:12px 8px;
+        font-size:16px;
     }
 
-    .prediction h2{
-        font-size:23px;
+    .history-dot{
+        width:55px;
+        height:55px;
+    }
+
+    .next-large{
+        font-size:29px;
     }
 }
 </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Aviator — IA Padrões</h1>
+
+    <div class="subtitulo">
+        Aponte as cores. Ao completar 4 cores, a IA calcula automaticamente a próxima.
+    </div>
+
+    <div class="top-buttons">
+        <button class="btn-reset" onclick="resetHist()">Reset</button>
+        <button class="btn-pattern" onclick="showPatterns()">Mostrar padrões</button>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="history" id="history"></div>
+
+    <!-- BOTÕES -->
+    <div class="color-buttons">
+
+        <button
+            class="btn-azul"
+            onclick="userClick('A')">
+            AZUL (A)
+        </button>
+
+        <button
+            class="btn-roxo"
+            onclick="userClick('R')">
+            ROXO (R)
+        </button>
+
+        <button
+            class="btn-vermelho"
+            onclick="userClick('V')">
+            VERMELHO (V)
+        </button>
+
+    </div>
+
+    <div class="legend">
+        A = Azul | R = Roxo | V = Vermelho
+    </div>
+
+    <!-- ANÁLISE -->
+    <div class="card" id="analysisCard">
+
+        <div class="sequence">
+            Sequência: <strong id="sequence">----</strong>
+        </div>
+
+        <div class="positions" id="positions">
+            Aguardando 4 cores...
+        </div>
+
+        <div class="next-text" id="nextText">
+            PRÓXIMA COR: —
+        </div>
+
+        <div class="rule" id="ruleText">
+            Regra: aguardando sequência de 4 cores.
+        </div>
+
+    </div>
+
+    <!-- PREVISÃO -->
+    <div class="prediction-card">
+
+        <div class="prediction-title">
+            Próxima cor pela regra
+        </div>
+
+        <div class="prediction-box">
+
+            <div class="prediction-label">
+                SEQUÊNCIA ANALISADA
+            </div>
+
+            <div
+                class="sequence-large"
+                id="predictionSequence">
+                ----
+            </div>
+
+            <div
+                class="next-large"
+                id="predictionNext">
+                PRÓXIMA: —
+            </div>
+
+        </div>
+
+        <!-- AZUL -->
+        <div class="bar-row">
+
+            <div class="bar-head">
+                <span>AZUL</span>
+                <span id="percentA">—</span>
+            </div>
+
+            <div class="bar">
+                <div
+                    class="fill fill-azul"
+                    id="barA">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ROXO -->
+        <div class="bar-row">
+
+            <div class="bar-head">
+                <span>ROXO</span>
+                <span id="percentR">—</span>
+            </div>
+
+            <div class="bar">
+                <div
+                    class="fill fill-roxo"
+                    id="barR">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- VERMELHO -->
+        <div class="bar-row">
+
+            <div class="bar-head">
+                <span>VERMELHO</span>
+                <span id="percentV">—</span>
+            </div>
+
+            <div class="bar">
+                <div
+                    class="fill fill-vermelho"
+                    id="barV">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-legend">
+
+            <div class="legend-item">
+                <span class="legend-dot azul"></span>
+                AZUL
+            </div>
+
+            <div class="legend-item">
+                <span class="legend-dot roxo"></span>
+                ROXO
+            </div>
+
+            <div class="legend-item">
+                <span class="legend-dot vermelho"></span>
+                VERMELHO
+            </div>
+
+        </div>
+
+        <div class="status" id="status">
+            Último resultado: —
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURAÇÃO DAS CORES
+========================================================= */
+
+const COLORS = {
+
+    A:{
+        name:"AZUL",
+        className:"azul"
+    },
+
+    R:{
+        name:"ROXO",
+        className:"roxo"
+    },
+
+    V:{
+        name:"VERMELHO",
+        className:"vermelho"
+    }
+
+};
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
+
+let hist = [];
+
+
+/* =========================================================
+   REGRAS ESPECÍFICAS JÁ DEFINIDAS
+=========================================================
+
+   Estas regras continuam funcionando para combinações
+   que você determinou manualmente.
+
+========================================================= */
+
+const regrasEspecificas = {
+
+    "ARRA":"R",
+
+    "RARA":"R",
+
+    "VRVR":"V"
+
+};
+
+
+/* =========================================================
+   REGRA PRINCIPAL NOVA
+=========================================================
+
+   QUANDO A SEQUÊNCIA POSSUI DOIS PARES:
+
+   AARR
+   RRAA
+   AAVV
+   VVAA
+   RRVV
+   VVRR
+   etc.
+
+   A IA INDICA A 2ª COR DA SEQUÊNCIA.
+
+   Exemplo:
+
+   R R A A
+   ↑ ↑
+   1 2
+
+   posição 2 = R
+
+   Portanto:
+
+   RRAA → ROXO
+
+========================================================= */
+
+function calcularRegraPrincipal(sequencia){
+
+    if(sequencia.length !== 4){
+        return null;
+    }
+
+    const a = sequencia[0];
+    const b = sequencia[1];
+    const c = sequencia[2];
+    const d = sequencia[3];
+
+
+    /*
+       DOIS PARES IGUAIS
+
+       A A R R
+       R R A A
+       A A V V
+       V V A A
+       R R V V
+       V V R R
+       etc.
+    */
+
+    if(a === b && c === d){
+
+        return {
+            cor:b,
+            texto:"a próxima cor é a 2ª cor da sequência."
+        };
+
+    }
+
+
+    /*
+       QUATRO IGUAIS
+
+       AAAA
+       RRRR
+       VVVV
+
+       Também retorna a 2ª cor.
+    */
+
+    if(a === b && b === c && c === d){
+
+        return {
+            cor:b,
+            texto:"as 4 cores são iguais; a próxima cor é a 2ª cor da sequência."
+        };
+
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   CÁLCULO FINAL DA IA
+========================================================= */
+
+function calcularProximaCor(sequencia){
+
+    if(sequencia.length !== 4){
+        return null;
+    }
+
+
+    /*
+       PRIMEIRO:
+
+       verifica as regras específicas
+       que você já definiu.
+    */
+
+    if(regrasEspecificas[sequencia]){
+
+        return {
+            cor:regrasEspecificas[sequencia],
+            texto:"regra específica definida para esta sequência."
+        };
+
+    }
+
+
+    /*
+       DEPOIS:
+
+       aplica a nova regra dos dois pares.
+    */
+
+    const regra = calcularRegraPrincipal(sequencia);
+
+    if(regra){
+        return regra;
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   NOME DA COR
+========================================================= */
+
+function nomeCor(cor){
+
+    if(!cor || !COLORS[cor]){
+        return "—";
+    }
+
+    return COLORS[cor].name;
+}
+
+
+/* =========================================================
+   RENDERIZA HISTÓRICO
+========================================================= */
+
+function renderHist(){
+
+    const container =
+        document.getElementById("history");
+
+    container.innerHTML = "";
+
+
+    /*
+       Mostra somente os últimos 20 resultados.
+    */
+
+    hist.slice(-20).forEach(cor => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "history-dot " + COLORS[cor].className;
+
+        div.title =
+            COLORS[cor].name;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================================
+   MOSTRA SEQUÊNCIA
+========================================================= */
+
+function mostrarAnalise(){
+
+    if(hist.length < 4){
+
+        document.getElementById("sequence")
+            .textContent = hist.join("") || "----";
+
+        document.getElementById("positions")
+            .textContent =
+            "Aguardando 4 cores para calcular.";
+
+        document.getElementById("nextText")
+            .textContent =
+            "PRÓXIMA COR: —";
+
+        document.getElementById("ruleText")
+            .textContent =
+            "Regra: aguardando sequência de 4 cores.";
+
+        return;
+    }
+
+
+    const seq =
+        hist.slice(-4);
+
+    const texto =
+        seq.join("");
+
+
+    document.getElementById("sequence")
+        .textContent = texto;
+
+
+    document.getElementById("positions")
+        .innerHTML =
+
+        `1ª: ${nomeCor(seq[0])} |
+         2ª: <strong>${nomeCor(seq[1])}</strong> |
+         3ª: ${nomeCor(seq[2])} |
+         4ª: ${nomeCor(seq[3])}`;
+
+
+    const resultado =
+        calcularProximaCor(seq);
+
+
+    if(!resultado){
+
+        document.getElementById("nextText")
+            .textContent =
+            "PRÓXIMA COR: NÃO DEFINIDA";
+
+        document.getElementById("ruleText")
+            .textContent =
+            "Regra: esta combinação ainda não possui uma regra definida.";
+
+        return;
+    }
+
+
+    document.getElementById("nextText")
+        .textContent =
+        "PRÓXIMA COR: " +
+        nomeCor(resultado.cor);
+
+
+    document.getElementById("ruleText")
+        .textContent =
+        "Regra: " +
+        resultado.texto;
+
+}
+
+
+/* =========================================================
+   ATUALIZA PREVISÃO
+========================================================= */
+
+function atualizarPrevisao(){
+
+    if(hist.length < 4){
+
+        document.getElementById("predictionSequence")
+            .textContent = "----";
+
+        document.getElementById("predictionNext")
+            .textContent = "PRÓXIMA: —";
+
+        document.getElementById("predictionNext")
+            .style.color = "#eee";
+
+        resetBars();
+
+        return;
+    }
+
+
+    const seq =
+        hist.slice(-4);
+
+    const texto =
+        seq.join("");
+
+
+    document.getElementById("predictionSequence")
+        .textContent = texto;
+
+
+    const resultado =
+        calcularProximaCor(seq);
+
+
+    if(!resultado){
+
+        document.getElementById("predictionNext")
+            .textContent =
+            "PRÓXIMA: NÃO DEFINIDA";
+
+        document.getElementById("predictionNext")
+            .style.color = "#aaa";
+
+        resetBars();
+
+        return;
+    }
+
+
+    const cor =
+        resultado.cor;
+
+
+    const nome =
+        nomeCor(cor);
+
+
+    document.getElementById("predictionNext")
+        .textContent =
+        "PRÓXIMA: " + nome;
+
+
+    /*
+       Cor visual da previsão.
+    */
+
+    document.getElementById("predictionNext")
+        .style.color =
+        cor === "A"
+            ? "#2868f2"
+            : cor === "R"
+                ? "#8b27f5"
+                : "#f542a5";
+
+
+    /*
+       A barra da cor indicada fica em 100%.
+       As outras ficam zeradas.
+    */
+
+    resetBars();
+
+
+    if(cor === "A"){
+
+        document.getElementById("barA")
+            .style.width = "100%";
+
+        document.getElementById("percentA")
+            .textContent = "100%";
+
+    }
+
+
+    if(cor === "R"){
+
+        document.getElementById("barR")
+            .style.width = "100%";
+
+        document.getElementById("percentR")
+            .textContent = "100%";
+
+    }
+
+
+    if(cor === "V"){
+
+        document.getElementById("barV")
+            .style.width = "100%";
+
+        document.getElementById("percentV")
+            .textContent = "100%";
+
+    }
+
+}
+
+
+/* =========================================================
+   ZERA BARRAS
+========================================================= */
+
+function resetBars(){
+
+    document.getElementById("barA")
+        .style.width = "0%";
+
+    document.getElementById("barR")
+        .style.width = "0%";
+
+    document.getElementById("barV")
+        .style.width = "0%";
+
+
+    document.getElementById("percentA")
+        .textContent = "—";
+
+    document.getElementById("percentR")
+        .textContent = "—";
+
+    document.getElementById("percentV")
+        .textContent = "—";
+
+}
+
+
+/* =========================================================
+   CLIQUE NAS CORES
+========================================================= */
+
+function userClick(cor){
+
+    hist.push(cor);
+
+
+    /*
+       Mantém somente os últimos 20.
+    */
+
+    if(hist.length > 20){
+
+        hist.shift();
+
+    }
+
+
+    renderHist();
+
+    mostrarAnalise();
+
+    atualizarPrevisao();
+
+
+    document.getElementById("status")
+        .textContent =
+        "Último resultado: " +
+        nomeCor(cor);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetHist(){
+
+    hist = [];
+
+    renderHist();
+
+    document.getElementById("sequence")
+        .textContent = "----";
+
+    document.getElementById("positions")
+        .textContent =
+        "Aguardando 4 cores...";
+
+    document.getElementById("nextText")
+        .textContent =
+        "PRÓXIMA COR: —";
+
+    document.getElementById("ruleText")
+        .textContent =
+        "Regra: aguardando sequência de 4 cores.";
+
+    document.getElementById("predictionSequence")
+        .textContent = "----";
+
+    document.getElementById("predictionNext")
+        .textContent = "PRÓXIMA: —";
+
+    document.getElementById("predictionNext")
+        .style.color = "#eee";
+
+    document.getElementById("status")
+        .textContent =
+        "Último resultado: —";
+
+    resetBars();
+
+}
+
+
+/* =========================================================
+   MOSTRAR PADRÕES
+========================================================= */
+
+function gerarCombinacoes(){
+
+    const cores = ["A","R","V"];
+
+    const resultado = [];
+
+
+    for(const a of cores){
+
+        for(const r of cores){
+
+            for(const v of cores){
+
+                for(const x of cores){
+
+                    resultado.push(
+                        a + r + v + x
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+
+    return resultado;
+}
+
+
+function showPatterns(){
+
+    const combinacoes =
+        gerarCombinacoes();
+
+    let definidas = 0;
+
+    let lista = "";
+
+
+    combinacoes.forEach(seq => {
+
+        const resultado =
+            calcularProximaCor(seq);
+
+
+        if(resultado){
+
+            definidas++;
+
+            lista +=
+                `${seq} → ${resultado.cor}\n`;
+
+        }
+
+    });
+
+
+    alert(
+        "PADRÕES CADASTRADOS\n\n" +
+        "Total de combinações possíveis: " +
+        combinacoes.length +
+        "\n\n" +
+        "Regras definidas: " +
+        definidas +
+        "\n\n" +
+        lista
+    );
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+renderHist();
+
+resetBars();
+
+</script>
+
+</body>
+</html>
