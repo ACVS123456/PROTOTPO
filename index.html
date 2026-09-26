@@ -3,288 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aviator — IA Padrões</title>
+<title>Aviator - IA Padrões</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    background:#111;
-    color:#eee;
-    font-family:Arial,Helvetica,sans-serif;
+body {
+    margin: 0;
+    background: #0d0d0d;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
 }
 
-.container{
-    width:100%;
-    max-width:900px;
-    margin:auto;
-    padding:20px;
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
 }
 
-h1{
-    text-align:center;
-    margin:5px 0 8px;
-    font-size:28px;
+h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
 }
 
-.subtitulo{
-    text-align:center;
-    color:#aaa;
-    margin-bottom:20px;
+.subtitulo {
+    color: #aaa;
+    margin-bottom: 20px;
 }
 
-.top-buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
+.card {
+    background: #151515;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
 }
 
-button{
-    border:0;
-    border-radius:12px;
-    padding:15px 25px;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
+.botoes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.btn-reset{
-    background:#2868f2;
-    color:white;
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.btn-pattern{
-    background:#ffd21a;
-    color:#111;
+button:active {
+    opacity: .7;
 }
 
-.history{
-    min-height:85px;
-    background:#071017;
-    border-radius:14px;
-    padding:18px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
+.reset {
+    background: #286cf0;
+    color: white;
 }
 
-.history-dot{
-    width:56px;
-    height:56px;
-    border-radius:10px;
+.padroes-btn {
+    background: #ffd21c;
+    color: #111;
 }
 
-.azul{
-    background:#2868f2;
+.azul-btn {
+    background: #286cf0;
+    color: white;
 }
 
-.roxo{
-    background:#8b27f5;
+.roxo-btn {
+    background: #8b24f5;
+    color: white;
 }
 
-.vermelho{
-    background:#f542a5;
+.vermelho-btn {
+    background: #f442a4;
+    color: white;
 }
 
-.color-buttons{
-    display:flex;
-    gap:14px;
-    margin-bottom:10px;
+.historico {
+    min-height: 90px;
+    margin-top: 18px;
+    background: #080f13;
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.color-buttons button{
-    flex:1;
-    color:white;
-    min-height:65px;
+.bloco-cor {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
 }
 
-.btn-azul{
-    background:#2868f2;
+.azul {
+    background: #286cf0;
 }
 
-.btn-roxo{
-    background:#8b27f5;
+.roxo {
+    background: #8b24f5;
 }
 
-.btn-vermelho{
-    background:#f542a5;
+.vermelho {
+    background: #f442a4;
 }
 
-.legend{
-    color:#aaa;
-    font-size:18px;
-    margin-bottom:20px;
+.legenda {
+    color: #aaa;
+    font-size: 18px;
+    margin-top: 12px;
 }
 
-.card{
-    background:#080d12;
-    border-radius:15px;
-    padding:20px;
-    margin-bottom:18px;
+.sequencia-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 14px;
+    background: #080d12;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
-.sequence{
-    font-size:21px;
-    margin-bottom:12px;
+.resultado {
+    margin-top: 15px;
+    font-size: 21px;
+    font-weight: bold;
 }
 
-.positions{
-    color:#bfc5cc;
-    font-size:17px;
-    line-height:1.7;
+.regra {
+    color: #aaa;
+    font-size: 16px;
 }
 
-.positions strong{
-    color:white;
+.previsao {
+    background: #080f13;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
 }
 
-.next-text{
-    font-size:20px;
-    font-weight:bold;
-    margin-top:18px;
+.previsao-titulo {
+    color: #aaa;
+    font-size: 16px;
 }
 
-.rule{
-    color:#aaa;
-    font-size:17px;
-    margin-top:6px;
+.sequencia-grande {
+    margin-top: 8px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.prediction-card{
-    background:#111;
-    border-radius:15px;
-    padding:20px;
+.proxima {
+    margin-top: 8px;
+    font-size: 36px;
+    font-weight: bold;
 }
 
-.prediction-title{
-    font-size:25px;
-    font-weight:bold;
-    margin-bottom:20px;
+.proxima.azul-texto {
+    color: #286cf0;
 }
 
-.prediction-box{
-    background:#071017;
-    border-radius:14px;
-    padding:20px;
-    text-align:center;
-    margin-bottom:22px;
+.proxima.roxo-texto {
+    color: #8b24f5;
 }
 
-.prediction-label{
-    color:#9ca3aa;
-    font-size:17px;
+.proxima.vermelho-texto {
+    color: #f442a4;
 }
 
-.sequence-large{
-    font-size:28px;
-    font-weight:bold;
-    margin:8px 0;
+.barra-item {
+    margin-top: 18px;
 }
 
-.next-large{
-    font-size:34px;
-    font-weight:bold;
+.barra-nome {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
-.bar-row{
-    margin:18px 0;
+.barra {
+    height: 26px;
+    background: #252525;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.bar-head{
-    display:flex;
-    justify-content:space-between;
-    font-size:20px;
-    margin-bottom:6px;
+.fill {
+    height: 100%;
+    width: 0;
+    border-radius: 20px;
 }
 
-.bar{
-    height:25px;
-    border-radius:20px;
-    background:#222;
-    overflow:hidden;
+.fill.azul {
+    background: #286cf0;
 }
 
-.fill{
-    height:100%;
-    width:0%;
-    border-radius:20px;
-    transition:width .35s ease;
+.fill.roxo {
+    background: #8b24f5;
 }
 
-.fill-azul{
-    background:#2868f2;
+.fill.vermelho {
+    background: #f442a4;
 }
 
-.fill-roxo{
-    background:#8b27f5;
+#padroes {
+    display: none;
 }
 
-.fill-vermelho{
-    background:#f542a5;
+.padrao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
 }
 
-.footer-legend{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    margin-top:20px;
-    font-size:18px;
+.mini {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
 }
 
-.legend-item{
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
+@media (max-width: 600px) {
 
-.legend-dot{
-    width:22px;
-    height:22px;
-    border-radius:50%;
-}
-
-.status{
-    color:#999;
-    margin-top:18px;
-    font-size:16px;
-}
-
-.no-rule{
-    color:#aaa;
-}
-
-@media(max-width:600px){
-
-    .container{
-        padding:12px;
+    .container {
+        padding: 14px;
     }
 
-    h1{
-        font-size:24px;
+    h1 {
+        font-size: 25px;
     }
 
-    .color-buttons{
-        gap:8px;
+    button {
+        flex: 1;
+        padding: 15px 8px;
+        font-size: 16px;
     }
 
-    .color-buttons button{
-        padding:12px 8px;
-        font-size:16px;
-    }
-
-    .history-dot{
-        width:55px;
-        height:55px;
-    }
-
-    .next-large{
-        font-size:29px;
+    .proxima {
+        font-size: 30px;
     }
 }
 </style>
@@ -294,799 +257,534 @@ button{
 
 <div class="container">
 
-    <h1>Aviator — IA Padrões</h1>
+<h1>Aviator — IA Padrões</h1>
 
-    <div class="subtitulo">
-        Aponte as cores. Ao completar 4 cores, a IA calcula automaticamente a próxima.
-    </div>
+<div class="subtitulo">
+Análise pela posição das cores
+</div>
 
-    <div class="top-buttons">
-        <button class="btn-reset" onclick="resetHist()">Reset</button>
-        <button class="btn-pattern" onclick="showPatterns()">Mostrar padrões</button>
-    </div>
 
-    <!-- HISTÓRICO -->
-    <div class="history" id="history"></div>
+<div class="card">
 
-    <!-- BOTÕES -->
-    <div class="color-buttons">
+<div class="botoes">
 
-        <button
-            class="btn-azul"
-            onclick="userClick('A')">
-            AZUL (A)
-        </button>
+<button class="reset" onclick="resetar()">
+Reset
+</button>
 
-        <button
-            class="btn-roxo"
-            onclick="userClick('R')">
-            ROXO (R)
-        </button>
+<button class="padroes-btn" onclick="mostrarPadroes()">
+Mostrar padrões
+</button>
 
-        <button
-            class="btn-vermelho"
-            onclick="userClick('V')">
-            VERMELHO (V)
-        </button>
+</div>
 
-    </div>
 
-    <div class="legend">
-        A = Azul | R = Roxo | V = Vermelho
-    </div>
+<div id="historico" class="historico"></div>
 
-    <!-- ANÁLISE -->
-    <div class="card" id="analysisCard">
 
-        <div class="sequence">
-            Sequência: <strong id="sequence">----</strong>
-        </div>
+<div class="botoes" style="margin-top:18px;">
 
-        <div class="positions" id="positions">
-            Aguardando 4 cores...
-        </div>
+<button class="azul-btn" onclick="adicionar('A')">
+AZUL (A)
+</button>
 
-        <div class="next-text" id="nextText">
-            PRÓXIMA COR: —
-        </div>
+<button class="roxo-btn" onclick="adicionar('R')">
+ROXO (R)
+</button>
 
-        <div class="rule" id="ruleText">
-            Regra: aguardando sequência de 4 cores.
-        </div>
+<button class="vermelho-btn" onclick="adicionar('V')">
+VERMELHO (V)
+</button>
 
-    </div>
+</div>
 
-    <!-- PREVISÃO -->
-    <div class="prediction-card">
 
-        <div class="prediction-title">
-            Próxima cor pela regra
-        </div>
+<div class="legenda">
+A = Azul | R = Roxo | V = Vermelho
+</div>
 
-        <div class="prediction-box">
 
-            <div class="prediction-label">
-                SEQUÊNCIA ANALISADA
-            </div>
+<div id="analise"></div>
 
-            <div
-                class="sequence-large"
-                id="predictionSequence">
-                ----
-            </div>
+</div>
 
-            <div
-                class="next-large"
-                id="predictionNext">
-                PRÓXIMA: —
-            </div>
 
-        </div>
+<div class="card">
 
-        <!-- AZUL -->
-        <div class="bar-row">
+<h2>Próxima cor pela regra</h2>
 
-            <div class="bar-head">
-                <span>AZUL</span>
-                <span id="percentA">—</span>
-            </div>
+<div class="previsao">
 
-            <div class="bar">
-                <div
-                    class="fill fill-azul"
-                    id="barA">
-                </div>
-            </div>
+<div class="previsao-titulo">
+SEQUÊNCIA ANALISADA
+</div>
 
-        </div>
+<div id="sequencia" class="sequencia-grande">
+----
+</div>
 
-        <!-- ROXO -->
-        <div class="bar-row">
+<div id="proxima" class="proxima">
+PRÓXIMA: -
+</div>
 
-            <div class="bar-head">
-                <span>ROXO</span>
-                <span id="percentR">—</span>
-            </div>
+</div>
 
-            <div class="bar">
-                <div
-                    class="fill fill-roxo"
-                    id="barR">
-                </div>
-            </div>
 
-        </div>
+<div class="barra-item">
 
-        <!-- VERMELHO -->
-        <div class="bar-row">
+<div class="barra-nome">
+<span>AZUL</span>
+<span id="pctA">—</span>
+</div>
 
-            <div class="bar-head">
-                <span>VERMELHO</span>
-                <span id="percentV">—</span>
-            </div>
+<div class="barra">
+<div id="fillA" class="fill azul"></div>
+</div>
 
-            <div class="bar">
-                <div
-                    class="fill fill-vermelho"
-                    id="barV">
-                </div>
-            </div>
+</div>
 
-        </div>
 
-        <div class="footer-legend">
+<div class="barra-item">
 
-            <div class="legend-item">
-                <span class="legend-dot azul"></span>
-                AZUL
-            </div>
+<div class="barra-nome">
+<span>ROXO</span>
+<span id="pctR">—</span>
+</div>
 
-            <div class="legend-item">
-                <span class="legend-dot roxo"></span>
-                ROXO
-            </div>
+<div class="barra">
+<div id="fillR" class="fill roxo"></div>
+</div>
 
-            <div class="legend-item">
-                <span class="legend-dot vermelho"></span>
-                VERMELHO
-            </div>
+</div>
 
-        </div>
 
-        <div class="status" id="status">
-            Último resultado: —
-        </div>
+<div class="barra-item">
 
-    </div>
+<div class="barra-nome">
+<span>VERMELHO</span>
+<span id="pctV">—</span>
+</div>
+
+<div class="barra">
+<div id="fillV" class="fill vermelho"></div>
+</div>
+
+</div>
+
+</div>
+
+
+<div id="padroes" class="card">
+
+<h2>Padrões da IA</h2>
+
+<div id="lista"></div>
+
+</div>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   CONFIGURAÇÃO DAS CORES
-========================================================= */
+/* ================================
+   DADOS
+================================ */
 
-const COLORS = {
+var historico = [];
 
-    A:{
-        name:"AZUL",
-        className:"azul"
-    },
-
-    R:{
-        name:"ROXO",
-        className:"roxo"
-    },
-
-    V:{
-        name:"VERMELHO",
-        className:"vermelho"
-    }
-
+var nomes = {
+    A: "AZUL",
+    R: "ROXO",
+    V: "VERMELHO"
 };
 
 
-/* =========================================================
+/* ================================
+   ADICIONAR COR
+================================ */
+
+function adicionar(cor) {
+
+    historico.push(cor);
+
+    if (historico.length > 20) {
+        historico.shift();
+    }
+
+    desenharHistorico();
+
+    analisar();
+}
+
+
+/* ================================
    HISTÓRICO
-========================================================= */
+================================ */
 
-let hist = [];
+function desenharHistorico() {
 
+    var caixa = document.getElementById("historico");
 
-/* =========================================================
-   REGRAS ESPECÍFICAS JÁ DEFINIDAS
-=========================================================
+    caixa.innerHTML = "";
 
-   Estas regras continuam funcionando para combinações
-   que você determinou manualmente.
+    for (var i = 0; i < historico.length; i++) {
 
-========================================================= */
-
-const regrasEspecificas = {
-
-    "ARRA":"R",
-
-    "RARA":"R",
-
-    "VRVR":"V"
-
-};
-
-
-/* =========================================================
-   REGRA PRINCIPAL NOVA
-=========================================================
-
-   QUANDO A SEQUÊNCIA POSSUI DOIS PARES:
-
-   AARR
-   RRAA
-   AAVV
-   VVAA
-   RRVV
-   VVRR
-   etc.
-
-   A IA INDICA A 2ª COR DA SEQUÊNCIA.
-
-   Exemplo:
-
-   R R A A
-   ↑ ↑
-   1 2
-
-   posição 2 = R
-
-   Portanto:
-
-   RRAA → ROXO
-
-========================================================= */
-
-function calcularRegraPrincipal(sequencia){
-
-    if(sequencia.length !== 4){
-        return null;
-    }
-
-    const a = sequencia[0];
-    const b = sequencia[1];
-    const c = sequencia[2];
-    const d = sequencia[3];
-
-
-    /*
-       DOIS PARES IGUAIS
-
-       A A R R
-       R R A A
-       A A V V
-       V V A A
-       R R V V
-       V V R R
-       etc.
-    */
-
-    if(a === b && c === d){
-
-        return {
-            cor:b,
-            texto:"a próxima cor é a 2ª cor da sequência."
-        };
-
-    }
-
-
-    /*
-       QUATRO IGUAIS
-
-       AAAA
-       RRRR
-       VVVV
-
-       Também retorna a 2ª cor.
-    */
-
-    if(a === b && b === c && c === d){
-
-        return {
-            cor:b,
-            texto:"as 4 cores são iguais; a próxima cor é a 2ª cor da sequência."
-        };
-
-    }
-
-
-    return null;
-}
-
-
-/* =========================================================
-   CÁLCULO FINAL DA IA
-========================================================= */
-
-function calcularProximaCor(sequencia){
-
-    if(sequencia.length !== 4){
-        return null;
-    }
-
-
-    /*
-       PRIMEIRO:
-
-       verifica as regras específicas
-       que você já definiu.
-    */
-
-    if(regrasEspecificas[sequencia]){
-
-        return {
-            cor:regrasEspecificas[sequencia],
-            texto:"regra específica definida para esta sequência."
-        };
-
-    }
-
-
-    /*
-       DEPOIS:
-
-       aplica a nova regra dos dois pares.
-    */
-
-    const regra = calcularRegraPrincipal(sequencia);
-
-    if(regra){
-        return regra;
-    }
-
-
-    return null;
-}
-
-
-/* =========================================================
-   NOME DA COR
-========================================================= */
-
-function nomeCor(cor){
-
-    if(!cor || !COLORS[cor]){
-        return "—";
-    }
-
-    return COLORS[cor].name;
-}
-
-
-/* =========================================================
-   RENDERIZA HISTÓRICO
-========================================================= */
-
-function renderHist(){
-
-    const container =
-        document.getElementById("history");
-
-    container.innerHTML = "";
-
-
-    /*
-       Mostra somente os últimos 20 resultados.
-    */
-
-    hist.slice(-20).forEach(cor => {
-
-        const div =
-            document.createElement("div");
+        var div = document.createElement("div");
 
         div.className =
-            "history-dot " + COLORS[cor].className;
+            "bloco-cor " +
+            historico[i].toLowerCase();
 
-        div.title =
-            COLORS[cor].name;
-
-        container.appendChild(div);
-
-    });
-
+        caixa.appendChild(div);
+    }
 }
 
 
-/* =========================================================
-   MOSTRA SEQUÊNCIA
-========================================================= */
+/* ================================
+   REGRA DA IA
+================================
 
-function mostrarAnalise(){
+   XXYY
 
-    if(hist.length < 4){
+   A A R R
+     ↑
+   2ª COR = AZUL
 
-        document.getElementById("sequence")
-            .textContent = hist.join("") || "----";
+   R R A A
+     ↑
+   2ª COR = ROXO
 
-        document.getElementById("positions")
-            .textContent =
-            "Aguardando 4 cores para calcular.";
+   V V R R
+     ↑
+   2ª COR = VERMELHO
+================================ */
 
-        document.getElementById("nextText")
-            .textContent =
-            "PRÓXIMA COR: —";
+function calcularRegra(seq) {
 
-        document.getElementById("ruleText")
-            .textContent =
-            "Regra: aguardando sequência de 4 cores.";
+    if (seq.length !== 4) {
+        return null;
+    }
+
+    var c1 = seq.charAt(0);
+    var c2 = seq.charAt(1);
+    var c3 = seq.charAt(2);
+    var c4 = seq.charAt(3);
+
+
+    /* DUAS DUPLAS: XXYY */
+
+    if (
+        c1 === c2 &&
+        c3 === c4 &&
+        c1 !== c3
+    ) {
+
+        return c2;
+    }
+
+
+    /* QUATRO IGUAIS: XXXX */
+
+    if (
+        c1 === c2 &&
+        c2 === c3 &&
+        c3 === c4
+    ) {
+
+        return c2;
+    }
+
+
+    return null;
+}
+
+
+/* ================================
+   ANÁLISE
+================================ */
+
+function analisar() {
+
+    if (historico.length < 4) {
+
+        document.getElementById("analise").innerHTML =
+            '<div class="sequencia-box">' +
+            'Aguardando 4 cores para analisar.' +
+            '</div>';
+
+        limparResultado();
 
         return;
     }
 
 
-    const seq =
-        hist.slice(-4);
+    var ultimas =
+        historico.slice(historico.length - 4);
 
-    const texto =
-        seq.join("");
-
-
-    document.getElementById("sequence")
-        .textContent = texto;
+    var seq =
+        ultimas.join("");
 
 
-    document.getElementById("positions")
-        .innerHTML =
-
-        `1ª: ${nomeCor(seq[0])} |
-         2ª: <strong>${nomeCor(seq[1])}</strong> |
-         3ª: ${nomeCor(seq[2])} |
-         4ª: ${nomeCor(seq[3])}`;
+    var resultado =
+        calcularRegra(seq);
 
 
-    const resultado =
-        calcularProximaCor(seq);
+    var texto =
+        '<div class="sequencia-box">';
+
+    texto +=
+        "Sequência: <strong>" +
+        seq +
+        "</strong><br>";
+
+    texto +=
+        "1ª: " + nomes[ultimas[0]] +
+        " | 2ª: " + nomes[ultimas[1]] +
+        " | 3ª: " + nomes[ultimas[2]] +
+        " | 4ª: " + nomes[ultimas[3]];
 
 
-    if(!resultado){
+    if (resultado !== null) {
 
-        document.getElementById("nextText")
-            .textContent =
-            "PRÓXIMA COR: NÃO DEFINIDA";
+        texto +=
+            '<div class="resultado">' +
+            "PRÓXIMA COR: " +
+            nomes[resultado] +
+            "</div>";
 
-        document.getElementById("ruleText")
-            .textContent =
-            "Regra: esta combinação ainda não possui uma regra definida.";
+        texto +=
+            '<div class="regra">' +
+            "Regra: a próxima cor é a 2ª cor da sequência." +
+            "</div>";
 
-        return;
+        texto += "</div>";
+
+        document.getElementById("analise").innerHTML =
+            texto;
+
+
+        mostrarResultado(seq, resultado);
+
+    } else {
+
+        texto +=
+            '<div class="resultado">' +
+            "PRÓXIMA COR: NÃO DEFINIDA" +
+            "</div>";
+
+        texto +=
+            '<div class="regra">' +
+            "A sequência não forma o padrão XXYY." +
+            "</div>";
+
+        texto += "</div>";
+
+        document.getElementById("analise").innerHTML =
+            texto;
+
+        limparResultado();
     }
-
-
-    document.getElementById("nextText")
-        .textContent =
-        "PRÓXIMA COR: " +
-        nomeCor(resultado.cor);
-
-
-    document.getElementById("ruleText")
-        .textContent =
-        "Regra: " +
-        resultado.texto;
-
 }
 
 
-/* =========================================================
-   ATUALIZA PREVISÃO
-========================================================= */
+/* ================================
+   MOSTRAR RESULTADO
+================================ */
 
-function atualizarPrevisao(){
+function mostrarResultado(seq, cor) {
 
-    if(hist.length < 4){
+    document.getElementById("sequencia").innerText =
+        seq;
 
-        document.getElementById("predictionSequence")
-            .textContent = "----";
+    var proxima =
+        document.getElementById("proxima");
 
-        document.getElementById("predictionNext")
-            .textContent = "PRÓXIMA: —";
+    proxima.className = "proxima";
 
-        document.getElementById("predictionNext")
-            .style.color = "#eee";
-
-        resetBars();
-
-        return;
+    if (cor === "A") {
+        proxima.className += " azul-texto";
     }
 
-
-    const seq =
-        hist.slice(-4);
-
-    const texto =
-        seq.join("");
-
-
-    document.getElementById("predictionSequence")
-        .textContent = texto;
-
-
-    const resultado =
-        calcularProximaCor(seq);
-
-
-    if(!resultado){
-
-        document.getElementById("predictionNext")
-            .textContent =
-            "PRÓXIMA: NÃO DEFINIDA";
-
-        document.getElementById("predictionNext")
-            .style.color = "#aaa";
-
-        resetBars();
-
-        return;
+    if (cor === "R") {
+        proxima.className += " roxo-texto";
     }
 
-
-    const cor =
-        resultado.cor;
-
-
-    const nome =
-        nomeCor(cor);
-
-
-    document.getElementById("predictionNext")
-        .textContent =
-        "PRÓXIMA: " + nome;
-
-
-    /*
-       Cor visual da previsão.
-    */
-
-    document.getElementById("predictionNext")
-        .style.color =
-        cor === "A"
-            ? "#2868f2"
-            : cor === "R"
-                ? "#8b27f5"
-                : "#f542a5";
-
-
-    /*
-       A barra da cor indicada fica em 100%.
-       As outras ficam zeradas.
-    */
-
-    resetBars();
-
-
-    if(cor === "A"){
-
-        document.getElementById("barA")
-            .style.width = "100%";
-
-        document.getElementById("percentA")
-            .textContent = "100%";
-
+    if (cor === "V") {
+        proxima.className += " vermelho-texto";
     }
 
+    proxima.innerText =
+        "PRÓXIMA: " + nomes[cor];
 
-    if(cor === "R"){
 
-        document.getElementById("barR")
-            .style.width = "100%";
+    /* ZERA */
 
-        document.getElementById("percentR")
-            .textContent = "100%";
+    document.getElementById("fillA").style.width = "0%";
+    document.getElementById("fillR").style.width = "0%";
+    document.getElementById("fillV").style.width = "0%";
 
+    document.getElementById("pctA").innerText = "—";
+    document.getElementById("pctR").innerText = "—";
+    document.getElementById("pctV").innerText = "—";
+
+
+    /* 100% NA 2ª COR */
+
+    if (cor === "A") {
+
+        document.getElementById("fillA").style.width =
+            "100%";
+
+        document.getElementById("pctA").innerText =
+            "100%";
     }
 
+    if (cor === "R") {
 
-    if(cor === "V"){
+        document.getElementById("fillR").style.width =
+            "100%";
 
-        document.getElementById("barV")
-            .style.width = "100%";
-
-        document.getElementById("percentV")
-            .textContent = "100%";
-
+        document.getElementById("pctR").innerText =
+            "100%";
     }
 
+    if (cor === "V") {
+
+        document.getElementById("fillV").style.width =
+            "100%";
+
+        document.getElementById("pctV").innerText =
+            "100%";
+    }
 }
 
 
-/* =========================================================
-   ZERA BARRAS
-========================================================= */
+/* ================================
+   LIMPAR
+================================ */
 
-function resetBars(){
+function limparResultado() {
 
-    document.getElementById("barA")
-        .style.width = "0%";
+    document.getElementById("sequencia").innerText =
+        "----";
 
-    document.getElementById("barR")
-        .style.width = "0%";
+    document.getElementById("proxima").innerText =
+        "PRÓXIMA: -";
 
-    document.getElementById("barV")
-        .style.width = "0%";
+    document.getElementById("proxima").className =
+        "proxima";
 
 
-    document.getElementById("percentA")
-        .textContent = "—";
+    document.getElementById("fillA").style.width =
+        "0%";
 
-    document.getElementById("percentR")
-        .textContent = "—";
+    document.getElementById("fillR").style.width =
+        "0%";
 
-    document.getElementById("percentV")
-        .textContent = "—";
+    document.getElementById("fillV").style.width =
+        "0%";
 
+
+    document.getElementById("pctA").innerText = "—";
+    document.getElementById("pctR").innerText = "—";
+    document.getElementById("pctV").innerText = "—";
 }
 
 
-/* =========================================================
-   CLIQUE NAS CORES
-========================================================= */
-
-function userClick(cor){
-
-    hist.push(cor);
-
-
-    /*
-       Mantém somente os últimos 20.
-    */
-
-    if(hist.length > 20){
-
-        hist.shift();
-
-    }
-
-
-    renderHist();
-
-    mostrarAnalise();
-
-    atualizarPrevisao();
-
-
-    document.getElementById("status")
-        .textContent =
-        "Último resultado: " +
-        nomeCor(cor);
-
-}
-
-
-/* =========================================================
+/* ================================
    RESET
-========================================================= */
+================================ */
 
-function resetHist(){
+function resetar() {
 
-    hist = [];
+    historico = [];
 
-    renderHist();
+    document.getElementById("historico").innerHTML = "";
 
-    document.getElementById("sequence")
-        .textContent = "----";
+    document.getElementById("analise").innerHTML = "";
 
-    document.getElementById("positions")
-        .textContent =
-        "Aguardando 4 cores...";
-
-    document.getElementById("nextText")
-        .textContent =
-        "PRÓXIMA COR: —";
-
-    document.getElementById("ruleText")
-        .textContent =
-        "Regra: aguardando sequência de 4 cores.";
-
-    document.getElementById("predictionSequence")
-        .textContent = "----";
-
-    document.getElementById("predictionNext")
-        .textContent = "PRÓXIMA: —";
-
-    document.getElementById("predictionNext")
-        .style.color = "#eee";
-
-    document.getElementById("status")
-        .textContent =
-        "Último resultado: —";
-
-    resetBars();
-
+    limparResultado();
 }
 
 
-/* =========================================================
+/* ================================
    MOSTRAR PADRÕES
-========================================================= */
+================================ */
 
-function gerarCombinacoes(){
+function mostrarPadroes() {
 
-    const cores = ["A","R","V"];
+    var caixa =
+        document.getElementById("padroes");
 
-    const resultado = [];
+    if (caixa.style.display === "block") {
+
+        caixa.style.display = "none";
+
+        return;
+    }
 
 
-    for(const a of cores){
+    var lista =
+        document.getElementById("lista");
 
-        for(const r of cores){
+    lista.innerHTML = "";
 
-            for(const v of cores){
 
-                for(const x of cores){
+    var cores = ["A", "R", "V"];
 
-                    resultado.push(
-                        a + r + v + x
-                    );
 
-                }
+    for (var i = 0; i < cores.length; i++) {
 
+        for (var j = 0; j < cores.length; j++) {
+
+            var x = cores[i];
+            var y = cores[j];
+
+            var seq;
+
+            if (x === y) {
+                seq = x + x + x + x;
+            } else {
+                seq = x + x + y + y;
             }
 
-        }
 
+            var linha =
+                document.createElement("div");
+
+            linha.className = "padrao";
+
+
+            for (var k = 0; k < 4; k++) {
+
+                var mini =
+                    document.createElement("div");
+
+                mini.className =
+                    "mini " +
+                    seq.charAt(k).toLowerCase();
+
+                linha.appendChild(mini);
+            }
+
+
+            var texto =
+                document.createElement("strong");
+
+            texto.innerText =
+                seq + " → " + nomes[x];
+
+
+            linha.appendChild(texto);
+
+            lista.appendChild(linha);
+        }
     }
 
-    return resultado;
+
+    caixa.style.display = "block";
 }
-
-
-function showPatterns(){
-
-    const combinacoes =
-        gerarCombinacoes();
-
-    let definidas = 0;
-
-    let lista = "";
-
-
-    combinacoes.forEach(seq => {
-
-        const resultado =
-            calcularProximaCor(seq);
-
-
-        if(resultado){
-
-            definidas++;
-
-            lista +=
-                `${seq} → ${resultado.cor}\n`;
-
-        }
-
-    });
-
-
-    alert(
-        "PADRÕES CADASTRADOS\n\n" +
-        "Total de combinações possíveis: " +
-        combinacoes.length +
-        "\n\n" +
-        "Regras definidas: " +
-        definidas +
-        "\n\n" +
-        lista
-    );
-
-}
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-renderHist();
-
-resetBars();
 
 </script>
 
