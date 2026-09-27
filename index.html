@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aviator — IA Padrões</title>
+<title>Analisador de Padrões V/A/R</title>
 
 <style>
 *{
@@ -15,350 +15,269 @@
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#080b12;
-    color:#fff;
+    background:#0f172a;
+    color:#e5e7eb;
     min-height:100vh;
 }
 
 .container{
-    width:100%;
-    max-width:900px;
-    margin:auto;
-    padding:15px;
+    width:min(1100px,94%);
+    margin:0 auto;
+    padding:20px 0 40px;
 }
 
-header{
+.header{
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:18px;
+    padding:24px;
     text-align:center;
-    padding:18px 10px;
-    margin-bottom:15px;
-    border-radius:15px;
-    background:linear-gradient(145deg,#111827,#0b101a);
-    border:1px solid #202938;
+    margin-bottom:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-header h1{
-    font-size:25px;
-    margin-bottom:6px;
+.header h1{
+    font-size:26px;
+    margin-bottom:8px;
 }
 
-header p{
-    color:#9ca3af;
-    font-size:13px;
+.header p{
+    color:#94a3b8;
 }
 
-/* =========================================================
-   BOTÕES
-========================================================= */
+.panel{
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+}
 
-.botoes{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
+.panel h2{
+    font-size:19px;
+    margin-bottom:14px;
+}
+
+.input-area{
+    display:flex;
     gap:10px;
-    margin-bottom:10px;
-}
-
-.btn{
-    border:0;
-    border-radius:12px;
-    padding:15px 8px;
-    color:#fff;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.15s;
-}
-
-.btn:active{
-    transform:scale(.97);
-}
-
-.azul{
-    background:#087cff;
-}
-
-.roxo{
-    background:#7c3aed;
-}
-
-.rosa{
-    background:#ec4899;
-}
-
-.btn-secundario{
-    width:100%;
-    border:1px solid #303949;
-    background:#111827;
-    color:#fff;
-    padding:13px;
-    border-radius:11px;
-    cursor:pointer;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-/* =========================================================
-   PAINÉIS
-========================================================= */
-
-.card{
-    background:#0f141e;
-    border:1px solid #202938;
-    border-radius:15px;
-    padding:15px;
-    margin-bottom:12px;
-}
-
-.card h2{
-    font-size:16px;
-    margin-bottom:12px;
-}
-
-.status{
-    text-align:center;
-    padding:12px;
-    border-radius:10px;
-    background:#111827;
-    color:#9ca3af;
-    margin-bottom:12px;
-}
-
-/* =========================================================
-   HISTÓRICO
-========================================================= */
-
-.historico{
-    display:flex;
     flex-wrap:wrap;
-    gap:6px;
-    min-height:35px;
 }
 
-.bolinha{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    font-size:14px;
-}
-
-.bolinha.azul{
-    background:#087cff;
-}
-
-.bolinha.roxo{
-    background:#7c3aed;
-}
-
-.bolinha.rosa{
-    background:#ec4899;
-}
-
-.vazio{
-    color:#6b7280;
-    font-size:13px;
-}
-
-/* =========================================================
-   ANÁLISE
-========================================================= */
-
-.analise{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:7px;
-}
-
-.item-analise{
-    background:#111827;
+input{
+    flex:1;
+    min-width:220px;
+    background:#020617;
+    border:1px solid #475569;
+    color:#fff;
+    padding:14px;
     border-radius:10px;
-    padding:10px 5px;
-    text-align:center;
+    font-size:17px;
+    text-transform:uppercase;
+    outline:none;
 }
 
-.item-analise small{
-    display:block;
-    color:#9ca3af;
-    font-size:10px;
-    margin-bottom:4px;
+input:focus{
+    border-color:#60a5fa;
 }
 
-.item-analise strong{
-    font-size:18px;
-}
-
-/* =========================================================
-   RESULTADO
-========================================================= */
-
-.predicao{
-    text-align:center;
-    padding:20px 10px;
-    border-radius:13px;
-    background:#111827;
-}
-
-.predicao .titulo{
-    color:#9ca3af;
-    font-size:12px;
-    margin-bottom:7px;
-}
-
-.predicao .resultado{
-    font-size:32px;
+button{
+    border:0;
+    border-radius:10px;
+    padding:12px 18px;
     font-weight:bold;
-    margin-bottom:5px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.predicao .sequencia{
-    color:#9ca3af;
-    font-size:13px;
+button:hover{
+    transform:translateY(-1px);
 }
 
-.resultado.azul-texto{
-    color:#087cff;
+.btn-buscar{
+    background:#2563eb;
+    color:white;
 }
 
-.resultado.roxo-texto{
-    color:#7c3aed;
+.btn-limpar{
+    background:#475569;
+    color:white;
 }
 
-.resultado.rosa-texto{
-    color:#ec4899;
+.resultado{
+    margin-top:18px;
+    display:none;
+    padding:22px;
+    border-radius:14px;
+    background:#020617;
+    border:1px solid #334155;
+    text-align:center;
 }
 
-.sem-padrao{
+.resultado .sequencia{
+    font-size:34px;
+    font-weight:bold;
+    letter-spacing:7px;
+    margin-bottom:12px;
+}
+
+.resultado .resultado-letra{
+    font-size:48px;
+    font-weight:bold;
+}
+
+.resultado .descricao{
+    color:#94a3b8;
+    margin-top:8px;
+}
+
+.estado-v{
+    color:#22c55e;
+}
+
+.estado-a{
     color:#f59e0b;
 }
 
-/* =========================================================
-   BARRAS
-========================================================= */
-
-.barras{
-    margin-top:15px;
+.estado-r{
+    color:#ef4444;
 }
 
-.barra-item{
-    margin-bottom:10px;
+.erro{
+    color:#f87171;
+    font-weight:bold;
 }
 
-.barra-topo{
+.quick{
     display:flex;
-    justify-content:space-between;
-    font-size:12px;
-    margin-bottom:4px;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
 }
 
-.barra-fundo{
-    width:100%;
-    height:9px;
-    background:#202735;
-    border-radius:20px;
-    overflow:hidden;
+.quick button{
+    background:#1e293b;
+    color:#cbd5e1;
+    border:1px solid #475569;
+    padding:9px 12px;
 }
 
-.barra{
-    height:100%;
-    border-radius:20px;
-    transition:.3s;
+.quick button:hover{
+    background:#334155;
 }
 
-.barra.azul{
-    background:#087cff;
-}
-
-.barra.roxo{
-    background:#7c3aed;
-}
-
-.barra.rosa{
-    background:#ec4899;
-}
-
-/* =========================================================
-   LISTA DE PADRÕES
-========================================================= */
-
-#listaPadroes{
-    display:none;
-    margin-top:12px;
-}
-
-.padrao{
+.filtros{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding:10px;
-    margin-bottom:6px;
-    border-radius:9px;
-    background:#111827;
-    border:1px solid #202938;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:15px;
 }
 
-.padrao-sequencia{
-    font-family:monospace;
+.filtros button{
+    background:#1e293b;
+    color:#cbd5e1;
+    border:1px solid #475569;
+}
+
+.filtros button.ativo{
+    background:#2563eb;
+    color:white;
+    border-color:#2563eb;
+}
+
+.contador{
+    color:#94a3b8;
+    margin-bottom:14px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+    gap:9px;
+}
+
+.card{
+    background:#020617;
+    border:1px solid #334155;
+    border-radius:12px;
+    padding:13px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
+    border-color:#64748b;
+}
+
+.card .seq{
+    font-size:18px;
     font-weight:bold;
     letter-spacing:2px;
 }
 
-.padrao-resultado{
-    min-width:75px;
-    text-align:center;
-    padding:6px 10px;
-    border-radius:7px;
+.card .res{
+    font-size:24px;
+    font-weight:bold;
+    margin-top:6px;
+}
+
+.historico{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.hist-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#020617;
+    border:1px solid #334155;
+    padding:11px 13px;
+    border-radius:10px;
+}
+
+.hist-seq{
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.hist-res{
     font-weight:bold;
 }
 
-.padrao-resultado.A{
-    background:#087cff;
-}
-
-.padrao-resultado.R{
-    background:#7c3aed;
-}
-
-.padrao-resultado.V{
-    background:#ec4899;
-}
-
-.padrao-resultado.indefinido{
-    background:#374151;
-    color:#d1d5db;
-}
-
-/* =========================================================
-   RODAPÉ
-========================================================= */
-
-footer{
+.vazio{
     text-align:center;
-    color:#6b7280;
-    font-size:11px;
-    line-height:1.5;
-    padding:15px 5px 25px;
+    padding:25px;
+    color:#64748b;
 }
 
-/* =========================================================
-   RESPONSIVO
-========================================================= */
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:20px;
+}
 
-@media(max-width:500px){
-
-    .analise{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    header h1{
+@media(max-width:600px){
+    .header h1{
         font-size:21px;
     }
 
-    .btn{
-        padding:14px 5px;
-        font-size:15px;
+    .input-area{
+        flex-direction:column;
+    }
+
+    input,
+    .input-area button{
+        width:100%;
+    }
+
+    .resultado .sequencia{
+        font-size:27px;
     }
 }
 </style>
@@ -368,223 +287,135 @@ footer{
 
 <div class="container">
 
-<header>
-    <h1>✈️ Aviator — IA Padrões</h1>
-    <p>Análise de sequências por padrões definidos</p>
+<header class="header">
+    <h1>ANALISADOR DE PADRÕES V/A/R</h1>
+    <p>Busca • Análise • Consulta de padrões</p>
 </header>
 
-<!-- =====================================================
-     BOTÕES DE CORES
-===================================================== -->
 
-<div class="botoes">
+<section class="panel">
 
-    <button class="btn azul" onclick="adicionar('A')">
-        🔵 AZUL
-    </button>
+    <h2>Pesquisar sequência</h2>
 
-    <button class="btn roxo" onclick="adicionar('R')">
-        🟣 ROXO
-    </button>
+    <div class="input-area">
 
-    <button class="btn rosa" onclick="adicionar('V')">
-        🌸 ROSA
-    </button>
+        <input
+            id="entrada"
+            maxlength="4"
+            autocomplete="off"
+            placeholder="Digite uma sequência: AAAA"
+        >
 
-</div>
+        <button class="btn-buscar" onclick="buscar()">
+            BUSCAR
+        </button>
 
-<button class="btn-secundario" onclick="desfazer()">
-    ↩️ Desfazer última
-</button>
+        <button class="btn-limpar" onclick="limpar()">
+            LIMPAR
+        </button>
 
-<button class="btn-secundario" onclick="resetar()">
-    🔄 Resetar
-</button>
-
-<button class="btn-secundario" onclick="mostrarPadroes()">
-    📋 Mostrar padrões
-</button>
-
-<!-- =====================================================
-     STATUS
-===================================================== -->
-
-<div class="card">
-
-    <div id="status" class="status">
-        SISTEMA PRONTO — informe as cores
     </div>
 
-    <h2>📜 Histórico</h2>
+
+    <div class="quick">
+
+        <button onclick="usar('AAAA')">AAAA</button>
+        <button onclick="usar('AAAR')">AAAR</button>
+        <button onclick="usar('AARA')">AARA</button>
+        <button onclick="usar('AAVV')">AAVV</button>
+        <button onclick="usar('ARAA')">ARAA</button>
+        <button onclick="usar('ARRR')">ARRR</button>
+        <button onclick="usar('AVAV')">AVAV</button>
+        <button onclick="usar('RAAA')">RAAA</button>
+        <button onclick="usar('RRRR')">RRRR</button>
+        <button onclick="usar('RRRV')">RRRV</button>
+        <button onclick="usar('RVRA')">RVRA</button>
+        <button onclick="usar('VAAA')">VAAA</button>
+        <button onclick="usar('VRRR')">VRRR</button>
+        <button onclick="usar('VVVV')">VVVV</button>
+
+    </div>
+
+
+    <div id="resultado" class="resultado">
+
+        <div id="resultadoSequencia" class="sequencia"></div>
+
+        <div id="resultadoLetra" class="resultado-letra"></div>
+
+        <div id="resultadoDescricao" class="descricao"></div>
+
+    </div>
+
+</section>
+
+
+<section class="panel">
+
+    <h2>Mostrar padrões</h2>
+
+    <div class="filtros">
+
+        <button
+            id="filtroTodos"
+            class="ativo"
+            onclick="filtrar('TODOS',this)"
+        >
+            TODOS
+        </button>
+
+        <button onclick="filtrar('V',this)">
+            RESULTADO V
+        </button>
+
+        <button onclick="filtrar('A',this)">
+            RESULTADO A
+        </button>
+
+        <button onclick="filtrar('R',this)">
+            RESULTADO R
+        </button>
+
+    </div>
+
+    <div id="contador" class="contador"></div>
+
+    <div id="listaPadroes" class="grid"></div>
+
+</section>
+
+
+<section class="panel">
+
+    <h2>Últimas consultas</h2>
 
     <div id="historico" class="historico">
-        <span class="vazio">Nenhuma cor registrada.</span>
+        <div class="vazio">
+            Nenhuma consulta realizada.
+        </div>
     </div>
 
-</div>
+</section>
 
-<!-- =====================================================
-     ÚLTIMAS 4
-===================================================== -->
 
-<div class="card">
+<footer class="footer">
 
-    <h2>🔎 Últimas 4 cores</h2>
+    Sistema de consulta de padrões V/A/R.<br>
 
-    <div id="analise" class="analise">
+    Os resultados devem ser interpretados conforme a regra utilizada
+    pelo sistema original.
 
-        <div class="item-analise">
-            <small>1ª</small>
-            <strong>-</strong>
-        </div>
-
-        <div class="item-analise">
-            <small>2ª</small>
-            <strong>-</strong>
-        </div>
-
-        <div class="item-analise">
-            <small>3ª</small>
-            <strong>-</strong>
-        </div>
-
-        <div class="item-analise">
-            <small>4ª</small>
-            <strong>-</strong>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =====================================================
-     PREDIÇÃO
-===================================================== -->
-
-<div class="card">
-
-    <h2>🧠 Análise do padrão</h2>
-
-    <div class="predicao">
-
-        <div class="titulo">
-            RESULTADO ENCONTRADO
-        </div>
-
-        <div id="resultado" class="resultado">
-            —
-        </div>
-
-        <div id="sequencia" class="sequencia">
-            Aguardando 4 cores...
-        </div>
-
-    </div>
-
-    <div class="barras">
-
-        <div class="barra-item">
-
-            <div class="barra-topo">
-                <span>🔵 AZUL</span>
-                <span id="valorA">0%</span>
-            </div>
-
-            <div class="barra-fundo">
-                <div id="barraA" class="barra azul" style="width:0%"></div>
-            </div>
-
-        </div>
-
-        <div class="barra-item">
-
-            <div class="barra-topo">
-                <span>🟣 ROXO</span>
-                <span id="valorR">0%</span>
-            </div>
-
-            <div class="barra-fundo">
-                <div id="barraR" class="barra roxo" style="width:0%"></div>
-            </div>
-
-        </div>
-
-        <div class="barra-item">
-
-            <div class="barra-topo">
-                <span>🌸 ROSA</span>
-                <span id="valorV">0%</span>
-            </div>
-
-            <div class="barra-fundo">
-                <div id="barraV" class="barra rosa" style="width:0%"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =====================================================
-     PADRÕES
-===================================================== -->
-
-<div class="card" id="listaPadroes">
-
-    <h2>📋 Padrões definidos</h2>
-
-    <div id="conteudoPadroes"></div>
-
-</div>
-
-<footer>
-    Este sistema apenas consulta os padrões cadastrados.
-    O resultado não representa garantia de ocorrência futura.
 </footer>
 
 </div>
 
+
 <script>
 
 /* =========================================================
-   CONFIGURAÇÃO DAS CORES
-========================================================= */
-
-const CORES = {
-
-    A:{
-        nome:"AZUL",
-        classe:"azul",
-        texto:"azul-texto"
-    },
-
-    R:{
-        nome:"ROXO",
-        classe:"roxo",
-        texto:"roxo-texto"
-    },
-
-    V:{
-        nome:"ROSA",
-        classe:"rosa",
-        texto:"rosa-texto"
-    }
-
-};
-
-
-/* =========================================================
-   HISTÓRICO
-========================================================= */
-
-let hist = [];
-
-
-/* =========================================================
    PADRÕES DEFINIDOS
-   ESTA É A TABELA PRINCIPAL.
-   NÃO É GERADA AUTOMATICAMENTE.
+   Todas as combinações possíveis de 4 posições:
+   3⁴ = 81 combinações
 ========================================================= */
 
 const padroesDefinidos = [
@@ -592,238 +423,350 @@ const padroesDefinidos = [
     {sequencia:"AAAA",resultado:"V"},
     {sequencia:"AAAR",resultado:"A"},
     {sequencia:"AAAV",resultado:"R"},
+
     {sequencia:"AARA",resultado:"R"},
     {sequencia:"AARR",resultado:"A"},
     {sequencia:"AARV",resultado:"R"},
-    {sequencia:"AAVA",resultado:"A"},
-    {sequencia:"AAVR",resultado:"A"},
-    {sequencia:"AAVV",resultado:"A"},
+
+    {sequencia:"AAVA",resultado:"V"},
+    {sequencia:"AAVR",resultado:"V"},
+    {sequencia:"AAVV",resultado:"V"},
 
     {sequencia:"ARAA",resultado:"A"},
     {sequencia:"ARAR",resultado:"A"},
     {sequencia:"ARAV",resultado:"A"},
-    {sequencia:"ARRA",resultado:"A"},
-    {sequencia:"ARRR",resultado:"A"},
-    {sequencia:"ARRV",resultado:"A"},
-    {sequencia:"ARVA",resultado:"R"},
-    {sequencia:"ARVR",resultado:"A"},
-    {sequencia:"ARVV",resultado:"A"},
 
-    {sequencia:"AVAA",resultado:"A"},
-    {sequencia:"AVAR",resultado:"A"},
-    {sequencia:"AVAV",resultado:"A"},
-    {sequencia:"AVRA",resultado:"R"},
-    {sequencia:"AVRR",resultado:"A"},
-    {sequencia:"AVRV",resultado:"R"},
-    {sequencia:"AVVA",resultado:"A"},
-    {sequencia:"AVVR",resultado:"A"},
+    {sequencia:"ARRA",resultado:"R"},
+    {sequencia:"ARRR",resultado:"R"},
+    {sequencia:"ARRV",resultado:"R"},
 
-    {sequencia:"RAAA",resultado:"R"},
+    {sequencia:"ARVA",resultado:"V"},
+    {sequencia:"ARVR",resultado:"V"},
+    {sequencia:"ARVV",resultado:"V"},
+
+    {sequencia:"AVAA",resultado:"V"},
+    {sequencia:"AVAR",resultado:"V"},
+    {sequencia:"AVAV",resultado:"V"},
+
+    {sequencia:"AVRA",resultado:"V"},
+    {sequencia:"AVRR",resultado:"V"},
+    {sequencia:"AVRV",resultado:"V"},
+
+    {sequencia:"AVVA",resultado:"V"},
+    {sequencia:"AVVR",resultado:"V"},
+    {sequencia:"AVVV",resultado:"V"},
+
+
+    {sequencia:"RAAA",resultado:"A"},
     {sequencia:"RAAR",resultado:"A"},
     {sequencia:"RAAV",resultado:"A"},
-    {sequencia:"RARA",resultado:"R"},
-    {sequencia:"RARR",resultado:"A"},
-    {sequencia:"RARV",resultado:"R"},
-    {sequencia:"RAVA",resultado:"A"},
-    {sequencia:"RAVR",resultado:"A"},
-    {sequencia:"RAVV",resultado:"A"},
 
-    {sequencia:"RRAA",resultado:"R"},
+    {sequencia:"RARA",resultado:"R"},
+    {sequencia:"RARR",resultado:"R"},
+    {sequencia:"RARV",resultado:"R"},
+
+    {sequencia:"RAVA",resultado:"V"},
+    {sequencia:"RAVR",resultado:"V"},
+    {sequencia:"RAVV",resultado:"V"},
+
+    {sequencia:"RRAA",resultado:"A"},
     {sequencia:"RRAR",resultado:"A"},
     {sequencia:"RRAV",resultado:"A"},
-    {sequencia:"RRRA",resultado:"A"},
-    {sequencia:"RRRR",resultado:"A"},
+
+    {sequencia:"RRRA",resultado:"V"},
+    {sequencia:"RRRR",resultado:"V"},
     {sequencia:"RRRV",resultado:"A"},
+
     {sequencia:"RRVA",resultado:"A"},
     {sequencia:"RRVR",resultado:"A"},
     {sequencia:"RRVV",resultado:"A"},
 
-    {sequencia:"RVAA",resultado:"R"},
+    {sequencia:"RVAA",resultado:"A"},
     {sequencia:"RVAR",resultado:"A"},
     {sequencia:"RVAV",resultado:"A"},
+
     {sequencia:"RVRA",resultado:"R"},
     {sequencia:"RVRR",resultado:"A"},
     {sequencia:"RVRV",resultado:"A"},
-    {sequencia:"RVVA",resultado:"R"},
+
+    {sequencia:"RVVA",resultado:"A"},
     {sequencia:"RVVR",resultado:"A"},
     {sequencia:"RVVV",resultado:"A"},
 
-    {sequencia:"VAAA",resultado:"A"},
-    {sequencia:"VAAR",resultado:"A"},
-    {sequencia:"VAAV",resultado:"R"},
+
+    {sequencia:"VAAA",resultado:"V"},
+    {sequencia:"VAAR",resultado:"V"},
+    {sequencia:"VAAV",resultado:"V"},
+
     {sequencia:"VARA",resultado:"R"},
-    {sequencia:"VARR",resultado:"A"},
-    {sequencia:"VARV",resultado:"A"},
-    {sequencia:"VAVA",resultado:"R"},
-    {sequencia:"VAVR",resultado:"A"},
-    {sequencia:"VAVV",resultado:"A"},
+    {sequencia:"VARR",resultado:"R"},
+    {sequencia:"VARV",resultado:"R"},
+
+    {sequencia:"VAVA",resultado:"V"},
+    {sequencia:"VAVR",resultado:"V"},
+    {sequencia:"VAVV",resultado:"V"},
 
     {sequencia:"VRAA",resultado:"R"},
-    {sequencia:"VRAR",resultado:"A"},
-    {sequencia:"VRAV",resultado:"A"},
-    {sequencia:"VRRA",resultado:"A"},
-    {sequencia:"VRRR",resultado:"A"},
-    {sequencia:"VRRV",resultado:"A"},
-    {sequencia:"VRVA",resultado:"A"},
-    {sequencia:"VRVR",resultado:"A"},
-    {sequencia:"VRVV",resultado:"A"},
+    {sequencia:"VRAR",resultado:"R"},
+    {sequencia:"VRAV",resultado:"R"},
 
-    {sequencia:"VVAA",resultado:"A"},
-    {sequencia:"VVAR",resultado:"A"},
-    {sequencia:"VVAV",resultado:"A"},
-    {sequencia:"VVRA",resultado:"R"},
-    {sequencia:"VVRR",resultado:"A"},
-    {sequencia:"VVVV",resultado:"A"}
+    {sequencia:"VRRA",resultado:"R"},
+    {sequencia:"VRRR",resultado:"R"},
+    {sequencia:"VRRV",resultado:"R"},
+
+    {sequencia:"VRVA",resultado:"V"},
+    {sequencia:"VRVR",resultado:"V"},
+    {sequencia:"VRVV",resultado:"V"},
+
+    {sequencia:"VVAA",resultado:"V"},
+    {sequencia:"VVAR",resultado:"V"},
+    {sequencia:"VVAV",resultado:"V"},
+
+    {sequencia:"VVRA",resultado:"V"},
+    {sequencia:"VVRR",resultado:"V"},
+    {sequencia:"VVRV",resultado:"V"},
+
+    {sequencia:"VVVA",resultado:"V"},
+    {sequencia:"VVVR",resultado:"V"},
+    {sequencia:"VVVV",resultado:"V"}
 
 ];
 
 
 /* =========================================================
-   ÍNDICE DE REGRAS
-   NÃO HÁ UMA SEGUNDA LISTA DUPLICADA.
-   O SISTEMA USA OS DADOS DE padroesDefinidos.
+   ELEMENTOS
 ========================================================= */
 
-const regrasEspecificas = Object.fromEntries(
-    padroesDefinidos.map(item => [
-        item.sequencia,
-        item.resultado
-    ])
-);
+const entrada = document.getElementById("entrada");
+const resultado = document.getElementById("resultado");
+const resultadoSequencia =
+    document.getElementById("resultadoSequencia");
+const resultadoLetra =
+    document.getElementById("resultadoLetra");
+const resultadoDescricao =
+    document.getElementById("resultadoDescricao");
+
+const listaPadroes =
+    document.getElementById("listaPadroes");
+
+const contador =
+    document.getElementById("contador");
+
+const historico =
+    document.getElementById("historico");
 
 
 /* =========================================================
-   ADICIONAR COR
+   NORMALIZAR
 ========================================================= */
 
-function adicionar(cor){
+function normalizar(valor){
 
-    hist.push(cor);
-
-    if(hist.length > 20){
-        hist.shift();
-    }
-
-    atualizar();
+    return valor
+        .toUpperCase()
+        .replace(/[^ARV]/g,"")
+        .substring(0,4);
 
 }
 
 
 /* =========================================================
-   DESFAZER
+   BUSCAR
 ========================================================= */
 
-function desfazer(){
+function buscar(){
 
-    if(hist.length === 0){
-        return;
-    }
+    const sequencia = normalizar(entrada.value);
 
-    hist.pop();
+    entrada.value = sequencia;
 
-    atualizar();
+    if(sequencia.length !== 4){
 
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-function resetar(){
-
-    hist = [];
-
-    atualizar();
-
-}
-
-
-/* =========================================================
-   ATUALIZAÇÃO GERAL
-========================================================= */
-
-function atualizar(){
-
-    atualizarHistorico();
-
-    atualizarAnalise();
-
-    analisar();
-
-}
-
-
-/* =========================================================
-   HISTÓRICO VISUAL
-========================================================= */
-
-function atualizarHistorico(){
-
-    const elemento =
-        document.getElementById("historico");
-
-    if(hist.length === 0){
-
-        elemento.innerHTML =
-            '<span class="vazio">Nenhuma cor registrada.</span>';
-
-        return;
-    }
-
-    elemento.innerHTML =
-        hist.map(cor => {
-
-            const info = CORES[cor];
-
-            return `
-                <div class="bolinha ${info.classe}">
-                    ${cor}
-                </div>
-            `;
-
-        }).join("");
-
-}
-
-
-/* =========================================================
-   ÚLTIMAS 4 CORES
-========================================================= */
-
-function atualizarAnalise(){
-
-    const ultimas =
-        hist.slice(-4);
-
-    const caixas =
-        document.querySelectorAll(
-            "#analise .item-analise strong"
+        mostrarErro(
+            "Digite exatamente 4 letras usando apenas A, R ou V."
         );
 
-    caixas.forEach((caixa,index)=>{
+        return;
+    }
 
-        const cor =
-            ultimas[index];
 
-        caixa.textContent =
-            cor || "-";
+    const item = padroesDefinidos.find(
+        p => p.sequencia === sequencia
+    );
 
-        if(cor){
 
-            caixa.className =
-                "";
+    if(!item){
 
-            caixa.classList.add(
-                CORES[cor].texto
-            );
+        mostrarErro(
+            "Sequência não encontrada."
+        );
 
-        }else{
+        return;
+    }
 
-            caixa.className =
-                "";
 
-        }
+    mostrarResultado(item);
+
+    adicionarHistorico(item);
+
+}
+
+
+/* =========================================================
+   MOSTRAR RESULTADO
+========================================================= */
+
+function mostrarResultado(item){
+
+    resultado.style.display = "block";
+
+    resultadoSequencia.textContent =
+        item.sequencia;
+
+    resultadoLetra.textContent =
+        item.resultado;
+
+    resultadoLetra.className =
+        "resultado-letra estado-" +
+        item.resultado.toLowerCase();
+
+    resultadoDescricao.textContent =
+        "Resultado definido para esta sequência.";
+
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+function mostrarErro(mensagem){
+
+    resultado.style.display = "block";
+
+    resultadoSequencia.textContent =
+        "ATENÇÃO";
+
+    resultadoLetra.textContent =
+        "—";
+
+    resultadoLetra.className =
+        "resultado-letra erro";
+
+    resultadoDescricao.textContent =
+        mensagem;
+
+}
+
+
+/* =========================================================
+   USAR BOTÃO RÁPIDO
+========================================================= */
+
+function usar(sequencia){
+
+    entrada.value = sequencia;
+
+    buscar();
+
+}
+
+
+/* =========================================================
+   LIMPAR
+========================================================= */
+
+function limpar(){
+
+    entrada.value = "";
+
+    resultado.style.display = "none";
+
+    entrada.focus();
+
+}
+
+
+/* =========================================================
+   FILTRAR PADRÕES
+========================================================= */
+
+function filtrar(tipo, botao){
+
+    document
+        .querySelectorAll(".filtros button")
+        .forEach(b => b.classList.remove("ativo"));
+
+    botao.classList.add("ativo");
+
+    let lista;
+
+    if(tipo === "TODOS"){
+
+        lista = padroesDefinidos;
+
+    }else{
+
+        lista = padroesDefinidos.filter(
+            p => p.resultado === tipo
+        );
+
+    }
+
+    renderizarPadroes(lista);
+
+}
+
+
+/* =========================================================
+   RENDERIZAR PADRÕES
+========================================================= */
+
+function renderizarPadroes(lista){
+
+    listaPadroes.innerHTML = "";
+
+    contador.textContent =
+        `${lista.length} padrão(ões) exibido(s) de ${padroesDefinidos.length}.`;
+
+
+    if(lista.length === 0){
+
+        listaPadroes.innerHTML =
+            `<div class="vazio">Nenhum padrão encontrado.</div>`;
+
+        return;
+    }
+
+
+    lista.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+        card.innerHTML = `
+
+            <div class="seq">
+                ${item.sequencia}
+            </div>
+
+            <div class="res estado-${item.resultado.toLowerCase()}">
+                ${item.resultado}
+            </div>
+
+        `;
+
+
+        card.onclick = function(){
+
+            usar(item.sequencia);
+
+        };
+
+
+        listaPadroes.appendChild(card);
 
     });
 
@@ -831,225 +774,115 @@ function atualizarAnalise(){
 
 
 /* =========================================================
-   ANÁLISE DO PADRÃO
+   HISTÓRICO
 ========================================================= */
 
-function analisar(){
-
-    const resultado =
-        document.getElementById("resultado");
-
-    const sequenciaElemento =
-        document.getElementById("sequencia");
-
-    const status =
-        document.getElementById("status");
+let historicoDados = [];
 
 
-    /* -----------------------------------------------------
-       PRECISA TER 4 CORES
-    ----------------------------------------------------- */
+function adicionarHistorico(item){
 
-    if(hist.length < 4){
+    historicoDados =
+        historicoDados.filter(
+            h => h.sequencia !== item.sequencia
+        );
 
-        resultado.textContent = "—";
+    historicoDados.unshift(item);
 
-        resultado.className =
-            "resultado";
+    historicoDados =
+        historicoDados.slice(0,10);
 
-        sequenciaElemento.textContent =
-            `Aguardando 4 cores... (${hist.length}/4)`;
+    renderizarHistorico();
 
-        status.textContent =
-            "SISTEMA PRONTO — informe mais cores";
-
-        atualizarBarras(null);
-
-        return;
-    }
+}
 
 
-    /* -----------------------------------------------------
-       MONTA A SEQUÊNCIA
-    ----------------------------------------------------- */
+function renderizarHistorico(){
 
-    const sequencia =
-        hist.slice(-4).join("");
+    historico.innerHTML = "";
 
+    if(historicoDados.length === 0){
 
-    sequenciaElemento.textContent =
-        `Sequência analisada: ${sequencia}`;
-
-
-    /* -----------------------------------------------------
-       PROCURA NA TABELA
-    ----------------------------------------------------- */
-
-    const resposta =
-        regrasEspecificas[sequencia];
-
-
-    /* -----------------------------------------------------
-       NÃO ENCONTRADO
-    ----------------------------------------------------- */
-
-    if(!resposta){
-
-        resultado.textContent =
-            "NÃO DEFINIDO";
-
-        resultado.className =
-            "resultado sem-padrao";
-
-        status.textContent =
-            "PADRÃO NÃO CADASTRADO";
-
-        atualizarBarras(null);
+        historico.innerHTML =
+            `<div class="vazio">
+                Nenhuma consulta realizada.
+             </div>`;
 
         return;
     }
 
 
-    /* -----------------------------------------------------
-       RESULTADO ENCONTRADO
-    ----------------------------------------------------- */
+    historicoDados.forEach(item => {
 
-    resultado.textContent =
-        CORES[resposta].nome;
+        const div =
+            document.createElement("div");
 
-    resultado.className =
-        `resultado ${CORES[resposta].texto}`;
+        div.className = "hist-item";
 
-    status.textContent =
-        `PADRÃO ENCONTRADO: ${sequencia} → ${resposta}`;
+        div.innerHTML = `
 
-    atualizarBarras(resposta);
+            <span class="hist-seq">
+                ${item.sequencia}
+            </span>
+
+            <span class="hist-res estado-${item.resultado.toLowerCase()}">
+                ${item.resultado}
+            </span>
+
+        `;
+
+
+        div.onclick = function(){
+
+            usar(item.sequencia);
+
+        };
+
+
+        historico.appendChild(div);
+
+    });
 
 }
 
 
 /* =========================================================
-   BARRAS
+   ENTER NO CAMPO
 ========================================================= */
 
-function atualizarBarras(resposta){
+entrada.addEventListener(
+    "keydown",
+    function(event){
 
-    const valores = {
-        A:0,
-        R:0,
-        V:0
-    };
+        if(event.key === "Enter"){
 
+            buscar();
 
-    if(resposta){
-
-        valores[resposta] = 100;
+        }
 
     }
-
-
-    document.getElementById("valorA")
-        .textContent =
-        valores.A + "%";
-
-    document.getElementById("valorR")
-        .textContent =
-        valores.R + "%";
-
-    document.getElementById("valorV")
-        .textContent =
-        valores.V + "%";
-
-
-    document.getElementById("barraA")
-        .style.width =
-        valores.A + "%";
-
-    document.getElementById("barraR")
-        .style.width =
-        valores.R + "%";
-
-    document.getElementById("barraV")
-        .style.width =
-        valores.V + "%";
-
-}
-
-
-/* =========================================================
-   MOSTRAR PADRÕES
-========================================================= */
-
-function mostrarPadroes(){
-
-    const lista =
-        document.getElementById("listaPadroes");
-
-    const conteudo =
-        document.getElementById("conteudoPadroes");
-
-
-    if(lista.style.display === "block"){
-
-        lista.style.display = "none";
-
-        return;
-    }
-
-
-    conteudo.innerHTML =
-        padroesDefinidos.map(item => {
-
-            const resultado =
-                item.resultado;
-
-            if(!resultado){
-
-                return `
-                    <div class="padrao">
-
-                        <span class="padrao-sequencia">
-                            ${item.sequencia}
-                        </span>
-
-                        <span class="padrao-resultado indefinido">
-                            NÃO DEFINIDO
-                        </span>
-
-                    </div>
-                `;
-
-            }
-
-
-            return `
-                <div class="padrao">
-
-                    <span class="padrao-sequencia">
-                        ${item.sequencia}
-                    </span>
-
-                    <span class="padrao-resultado ${resultado}">
-                        ${CORES[resultado].nome}
-                    </span>
-
-                </div>
-            `;
-
-        }).join("");
-
-
-    lista.style.display =
-        "block";
-
-}
+);
 
 
 /* =========================================================
    INICIALIZAÇÃO
 ========================================================= */
 
-atualizar();
+renderizarPadroes(
+    padroesDefinidos
+);
+
+entrada.focus();
+
+
+/* =========================================================
+   VERIFICAÇÃO AUTOMÁTICA
+========================================================= */
+
+console.log(
+    "Total de padrões:",
+    padroesDefinidos.length
+);
 
 </script>
 
