@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Analisador de Padrões V/A/R</title>
+<title>Analisador V/A/R — Sistema de Padrões</title>
 
 <style>
 *{
@@ -13,22 +13,36 @@
     padding:0;
 }
 
+:root{
+    --bg:#0f172a;
+    --panel:#111827;
+    --card:#020617;
+    --border:#334155;
+    --border2:#475569;
+    --text:#e5e7eb;
+    --muted:#94a3b8;
+    --blue:#2563eb;
+    --green:#22c55e;
+    --yellow:#f59e0b;
+    --red:#ef4444;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#0f172a;
-    color:#e5e7eb;
+    background:var(--bg);
+    color:var(--text);
     min-height:100vh;
 }
 
 .container{
     width:min(1100px,94%);
-    margin:0 auto;
+    margin:auto;
     padding:20px 0 40px;
 }
 
 .header{
-    background:#111827;
-    border:1px solid #334155;
+    background:var(--panel);
+    border:1px solid var(--border);
     border-radius:18px;
     padding:24px;
     text-align:center;
@@ -42,12 +56,12 @@ body{
 }
 
 .header p{
-    color:#94a3b8;
+    color:var(--muted);
 }
 
 .panel{
-    background:#111827;
-    border:1px solid #334155;
+    background:var(--panel);
+    border:1px solid var(--border);
     border-radius:18px;
     padding:20px;
     margin-bottom:18px;
@@ -67,12 +81,14 @@ body{
 input{
     flex:1;
     min-width:220px;
-    background:#020617;
-    border:1px solid #475569;
-    color:#fff;
+    background:var(--card);
+    border:1px solid var(--border2);
+    color:white;
     padding:14px;
     border-radius:10px;
-    font-size:17px;
+    font-size:18px;
+    font-weight:bold;
+    letter-spacing:4px;
     text-transform:uppercase;
     outline:none;
 }
@@ -87,65 +103,25 @@ button{
     padding:12px 18px;
     font-weight:bold;
     cursor:pointer;
-    transition:.2s;
+    transition:.15s;
 }
 
 button:hover{
     transform:translateY(-1px);
 }
 
+button:active{
+    transform:scale(.98);
+}
+
 .btn-buscar{
-    background:#2563eb;
+    background:var(--blue);
     color:white;
 }
 
 .btn-limpar{
     background:#475569;
     color:white;
-}
-
-.resultado{
-    margin-top:18px;
-    display:none;
-    padding:22px;
-    border-radius:14px;
-    background:#020617;
-    border:1px solid #334155;
-    text-align:center;
-}
-
-.resultado .sequencia{
-    font-size:34px;
-    font-weight:bold;
-    letter-spacing:7px;
-    margin-bottom:12px;
-}
-
-.resultado .resultado-letra{
-    font-size:48px;
-    font-weight:bold;
-}
-
-.resultado .descricao{
-    color:#94a3b8;
-    margin-top:8px;
-}
-
-.estado-v{
-    color:#22c55e;
-}
-
-.estado-a{
-    color:#f59e0b;
-}
-
-.estado-r{
-    color:#ef4444;
-}
-
-.erro{
-    color:#f87171;
-    font-weight:bold;
 }
 
 .quick{
@@ -158,12 +134,55 @@ button:hover{
 .quick button{
     background:#1e293b;
     color:#cbd5e1;
-    border:1px solid #475569;
-    padding:9px 12px;
+    border:1px solid var(--border2);
+    padding:8px 11px;
 }
 
 .quick button:hover{
     background:#334155;
+}
+
+.resultado{
+    display:none;
+    margin-top:18px;
+    padding:22px;
+    border-radius:14px;
+    background:var(--card);
+    border:1px solid var(--border);
+    text-align:center;
+}
+
+.resultado .sequencia{
+    font-size:36px;
+    font-weight:bold;
+    letter-spacing:8px;
+    margin-bottom:8px;
+}
+
+.resultado-letra{
+    font-size:58px;
+    font-weight:bold;
+}
+
+.descricao{
+    color:var(--muted);
+    margin-top:8px;
+}
+
+.estado-v{
+    color:var(--green);
+}
+
+.estado-a{
+    color:var(--yellow);
+}
+
+.estado-r{
+    color:var(--red);
+}
+
+.erro{
+    color:#f87171;
 }
 
 .filtros{
@@ -176,34 +195,60 @@ button:hover{
 .filtros button{
     background:#1e293b;
     color:#cbd5e1;
-    border:1px solid #475569;
+    border:1px solid var(--border2);
 }
 
 .filtros button.ativo{
-    background:#2563eb;
+    background:var(--blue);
     color:white;
-    border-color:#2563eb;
+    border-color:var(--blue);
+}
+
+.estatisticas{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    margin-bottom:4px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:12px;
 }
 
 .contador{
-    color:#94a3b8;
+    color:var(--muted);
     margin-bottom:14px;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(125px,1fr));
     gap:9px;
 }
 
 .card{
-    background:#020617;
-    border:1px solid #334155;
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:12px;
     padding:13px;
     text-align:center;
     cursor:pointer;
-    transition:.2s;
+    transition:.15s;
 }
 
 .card:hover{
@@ -218,7 +263,7 @@ button:hover{
 }
 
 .card .res{
-    font-size:24px;
+    font-size:25px;
     font-weight:bold;
     margin-top:6px;
 }
@@ -233,10 +278,15 @@ button:hover{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:#020617;
-    border:1px solid #334155;
+    background:var(--card);
+    border:1px solid var(--border);
     padding:11px 13px;
     border-radius:10px;
+    cursor:pointer;
+}
+
+.hist-item:hover{
+    border-color:#64748b;
 }
 
 .hist-seq{
@@ -246,12 +296,32 @@ button:hover{
 
 .hist-res{
     font-weight:bold;
+    font-size:20px;
 }
 
 .vazio{
     text-align:center;
     padding:25px;
     color:#64748b;
+}
+
+.status{
+    margin-top:14px;
+    padding:12px;
+    border-radius:10px;
+    font-size:13px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.status.ok{
+    border-color:#166534;
+    color:#86efac;
+}
+
+.status.erro{
+    border-color:#991b1b;
+    color:#fca5a5;
 }
 
 .footer{
@@ -262,9 +332,10 @@ button:hover{
     margin-top:20px;
 }
 
-@media(max-width:600px){
-    .header h1{
-        font-size:21px;
+@media(max-width:700px){
+
+    .estatisticas{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .input-area{
@@ -275,9 +346,24 @@ button:hover{
     .input-area button{
         width:100%;
     }
+}
+
+@media(max-width:400px){
+
+    .header h1{
+        font-size:21px;
+    }
 
     .resultado .sequencia{
         font-size:27px;
+    }
+
+    .resultado-letra{
+        font-size:48px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr);
     }
 }
 </style>
@@ -293,6 +379,10 @@ button:hover{
 </header>
 
 
+<!-- =====================================================
+     PESQUISA
+===================================================== -->
+
 <section class="panel">
 
     <h2>Pesquisar sequência</h2>
@@ -303,14 +393,24 @@ button:hover{
             id="entrada"
             maxlength="4"
             autocomplete="off"
-            placeholder="Digite uma sequência: AAAA"
+            spellcheck="false"
+            placeholder="AAAA"
+            aria-label="Digite uma sequência"
         >
 
-        <button class="btn-buscar" onclick="buscar()">
+        <button
+            type="button"
+            class="btn-buscar"
+            id="btnBuscar"
+        >
             BUSCAR
         </button>
 
-        <button class="btn-limpar" onclick="limpar()">
+        <button
+            type="button"
+            class="btn-limpar"
+            id="btnLimpar"
+        >
             LIMPAR
         </button>
 
@@ -319,81 +419,141 @@ button:hover{
 
     <div class="quick">
 
-        <button onclick="usar('AAAA')">AAAA</button>
-        <button onclick="usar('AAAR')">AAAR</button>
-        <button onclick="usar('AARA')">AARA</button>
-        <button onclick="usar('AAVV')">AAVV</button>
-        <button onclick="usar('ARAA')">ARAA</button>
-        <button onclick="usar('ARRR')">ARRR</button>
-        <button onclick="usar('AVAV')">AVAV</button>
-        <button onclick="usar('RAAA')">RAAA</button>
-        <button onclick="usar('RRRR')">RRRR</button>
-        <button onclick="usar('RRRV')">RRRV</button>
-        <button onclick="usar('RVRA')">RVRA</button>
-        <button onclick="usar('VAAA')">VAAA</button>
-        <button onclick="usar('VRRR')">VRRR</button>
-        <button onclick="usar('VVVV')">VVVV</button>
+        <button data-seq="AAAA">AAAA</button>
+        <button data-seq="AAAR">AAAR</button>
+        <button data-seq="AAAV">AAAV</button>
+        <button data-seq="AARA">AARA</button>
+        <button data-seq="AAVV">AAVV</button>
+        <button data-seq="ARAA">ARAA</button>
+        <button data-seq="ARRR">ARRR</button>
+        <button data-seq="AVAV">AVAV</button>
+        <button data-seq="RAAA">RAAA</button>
+        <button data-seq="RRRR">RRRR</button>
+        <button data-seq="RRRV">RRRV</button>
+        <button data-seq="RVRA">RVRA</button>
+        <button data-seq="VAAA">VAAA</button>
+        <button data-seq="VRRR">VRRR</button>
+        <button data-seq="VVVV">VVVV</button>
 
     </div>
 
 
-    <div id="resultado" class="resultado">
+    <div
+        id="resultado"
+        class="resultado"
+        aria-live="polite"
+    >
 
-        <div id="resultadoSequencia" class="sequencia"></div>
+        <div
+            id="resultadoSequencia"
+            class="sequencia"
+        ></div>
 
-        <div id="resultadoLetra" class="resultado-letra"></div>
+        <div
+            id="resultadoLetra"
+            class="resultado-letra"
+        ></div>
 
-        <div id="resultadoDescricao" class="descricao"></div>
+        <div
+            id="resultadoDescricao"
+            class="descricao"
+        ></div>
 
     </div>
 
 </section>
 
+
+<!-- =====================================================
+     PADRÕES
+===================================================== -->
 
 <section class="panel">
 
     <h2>Mostrar padrões</h2>
 
+
+    <div class="estatisticas">
+
+        <div class="stat">
+            <strong id="total">0</strong>
+            <span>TOTAL</span>
+        </div>
+
+        <div class="stat">
+            <strong id="totalV" class="estado-v">0</strong>
+            <span>RESULTADO V</span>
+        </div>
+
+        <div class="stat">
+            <strong id="totalA" class="estado-a">0</strong>
+            <span>RESULTADO A</span>
+        </div>
+
+        <div class="stat">
+            <strong id="totalR" class="estado-r">0</strong>
+            <span>RESULTADO R</span>
+        </div>
+
+    </div>
+
+
     <div class="filtros">
 
         <button
-            id="filtroTodos"
             class="ativo"
-            onclick="filtrar('TODOS',this)"
+            data-filtro="TODOS"
         >
             TODOS
         </button>
 
-        <button onclick="filtrar('V',this)">
+        <button data-filtro="V">
             RESULTADO V
         </button>
 
-        <button onclick="filtrar('A',this)">
+        <button data-filtro="A">
             RESULTADO A
         </button>
 
-        <button onclick="filtrar('R',this)">
+        <button data-filtro="R">
             RESULTADO R
         </button>
 
     </div>
 
-    <div id="contador" class="contador"></div>
 
-    <div id="listaPadroes" class="grid"></div>
+    <div
+        id="contador"
+        class="contador"
+    ></div>
+
+
+    <div
+        id="listaPadroes"
+        class="grid"
+    ></div>
+
+
+    <div
+        id="statusTabela"
+        class="status"
+    ></div>
 
 </section>
 
+
+<!-- =====================================================
+     HISTÓRICO
+===================================================== -->
 
 <section class="panel">
 
     <h2>Últimas consultas</h2>
 
-    <div id="historico" class="historico">
-        <div class="vazio">
-            Nenhuma consulta realizada.
-        </div>
-    </div>
+    <div
+        id="historico"
+        class="historico"
+    ></div>
 
 </section>
 
@@ -402,8 +562,7 @@ button:hover{
 
     Sistema de consulta de padrões V/A/R.<br>
 
-    Os resultados devem ser interpretados conforme a regra utilizada
-    pelo sistema original.
+    A tabela de regras é a fonte oficial dos resultados apresentados.
 
 </footer>
 
@@ -413,122 +572,120 @@ button:hover{
 <script>
 
 /* =========================================================
-   PADRÕES DEFINIDOS
-   Todas as combinações possíveis de 4 posições:
-   3⁴ = 81 combinações
+   TABELA OFICIAL DE PADRÕES
 ========================================================= */
 
 const padroesDefinidos = [
 
-    {sequencia:"AAAA",resultado:"V"},
-    {sequencia:"AAAR",resultado:"A"},
-    {sequencia:"AAAV",resultado:"R"},
+    {sequencia:"AAAA", resultado:"V"},
+    {sequencia:"AAAR", resultado:"A"},
+    {sequencia:"AAAV", resultado:"R"},
 
-    {sequencia:"AARA",resultado:"R"},
-    {sequencia:"AARR",resultado:"A"},
-    {sequencia:"AARV",resultado:"R"},
+    {sequencia:"AARA", resultado:"R"},
+    {sequencia:"AARR", resultado:"A"},
+    {sequencia:"AARV", resultado:"R"},
 
-    {sequencia:"AAVA",resultado:"V"},
-    {sequencia:"AAVR",resultado:"V"},
-    {sequencia:"AAVV",resultado:"V"},
+    {sequencia:"AAVA", resultado:"V"},
+    {sequencia:"AAVR", resultado:"V"},
+    {sequencia:"AAVV", resultado:"V"},
 
-    {sequencia:"ARAA",resultado:"A"},
-    {sequencia:"ARAR",resultado:"A"},
-    {sequencia:"ARAV",resultado:"A"},
+    {sequencia:"ARAA", resultado:"A"},
+    {sequencia:"ARAR", resultado:"A"},
+    {sequencia:"ARAV", resultado:"A"},
 
-    {sequencia:"ARRA",resultado:"R"},
-    {sequencia:"ARRR",resultado:"R"},
-    {sequencia:"ARRV",resultado:"R"},
+    {sequencia:"ARRA", resultado:"R"},
+    {sequencia:"ARRR", resultado:"R"},
+    {sequencia:"ARRV", resultado:"R"},
 
-    {sequencia:"ARVA",resultado:"V"},
-    {sequencia:"ARVR",resultado:"V"},
-    {sequencia:"ARVV",resultado:"V"},
+    {sequencia:"ARVA", resultado:"V"},
+    {sequencia:"ARVR", resultado:"V"},
+    {sequencia:"ARVV", resultado:"V"},
 
-    {sequencia:"AVAA",resultado:"V"},
-    {sequencia:"AVAR",resultado:"V"},
-    {sequencia:"AVAV",resultado:"V"},
+    {sequencia:"AVAA", resultado:"V"},
+    {sequencia:"AVAR", resultado:"V"},
+    {sequencia:"AVAV", resultado:"V"},
 
-    {sequencia:"AVRA",resultado:"V"},
-    {sequencia:"AVRR",resultado:"V"},
-    {sequencia:"AVRV",resultado:"V"},
+    {sequencia:"AVRA", resultado:"V"},
+    {sequencia:"AVRR", resultado:"V"},
+    {sequencia:"AVRV", resultado:"V"},
 
-    {sequencia:"AVVA",resultado:"V"},
-    {sequencia:"AVVR",resultado:"V"},
-    {sequencia:"AVVV",resultado:"V"},
-
-
-    {sequencia:"RAAA",resultado:"A"},
-    {sequencia:"RAAR",resultado:"A"},
-    {sequencia:"RAAV",resultado:"A"},
-
-    {sequencia:"RARA",resultado:"R"},
-    {sequencia:"RARR",resultado:"R"},
-    {sequencia:"RARV",resultado:"R"},
-
-    {sequencia:"RAVA",resultado:"V"},
-    {sequencia:"RAVR",resultado:"V"},
-    {sequencia:"RAVV",resultado:"V"},
-
-    {sequencia:"RRAA",resultado:"A"},
-    {sequencia:"RRAR",resultado:"A"},
-    {sequencia:"RRAV",resultado:"A"},
-
-    {sequencia:"RRRA",resultado:"V"},
-    {sequencia:"RRRR",resultado:"V"},
-    {sequencia:"RRRV",resultado:"A"},
-
-    {sequencia:"RRVA",resultado:"A"},
-    {sequencia:"RRVR",resultado:"A"},
-    {sequencia:"RRVV",resultado:"A"},
-
-    {sequencia:"RVAA",resultado:"A"},
-    {sequencia:"RVAR",resultado:"A"},
-    {sequencia:"RVAV",resultado:"A"},
-
-    {sequencia:"RVRA",resultado:"R"},
-    {sequencia:"RVRR",resultado:"A"},
-    {sequencia:"RVRV",resultado:"A"},
-
-    {sequencia:"RVVA",resultado:"A"},
-    {sequencia:"RVVR",resultado:"A"},
-    {sequencia:"RVVV",resultado:"A"},
+    {sequencia:"AVVA", resultado:"V"},
+    {sequencia:"AVVR", resultado:"V"},
+    {sequencia:"AVVV", resultado:"V"},
 
 
-    {sequencia:"VAAA",resultado:"V"},
-    {sequencia:"VAAR",resultado:"V"},
-    {sequencia:"VAAV",resultado:"V"},
+    {sequencia:"RAAA", resultado:"A"},
+    {sequencia:"RAAR", resultado:"A"},
+    {sequencia:"RAAV", resultado:"A"},
 
-    {sequencia:"VARA",resultado:"R"},
-    {sequencia:"VARR",resultado:"R"},
-    {sequencia:"VARV",resultado:"R"},
+    {sequencia:"RARA", resultado:"R"},
+    {sequencia:"RARR", resultado:"R"},
+    {sequencia:"RARV", resultado:"R"},
 
-    {sequencia:"VAVA",resultado:"V"},
-    {sequencia:"VAVR",resultado:"V"},
-    {sequencia:"VAVV",resultado:"V"},
+    {sequencia:"RAVA", resultado:"V"},
+    {sequencia:"RAVR", resultado:"V"},
+    {sequencia:"RAVV", resultado:"V"},
 
-    {sequencia:"VRAA",resultado:"R"},
-    {sequencia:"VRAR",resultado:"R"},
-    {sequencia:"VRAV",resultado:"R"},
+    {sequencia:"RRAA", resultado:"A"},
+    {sequencia:"RRAR", resultado:"A"},
+    {sequencia:"RRAV", resultado:"A"},
 
-    {sequencia:"VRRA",resultado:"R"},
-    {sequencia:"VRRR",resultado:"R"},
-    {sequencia:"VRRV",resultado:"R"},
+    {sequencia:"RRRA", resultado:"V"},
+    {sequencia:"RRRR", resultado:"V"},
+    {sequencia:"RRRV", resultado:"A"},
 
-    {sequencia:"VRVA",resultado:"V"},
-    {sequencia:"VRVR",resultado:"V"},
-    {sequencia:"VRVV",resultado:"V"},
+    {sequencia:"RRVA", resultado:"A"},
+    {sequencia:"RRVR", resultado:"A"},
+    {sequencia:"RRVV", resultado:"A"},
 
-    {sequencia:"VVAA",resultado:"V"},
-    {sequencia:"VVAR",resultado:"V"},
-    {sequencia:"VVAV",resultado:"V"},
+    {sequencia:"RVAA", resultado:"A"},
+    {sequencia:"RVAR", resultado:"A"},
+    {sequencia:"RVAV", resultado:"A"},
 
-    {sequencia:"VVRA",resultado:"V"},
-    {sequencia:"VVRR",resultado:"V"},
-    {sequencia:"VVRV",resultado:"V"},
+    {sequencia:"RVRA", resultado:"R"},
+    {sequencia:"RVRR", resultado:"A"},
+    {sequencia:"RVRV", resultado:"A"},
 
-    {sequencia:"VVVA",resultado:"V"},
-    {sequencia:"VVVR",resultado:"V"},
-    {sequencia:"VVVV",resultado:"V"}
+    {sequencia:"RVVA", resultado:"A"},
+    {sequencia:"RVVR", resultado:"A"},
+    {sequencia:"RVVV", resultado:"A"},
+
+
+    {sequencia:"VAAA", resultado:"V"},
+    {sequencia:"VAAR", resultado:"V"},
+    {sequencia:"VAAV", resultado:"V"},
+
+    {sequencia:"VARA", resultado:"R"},
+    {sequencia:"VARR", resultado:"R"},
+    {sequencia:"VARV", resultado:"R"},
+
+    {sequencia:"VAVA", resultado:"V"},
+    {sequencia:"VAVR", resultado:"V"},
+    {sequencia:"VAVV", resultado:"V"},
+
+    {sequencia:"VRAA", resultado:"R"},
+    {sequencia:"VRAR", resultado:"R"},
+    {sequencia:"VRAV", resultado:"R"},
+
+    {sequencia:"VRRA", resultado:"R"},
+    {sequencia:"VRRR", resultado:"R"},
+    {sequencia:"VRRV", resultado:"R"},
+
+    {sequencia:"VRVA", resultado:"V"},
+    {sequencia:"VRVR", resultado:"V"},
+    {sequencia:"VRVV", resultado:"V"},
+
+    {sequencia:"VVAA", resultado:"V"},
+    {sequencia:"VVAR", resultado:"V"},
+    {sequencia:"VVAV", resultado:"V"},
+
+    {sequencia:"VVRA", resultado:"V"},
+    {sequencia:"VVRR", resultado:"V"},
+    {sequencia:"VVRV", resultado:"V"},
+
+    {sequencia:"VVVA", resultado:"V"},
+    {sequencia:"VVVR", resultado:"V"},
+    {sequencia:"VVVV", resultado:"V"}
 
 ];
 
@@ -537,77 +694,120 @@ const padroesDefinidos = [
    ELEMENTOS
 ========================================================= */
 
-const entrada = document.getElementById("entrada");
-const resultado = document.getElementById("resultado");
-const resultadoSequencia =
-    document.getElementById("resultadoSequencia");
-const resultadoLetra =
-    document.getElementById("resultadoLetra");
-const resultadoDescricao =
-    document.getElementById("resultadoDescricao");
+const $ = id => document.getElementById(id);
 
-const listaPadroes =
-    document.getElementById("listaPadroes");
-
-const contador =
-    document.getElementById("contador");
-
-const historico =
-    document.getElementById("historico");
+const entrada = $("entrada");
+const resultado = $("resultado");
+const resultadoSequencia = $("resultadoSequencia");
+const resultadoLetra = $("resultadoLetra");
+const resultadoDescricao = $("resultadoDescricao");
+const listaPadroes = $("listaPadroes");
+const contador = $("contador");
+const historicoEl = $("historico");
+const statusTabela = $("statusTabela");
 
 
 /* =========================================================
-   NORMALIZAR
+   ÍNDICE DE BUSCA
+   BUSCA O PADRÃO EM TEMPO CONSTANTE
 ========================================================= */
 
-function normalizar(valor){
+const indicePadroes = new Map();
 
-    return valor
-        .toUpperCase()
-        .replace(/[^ARV]/g,"")
-        .substring(0,4);
-
+for(const item of padroesDefinidos){
+    indicePadroes.set(item.sequencia, item);
 }
 
 
 /* =========================================================
-   BUSCAR
+   VALIDAÇÃO DA TABELA
 ========================================================= */
 
-function buscar(){
+function validarTabela(){
 
-    const sequencia = normalizar(entrada.value);
+    const duplicados = [];
+    const vistos = new Set();
 
-    entrada.value = sequencia;
+    for(const item of padroesDefinidos){
 
-    if(sequencia.length !== 4){
+        if(vistos.has(item.sequencia)){
+            duplicados.push(item.sequencia);
+        }
 
-        mostrarErro(
-            "Digite exatamente 4 letras usando apenas A, R ou V."
-        );
-
-        return;
+        vistos.add(item.sequencia);
     }
 
 
-    const item = padroesDefinidos.find(
-        p => p.sequencia === sequencia
+    const esperados = [];
+
+    for(const a of ["A","R","V"]){
+        for(const b of ["A","R","V"]){
+            for(const c of ["A","R","V"]){
+                for(const d of ["A","R","V"]){
+
+                    esperados.push(a+b+c+d);
+
+                }
+            }
+        }
+    }
+
+
+    const faltantes = esperados.filter(
+        seq => !vistos.has(seq)
     );
 
 
-    if(!item){
+    if(duplicados.length){
 
-        mostrarErro(
-            "Sequência não encontrada."
-        );
+        statusTabela.className =
+            "status erro";
 
-        return;
+        statusTabela.textContent =
+            "ERRO: existem padrões duplicados: " +
+            duplicados.join(", ");
+
+        return false;
     }
 
 
-    mostrarResultado(item);
+    if(faltantes.length){
 
-    adicionarHistorico(item);
+        statusTabela.className =
+            "status erro";
+
+        statusTabela.textContent =
+            "ATENÇÃO: faltam " +
+            faltantes.length +
+            " combinações: " +
+            faltantes.join(", ");
+
+        return false;
+    }
+
+
+    statusTabela.className =
+        "status ok";
+
+    statusTabela.textContent =
+        "✓ Tabela validada: " +
+        padroesDefinidos.length +
+        " combinações sem duplicação.";
+
+    return true;
+}
+
+
+/* =========================================================
+   NORMALIZAÇÃO
+========================================================= */
+
+function normalizar(valor){
+
+    return String(valor)
+        .toUpperCase()
+        .replace(/[^ARV]/g,"")
+        .slice(0,4);
 
 }
 
@@ -631,13 +831,13 @@ function mostrarResultado(item){
         item.resultado.toLowerCase();
 
     resultadoDescricao.textContent =
-        "Resultado definido para esta sequência.";
+        "Resultado encontrado na tabela de padrões.";
 
 }
 
 
 /* =========================================================
-   ERRO
+   MOSTRAR ERRO
 ========================================================= */
 
 function mostrarErro(mensagem){
@@ -660,14 +860,49 @@ function mostrarErro(mensagem){
 
 
 /* =========================================================
-   USAR BOTÃO RÁPIDO
+   BUSCA PRINCIPAL
 ========================================================= */
 
-function usar(sequencia){
+function buscar(){
+
+    const sequencia =
+        normalizar(entrada.value);
 
     entrada.value = sequencia;
 
-    buscar();
+
+    if(sequencia.length !== 4){
+
+        mostrarErro(
+            "Digite exatamente 4 caracteres usando somente A, R ou V."
+        );
+
+        return;
+    }
+
+
+    /*
+       Busca direta pelo Map.
+       Não usa Array.find().
+    */
+
+    const item =
+        indicePadroes.get(sequencia);
+
+
+    if(!item){
+
+        mostrarErro(
+            "Essa sequência não está cadastrada na tabela."
+        );
+
+        return;
+    }
+
+
+    mostrarResultado(item);
+
+    adicionarHistorico(item);
 
 }
 
@@ -688,175 +923,393 @@ function limpar(){
 
 
 /* =========================================================
-   FILTRAR PADRÕES
+   CONSULTA RÁPIDA
 ========================================================= */
 
-function filtrar(tipo, botao){
+function usar(sequencia){
 
-    document
-        .querySelectorAll(".filtros button")
-        .forEach(b => b.classList.remove("ativo"));
+    entrada.value = sequencia;
 
-    botao.classList.add("ativo");
-
-    let lista;
-
-    if(tipo === "TODOS"){
-
-        lista = padroesDefinidos;
-
-    }else{
-
-        lista = padroesDefinidos.filter(
-            p => p.resultado === tipo
-        );
-
-    }
-
-    renderizarPadroes(lista);
+    buscar();
 
 }
 
 
 /* =========================================================
-   RENDERIZAR PADRÕES
+   ESTATÍSTICAS
 ========================================================= */
 
-function renderizarPadroes(lista){
+function atualizarEstatisticas(){
 
-    listaPadroes.innerHTML = "";
+    let v = 0;
+    let a = 0;
+    let r = 0;
 
-    contador.textContent =
-        `${lista.length} padrão(ões) exibido(s) de ${padroesDefinidos.length}.`;
 
+    for(const item of padroesDefinidos){
 
-    if(lista.length === 0){
+        if(item.resultado === "V") v++;
+        else if(item.resultado === "A") a++;
+        else if(item.resultado === "R") r++;
 
-        listaPadroes.innerHTML =
-            `<div class="vazio">Nenhum padrão encontrado.</div>`;
-
-        return;
     }
 
 
-    lista.forEach(item => {
+    $("total").textContent =
+        padroesDefinidos.length;
+
+    $("totalV").textContent = v;
+    $("totalA").textContent = a;
+    $("totalR").textContent = r;
+
+}
+
+
+/* =========================================================
+   RENDERIZAÇÃO DOS PADRÕES
+========================================================= */
+
+function renderizarPadroes(tipo="TODOS"){
+
+    listaPadroes.replaceChildren();
+
+
+    const lista =
+        tipo === "TODOS"
+            ? padroesDefinidos
+            : padroesDefinidos.filter(
+                item => item.resultado === tipo
+            );
+
+
+    contador.textContent =
+        `${lista.length} padrão(s) exibido(s) de ${padroesDefinidos.length}.`;
+
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    for(const item of lista){
 
         const card =
             document.createElement("div");
 
         card.className = "card";
 
-        card.innerHTML = `
-
-            <div class="seq">
-                ${item.sequencia}
-            </div>
-
-            <div class="res estado-${item.resultado.toLowerCase()}">
-                ${item.resultado}
-            </div>
-
-        `;
+        card.dataset.sequencia =
+            item.sequencia;
 
 
-        card.onclick = function(){
+        const seq =
+            document.createElement("div");
 
-            usar(item.sequencia);
+        seq.className = "seq";
 
-        };
+        seq.textContent =
+            item.sequencia;
 
 
-        listaPadroes.appendChild(card);
+        const res =
+            document.createElement("div");
 
-    });
+        res.className =
+            "res estado-" +
+            item.resultado.toLowerCase();
+
+        res.textContent =
+            item.resultado;
+
+
+        card.append(seq,res);
+
+        fragment.appendChild(card);
+
+    }
+
+
+    listaPadroes.appendChild(fragment);
 
 }
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+document
+    .querySelector(".filtros")
+    .addEventListener("click", event => {
+
+        const botao =
+            event.target.closest("button");
+
+        if(!botao) return;
+
+
+        document
+            .querySelectorAll(".filtros button")
+            .forEach(b =>
+                b.classList.remove("ativo")
+            );
+
+
+        botao.classList.add("ativo");
+
+
+        renderizarPadroes(
+            botao.dataset.filtro
+        );
+
+    });
 
 
 /* =========================================================
    HISTÓRICO
 ========================================================= */
 
-let historicoDados = [];
+const CHAVE_HISTORICO =
+    "historico_var_v1";
+
+let historicoDados =
+    JSON.parse(
+        localStorage.getItem(CHAVE_HISTORICO) || "[]"
+    );
+
+
+function salvarHistorico(){
+
+    localStorage.setItem(
+        CHAVE_HISTORICO,
+        JSON.stringify(historicoDados)
+    );
+
+}
 
 
 function adicionarHistorico(item){
 
     historicoDados =
         historicoDados.filter(
-            h => h.sequencia !== item.sequencia
+            h =>
+                h.sequencia !== item.sequencia
         );
 
-    historicoDados.unshift(item);
+
+    historicoDados.unshift({
+
+        sequencia:item.sequencia,
+
+        resultado:item.resultado
+
+    });
+
 
     historicoDados =
         historicoDados.slice(0,10);
+
+
+    salvarHistorico();
 
     renderizarHistorico();
 
 }
 
 
+/* =========================================================
+   RENDERIZAR HISTÓRICO
+========================================================= */
+
 function renderizarHistorico(){
 
-    historico.innerHTML = "";
+    historicoEl.replaceChildren();
 
-    if(historicoDados.length === 0){
 
-        historico.innerHTML =
-            `<div class="vazio">
-                Nenhuma consulta realizada.
-             </div>`;
+    if(!historicoDados.length){
+
+        const vazio =
+            document.createElement("div");
+
+        vazio.className = "vazio";
+
+        vazio.textContent =
+            "Nenhuma consulta realizada.";
+
+        historicoEl.appendChild(vazio);
 
         return;
     }
 
 
-    historicoDados.forEach(item => {
+    const fragment =
+        document.createDocumentFragment();
 
-        const div =
+
+    for(const item of historicoDados){
+
+        const linha =
             document.createElement("div");
 
-        div.className = "hist-item";
+        linha.className =
+            "hist-item";
 
-        div.innerHTML = `
-
-            <span class="hist-seq">
-                ${item.sequencia}
-            </span>
-
-            <span class="hist-res estado-${item.resultado.toLowerCase()}">
-                ${item.resultado}
-            </span>
-
-        `;
+        linha.dataset.sequencia =
+            item.sequencia;
 
 
-        div.onclick = function(){
+        const seq =
+            document.createElement("span");
 
-            usar(item.sequencia);
+        seq.className =
+            "hist-seq";
 
-        };
+        seq.textContent =
+            item.sequencia;
 
 
-        historico.appendChild(div);
+        const res =
+            document.createElement("span");
 
-    });
+        res.className =
+            "hist-res estado-" +
+            item.resultado.toLowerCase();
+
+        res.textContent =
+            item.resultado;
+
+
+        linha.append(seq,res);
+
+        fragment.appendChild(linha);
+
+    }
+
+
+    historicoEl.appendChild(fragment);
 
 }
 
 
 /* =========================================================
-   ENTER NO CAMPO
+   CLIQUE NO HISTÓRICO
+========================================================= */
+
+historicoEl.addEventListener(
+    "click",
+    event => {
+
+        const item =
+            event.target.closest(".hist-item");
+
+        if(!item) return;
+
+
+        usar(
+            item.dataset.sequencia
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLIQUE NOS PADRÕES
+========================================================= */
+
+listaPadroes.addEventListener(
+    "click",
+    event => {
+
+        const card =
+            event.target.closest(".card");
+
+        if(!card) return;
+
+
+        usar(
+            card.dataset.sequencia
+        );
+
+    }
+);
+
+
+/* =========================================================
+   BOTÕES RÁPIDOS
+========================================================= */
+
+document
+    .querySelector(".quick")
+    .addEventListener("click", event => {
+
+        const botao =
+            event.target.closest("button");
+
+        if(!botao) return;
+
+
+        usar(
+            botao.dataset.seq
+        );
+
+    });
+
+
+/* =========================================================
+   BOTÃO BUSCAR
+========================================================= */
+
+$("btnBuscar").addEventListener(
+    "click",
+    buscar
+);
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+========================================================= */
+
+$("btnLimpar").addEventListener(
+    "click",
+    limpar
+);
+
+
+/* =========================================================
+   ENTER
 ========================================================= */
 
 entrada.addEventListener(
     "keydown",
-    function(event){
+    event => {
 
         if(event.key === "Enter"){
 
+            event.preventDefault();
+
             buscar();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ENTRADA
+   Permite somente A/R/V.
+========================================================= */
+
+entrada.addEventListener(
+    "input",
+    () => {
+
+        const valor =
+            normalizar(entrada.value);
+
+        if(entrada.value !== valor){
+
+            entrada.value = valor;
 
         }
 
@@ -868,20 +1321,29 @@ entrada.addEventListener(
    INICIALIZAÇÃO
 ========================================================= */
 
-renderizarPadroes(
-    padroesDefinidos
-);
+validarTabela();
+
+atualizarEstatisticas();
+
+renderizarPadroes();
+
+renderizarHistorico();
 
 entrada.focus();
 
 
 /* =========================================================
-   VERIFICAÇÃO AUTOMÁTICA
+   DIAGNÓSTICO NO CONSOLE
 ========================================================= */
 
 console.log(
-    "Total de padrões:",
+    "Padrões carregados:",
     padroesDefinidos.length
+);
+
+console.log(
+    "Índice de busca:",
+    indicePadroes.size
 );
 
 </script>
