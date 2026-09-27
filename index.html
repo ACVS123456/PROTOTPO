@@ -1,371 +1,349 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Analisador V/A/R — Sistema de Padrões</title>
+<title>Aviator — IA Padrões</title>
 
 <style>
+
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
 }
 
-:root{
-    --bg:#0f172a;
-    --panel:#111827;
-    --card:#020617;
-    --border:#334155;
-    --border2:#475569;
-    --text:#e5e7eb;
-    --muted:#94a3b8;
-    --blue:#2563eb;
-    --green:#22c55e;
-    --yellow:#f59e0b;
-    --red:#ef4444;
+html,body{
+    margin:0;
+    padding:0;
+    background:#0d0d0d;
+    color:#f5f5f5;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--bg);
-    color:var(--text);
     min-height:100vh;
 }
 
 .container{
-    width:min(1100px,94%);
-    margin:auto;
-    padding:20px 0 40px;
-}
-
-.header{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:24px;
-    text-align:center;
-    margin-bottom:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.header h1{
-    font-size:26px;
-    margin-bottom:8px;
-}
-
-.header p{
-    color:var(--muted);
-}
-
-.panel{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:18px;
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
     padding:20px;
-    margin-bottom:18px;
 }
 
-.panel h2{
-    font-size:19px;
-    margin-bottom:14px;
+h1{
+    margin:0 0 8px;
+    font-size:30px;
 }
 
-.input-area{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-input{
-    flex:1;
-    min-width:220px;
-    background:var(--card);
-    border:1px solid var(--border2);
-    color:white;
-    padding:14px;
-    border-radius:10px;
-    font-size:18px;
-    font-weight:bold;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    outline:none;
-}
-
-input:focus{
-    border-color:#60a5fa;
-}
-
-button{
-    border:0;
-    border-radius:10px;
-    padding:12px 18px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.15s;
-}
-
-button:hover{
-    transform:translateY(-1px);
-}
-
-button:active{
-    transform:scale(.98);
-}
-
-.btn-buscar{
-    background:var(--blue);
-    color:white;
-}
-
-.btn-limpar{
-    background:#475569;
-    color:white;
-}
-
-.quick{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:14px;
-}
-
-.quick button{
-    background:#1e293b;
-    color:#cbd5e1;
-    border:1px solid var(--border2);
-    padding:8px 11px;
-}
-
-.quick button:hover{
-    background:#334155;
-}
-
-.resultado{
-    display:none;
-    margin-top:18px;
-    padding:22px;
-    border-radius:14px;
-    background:var(--card);
-    border:1px solid var(--border);
-    text-align:center;
-}
-
-.resultado .sequencia{
-    font-size:36px;
-    font-weight:bold;
-    letter-spacing:8px;
-    margin-bottom:8px;
-}
-
-.resultado-letra{
-    font-size:58px;
-    font-weight:bold;
-}
-
-.descricao{
-    color:var(--muted);
-    margin-top:8px;
-}
-
-.estado-v{
-    color:var(--green);
-}
-
-.estado-a{
-    color:var(--yellow);
-}
-
-.estado-r{
-    color:var(--red);
-}
-
-.erro{
-    color:#f87171;
-}
-
-.filtros{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:15px;
-}
-
-.filtros button{
-    background:#1e293b;
-    color:#cbd5e1;
-    border:1px solid var(--border2);
-}
-
-.filtros button.ativo{
-    background:var(--blue);
-    color:white;
-    border-color:var(--blue);
-}
-
-.estatisticas{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-bottom:18px;
-}
-
-.stat{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:14px;
-    text-align:center;
-}
-
-.stat strong{
-    display:block;
-    font-size:25px;
-    margin-bottom:4px;
-}
-
-.stat span{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.contador{
-    color:var(--muted);
-    margin-bottom:14px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(125px,1fr));
-    gap:9px;
+.subtitulo{
+    color:#aaa;
+    margin-bottom:20px;
 }
 
 .card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:13px;
-    text-align:center;
-    cursor:pointer;
-    transition:.15s;
+    background:#151515;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:18px;
+    border:1px solid #202020;
 }
 
-.card:hover{
-    transform:translateY(-2px);
-    border-color:#64748b;
+h2{
+    margin:0 0 15px;
+    font-size:22px;
 }
 
-.card .seq{
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.botoes{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.btn{
+    border:0;
+    border-radius:13px;
+    padding:16px 25px;
+    color:#fff;
     font-size:18px;
     font-weight:bold;
-    letter-spacing:2px;
+    cursor:pointer;
+    min-width:150px;
 }
 
-.card .res{
-    font-size:25px;
-    font-weight:bold;
-    margin-top:6px;
+.btn:active{
+    opacity:.75;
 }
+
+.azul{
+    background:#286cf0;
+}
+
+.roxo{
+    background:#8b24f5;
+}
+
+.vermelho{
+    background:#f442a4;
+}
+
+.btn-reset{
+    background:#286cf0;
+}
+
+.btn-padroes{
+    background:#ffd21c;
+    color:#111;
+}
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
 
 .historico{
+    min-height:92px;
+    background:#080f13;
+    border-radius:12px;
+    padding:18px;
     display:flex;
-    flex-direction:column;
-    gap:8px;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
-.hist-item{
+.bolinha{
+    width:56px;
+    height:56px;
+    border-radius:10px;
+}
+
+
+/* =========================================================
+   LEGENDA
+========================================================= */
+
+.legenda{
+    color:#aaa;
+    font-size:18px;
+    margin-top:10px;
+}
+
+
+/* =========================================================
+   SEQUÊNCIA
+========================================================= */
+
+.sequencia-box{
+    background:#080d12;
+    border-radius:14px;
+    padding:20px;
+    margin-top:20px;
+    line-height:1.8;
+    font-size:19px;
+}
+
+.sequencia{
+    font-weight:bold;
+}
+
+.resultado{
+    margin-top:18px;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.regra{
+    color:#aaa;
+    font-size:17px;
+    margin-top:5px;
+}
+
+
+/* =========================================================
+   PREVISÃO
+========================================================= */
+
+.previsao{
+    background:#080f13;
+    border-radius:12px;
+    padding:25px;
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.previsao-titulo{
+    color:#aaa;
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.previsao-seq{
+    font-size:27px;
+    font-weight:bold;
+}
+
+.previsao-cor{
+    font-size:38px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+.previsao-cor.azul-texto{
+    color:#286cf0;
+}
+
+.previsao-cor.roxo-texto{
+    color:#8b24f5;
+}
+
+.previsao-cor.vermelho-texto{
+    color:#f442a4;
+}
+
+
+/* =========================================================
+   BARRAS
+========================================================= */
+
+.barra-item{
+    margin-bottom:18px;
+}
+
+.barra-topo{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    background:var(--card);
-    border:1px solid var(--border);
-    padding:11px 13px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.hist-item:hover{
-    border-color:#64748b;
-}
-
-.hist-seq{
-    font-weight:bold;
-    letter-spacing:2px;
-}
-
-.hist-res{
-    font-weight:bold;
     font-size:20px;
+    margin-bottom:5px;
 }
 
-.vazio{
+.barra{
+    height:26px;
+    background:#242424;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.barra-fill{
+    height:100%;
+    width:0%;
+    border-radius:15px;
+    transition:width .3s ease;
+}
+
+.fill-azul{
+    background:#286cf0;
+}
+
+.fill-roxo{
+    background:#8b24f5;
+}
+
+.fill-vermelho{
+    background:#f442a4;
+}
+
+
+/* =========================================================
+   SEM REGRA
+========================================================= */
+
+.sem-regra{
+    color:#aaa;
     text-align:center;
-    padding:25px;
-    color:#64748b;
+    padding:20px;
 }
 
-.status{
-    margin-top:14px;
+
+/* =========================================================
+   PADRÕES
+========================================================= */
+
+#listaPadroes{
+    display:none;
+}
+
+.padrao{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+    padding:8px;
+    border-radius:8px;
+}
+
+.padrao:hover{
+    background:#1d1d1d;
+}
+
+.mini{
+    width:28px;
+    height:28px;
+    border-radius:6px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-tabela{
+    margin-top:15px;
     padding:12px;
+    background:#080f13;
     border-radius:10px;
-    font-size:13px;
-    background:var(--card);
-    border:1px solid var(--border);
+    color:#aaa;
+    font-size:14px;
 }
 
-.status.ok{
-    border-color:#166534;
-    color:#86efac;
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:600px){
+
+    .container{
+        padding:14px;
+    }
+
+    h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:16px;
+    }
+
+    .btn{
+        min-width:0;
+        flex:1;
+        padding:15px 10px;
+        font-size:16px;
+    }
+
+    .bolinha{
+        width:56px;
+        height:56px;
+    }
+
+    .sequencia-box{
+        font-size:17px;
+    }
+
+    .previsao-cor{
+        font-size:32px;
+    }
+
 }
 
-.status.erro{
-    border-color:#991b1b;
-    color:#fca5a5;
-}
-
-.footer{
-    text-align:center;
-    color:#64748b;
-    font-size:12px;
-    line-height:1.6;
-    margin-top:20px;
-}
-
-@media(max-width:700px){
-
-    .estatisticas{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .input-area{
-        flex-direction:column;
-    }
-
-    input,
-    .input-area button{
-        width:100%;
-    }
-}
-
-@media(max-width:400px){
-
-    .header h1{
-        font-size:21px;
-    }
-
-    .resultado .sequencia{
-        font-size:27px;
-    }
-
-    .resultado-letra{
-        font-size:48px;
-    }
-
-    .grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-}
 </style>
 </head>
 
@@ -373,198 +351,235 @@ button:active{
 
 <div class="container">
 
-<header class="header">
-    <h1>ANALISADOR DE PADRÕES V/A/R</h1>
-    <p>Busca • Análise • Consulta de padrões</p>
-</header>
+    <h1>Aviator — IA Padrões</h1>
 
-
-<!-- =====================================================
-     PESQUISA
-===================================================== -->
-
-<section class="panel">
-
-    <h2>Pesquisar sequência</h2>
-
-    <div class="input-area">
-
-        <input
-            id="entrada"
-            maxlength="4"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="AAAA"
-            aria-label="Digite uma sequência"
-        >
-
-        <button
-            type="button"
-            class="btn-buscar"
-            id="btnBuscar"
-        >
-            BUSCAR
-        </button>
-
-        <button
-            type="button"
-            class="btn-limpar"
-            id="btnLimpar"
-        >
-            LIMPAR
-        </button>
-
+    <div class="subtitulo">
+        Análise determinística pela posição das cores
     </div>
 
 
-    <div class="quick">
+    <!-- =====================================================
+         CONTROLE
+    ====================================================== -->
 
-        <button data-seq="AAAA">AAAA</button>
-        <button data-seq="AAAR">AAAR</button>
-        <button data-seq="AAAV">AAAV</button>
-        <button data-seq="AARA">AARA</button>
-        <button data-seq="AAVV">AAVV</button>
-        <button data-seq="ARAA">ARAA</button>
-        <button data-seq="ARRR">ARRR</button>
-        <button data-seq="AVAV">AVAV</button>
-        <button data-seq="RAAA">RAAA</button>
-        <button data-seq="RRRR">RRRR</button>
-        <button data-seq="RRRV">RRRV</button>
-        <button data-seq="RVRA">RVRA</button>
-        <button data-seq="VAAA">VAAA</button>
-        <button data-seq="VRRR">VRRR</button>
-        <button data-seq="VVVV">VVVV</button>
+    <div class="card">
 
-    </div>
+        <div class="botoes">
+
+            <button
+                class="btn btn-reset"
+                onclick="resetHist()">
+
+                Reset
+
+            </button>
 
 
-    <div
-        id="resultado"
-        class="resultado"
-        aria-live="polite"
-    >
+            <button
+                class="btn btn-padroes"
+                onclick="mostrarPadroes()">
+
+                Mostrar padrões
+
+            </button>
+
+        </div>
+
+
+        <!-- HISTÓRICO -->
 
         <div
-            id="resultadoSequencia"
-            class="sequencia"
-        ></div>
+            id="historico"
+            class="historico">
+        </div>
+
+
+        <!-- BOTÕES DE CORES -->
 
         <div
-            id="resultadoLetra"
-            class="resultado-letra"
-        ></div>
+            class="botoes"
+            style="margin-top:18px;">
+
+            <button
+                class="btn azul"
+                onclick="clicarCor('A')">
+
+                AZUL (A)
+
+            </button>
+
+
+            <button
+                class="btn roxo"
+                onclick="clicarCor('R')">
+
+                ROXO (R)
+
+            </button>
+
+
+            <button
+                class="btn vermelho"
+                onclick="clicarCor('V')">
+
+                VERMELHO (V)
+
+            </button>
+
+        </div>
+
+
+        <div class="legenda">
+
+            A = Azul |
+            R = Roxo |
+            V = Vermelho
+
+        </div>
+
+
+        <!-- ANÁLISE -->
+
+        <div id="analise"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PRÓXIMA COR
+    ====================================================== -->
+
+    <div class="card">
+
+        <h2>Próxima cor pela regra</h2>
+
 
         <div
-            id="resultadoDescricao"
-            class="descricao"
-        ></div>
+            id="previsao"
+            class="previsao">
+
+            <div class="previsao-titulo">
+
+                SEQUÊNCIA ANALISADA
+
+            </div>
+
+
+            <div
+                id="previsaoSeq"
+                class="previsao-seq">
+
+                ----
+
+            </div>
+
+
+            <div
+                id="previsaoCor"
+                class="previsao-cor">
+
+                PRÓXIMA: -
+
+            </div>
+
+        </div>
+
+
+        <!-- AZUL -->
+
+        <div class="barra-item">
+
+            <div class="barra-topo">
+
+                <span>AZUL</span>
+
+                <span id="porcentagemA">—</span>
+
+            </div>
+
+
+            <div class="barra">
+
+                <div
+                    id="barraA"
+                    class="barra-fill fill-azul">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ROXO -->
+
+        <div class="barra-item">
+
+            <div class="barra-topo">
+
+                <span>ROXO</span>
+
+                <span id="porcentagemR">—</span>
+
+            </div>
+
+
+            <div class="barra">
+
+                <div
+                    id="barraR"
+                    class="barra-fill fill-roxo">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VERMELHO -->
+
+        <div class="barra-item">
+
+            <div class="barra-topo">
+
+                <span>VERMELHO</span>
+
+                <span id="porcentagemV">—</span>
+
+            </div>
+
+
+            <div class="barra">
+
+                <div
+                    id="barraV"
+                    class="barra-fill fill-vermelho">
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-</section>
 
-
-<!-- =====================================================
-     PADRÕES
-===================================================== -->
-
-<section class="panel">
-
-    <h2>Mostrar padrões</h2>
-
-
-    <div class="estatisticas">
-
-        <div class="stat">
-            <strong id="total">0</strong>
-            <span>TOTAL</span>
-        </div>
-
-        <div class="stat">
-            <strong id="totalV" class="estado-v">0</strong>
-            <span>RESULTADO V</span>
-        </div>
-
-        <div class="stat">
-            <strong id="totalA" class="estado-a">0</strong>
-            <span>RESULTADO A</span>
-        </div>
-
-        <div class="stat">
-            <strong id="totalR" class="estado-r">0</strong>
-            <span>RESULTADO R</span>
-        </div>
-
-    </div>
-
-
-    <div class="filtros">
-
-        <button
-            class="ativo"
-            data-filtro="TODOS"
-        >
-            TODOS
-        </button>
-
-        <button data-filtro="V">
-            RESULTADO V
-        </button>
-
-        <button data-filtro="A">
-            RESULTADO A
-        </button>
-
-        <button data-filtro="R">
-            RESULTADO R
-        </button>
-
-    </div>
-
-
-    <div
-        id="contador"
-        class="contador"
-    ></div>
-
+    <!-- =====================================================
+         PADRÕES
+    ====================================================== -->
 
     <div
         id="listaPadroes"
-        class="grid"
-    ></div>
+        class="card">
 
+        <h2>Padrões XXYY</h2>
 
-    <div
-        id="statusTabela"
-        class="status"
-    ></div>
+        <div id="padroesConteudo"></div>
 
-</section>
+        <div
+            id="statusTabela"
+            class="status-tabela">
+        </div>
 
-
-<!-- =====================================================
-     HISTÓRICO
-===================================================== -->
-
-<section class="panel">
-
-    <h2>Últimas consultas</h2>
-
-    <div
-        id="historico"
-        class="historico"
-    ></div>
-
-</section>
-
-
-<footer class="footer">
-
-    Sistema de consulta de padrões V/A/R.<br>
-
-    A tabela de regras é a fonte oficial dos resultados apresentados.
-
-</footer>
+    </div>
 
 </div>
 
@@ -572,779 +587,893 @@ button:active{
 <script>
 
 /* =========================================================
-   TABELA OFICIAL DE PADRÕES
+   CONFIGURAÇÃO DAS CORES
+========================================================= */
+
+const CORES = {
+
+    A:{
+        nome:"AZUL",
+        classe:"azul",
+        texto:"azul-texto"
+    },
+
+    R:{
+        nome:"ROXO",
+        classe:"roxo",
+        texto:"roxo-texto"
+    },
+
+    V:{
+        nome:"VERMELHO",
+        classe:"vermelho",
+        texto:"vermelho-texto"
+    }
+
+};
+
+
+/* =========================================================
+   TABELA DE PADRÕES
+=========================================================
+
+   IMPORTANTE:
+
+   Esta tabela é a fonte da previsão.
+
+   Cada sequência de 4 posições possui
+   um resultado correspondente.
+
+   Exemplo:
+
+   AARR → A
+   RRAA → R
+   VVAA → V
+
 ========================================================= */
 
 const padroesDefinidos = [
 
-    {sequencia:"AAAA", resultado:"V"},
-    {sequencia:"AAAR", resultado:"A"},
-    {sequencia:"AAAV", resultado:"R"},
+    {sequencia:"AAAA",resultado:"A"},
+    {sequencia:"AAAR",resultado:"A"},
+    {sequencia:"AAAV",resultado:"A"},
 
-    {sequencia:"AARA", resultado:"R"},
-    {sequencia:"AARR", resultado:"A"},
-    {sequencia:"AARV", resultado:"R"},
+    {sequencia:"AARA",resultado:"R"},
+    {sequencia:"AARR",resultado:"A"},
+    {sequencia:"AARV",resultado:"R"},
 
-    {sequencia:"AAVA", resultado:"V"},
-    {sequencia:"AAVR", resultado:"V"},
-    {sequencia:"AAVV", resultado:"V"},
-
-    {sequencia:"ARAA", resultado:"A"},
-    {sequencia:"ARAR", resultado:"A"},
-    {sequencia:"ARAV", resultado:"A"},
-
-    {sequencia:"ARRA", resultado:"R"},
-    {sequencia:"ARRR", resultado:"R"},
-    {sequencia:"ARRV", resultado:"R"},
-
-    {sequencia:"ARVA", resultado:"V"},
-    {sequencia:"ARVR", resultado:"V"},
-    {sequencia:"ARVV", resultado:"V"},
-
-    {sequencia:"AVAA", resultado:"V"},
-    {sequencia:"AVAR", resultado:"V"},
-    {sequencia:"AVAV", resultado:"V"},
-
-    {sequencia:"AVRA", resultado:"V"},
-    {sequencia:"AVRR", resultado:"V"},
-    {sequencia:"AVRV", resultado:"V"},
-
-    {sequencia:"AVVA", resultado:"V"},
-    {sequencia:"AVVR", resultado:"V"},
-    {sequencia:"AVVV", resultado:"V"},
+    {sequencia:"AAVA",resultado:"V"},
+    {sequencia:"AAVR",resultado:"V"},
+    {sequencia:"AAVV",resultado:"V"},
 
 
-    {sequencia:"RAAA", resultado:"A"},
-    {sequencia:"RAAR", resultado:"A"},
-    {sequencia:"RAAV", resultado:"A"},
+    {sequencia:"ARAA",resultado:"A"},
+    {sequencia:"ARAR",resultado:"A"},
+    {sequencia:"ARAV",resultado:"A"},
 
-    {sequencia:"RARA", resultado:"R"},
-    {sequencia:"RARR", resultado:"R"},
-    {sequencia:"RARV", resultado:"R"},
+    {sequencia:"ARRA",resultado:"R"},
+    {sequencia:"ARRR",resultado:"R"},
+    {sequencia:"ARRV",resultado:"R"},
 
-    {sequencia:"RAVA", resultado:"V"},
-    {sequencia:"RAVR", resultado:"V"},
-    {sequencia:"RAVV", resultado:"V"},
-
-    {sequencia:"RRAA", resultado:"A"},
-    {sequencia:"RRAR", resultado:"A"},
-    {sequencia:"RRAV", resultado:"A"},
-
-    {sequencia:"RRRA", resultado:"V"},
-    {sequencia:"RRRR", resultado:"V"},
-    {sequencia:"RRRV", resultado:"A"},
-
-    {sequencia:"RRVA", resultado:"A"},
-    {sequencia:"RRVR", resultado:"A"},
-    {sequencia:"RRVV", resultado:"A"},
-
-    {sequencia:"RVAA", resultado:"A"},
-    {sequencia:"RVAR", resultado:"A"},
-    {sequencia:"RVAV", resultado:"A"},
-
-    {sequencia:"RVRA", resultado:"R"},
-    {sequencia:"RVRR", resultado:"A"},
-    {sequencia:"RVRV", resultado:"A"},
-
-    {sequencia:"RVVA", resultado:"A"},
-    {sequencia:"RVVR", resultado:"A"},
-    {sequencia:"RVVV", resultado:"A"},
+    {sequencia:"ARVA",resultado:"V"},
+    {sequencia:"ARVR",resultado:"V"},
+    {sequencia:"ARVV",resultado:"V"},
 
 
-    {sequencia:"VAAA", resultado:"V"},
-    {sequencia:"VAAR", resultado:"V"},
-    {sequencia:"VAAV", resultado:"V"},
+    {sequencia:"AVAA",resultado:"A"},
+    {sequencia:"AVAR",resultado:"A"},
+    {sequencia:"AVAV",resultado:"A"},
 
-    {sequencia:"VARA", resultado:"R"},
-    {sequencia:"VARR", resultado:"R"},
-    {sequencia:"VARV", resultado:"R"},
+    {sequencia:"AVRA",resultado:"R"},
+    {sequencia:"AVRR",resultado:"R"},
+    {sequencia:"AVRV",resultado:"R"},
 
-    {sequencia:"VAVA", resultado:"V"},
-    {sequencia:"VAVR", resultado:"V"},
-    {sequencia:"VAVV", resultado:"V"},
+    {sequencia:"AVVA",resultado:"V"},
+    {sequencia:"AVVR",resultado:"V"},
+    {sequencia:"AVVV",resultado:"V"},
 
-    {sequencia:"VRAA", resultado:"R"},
-    {sequencia:"VRAR", resultado:"R"},
-    {sequencia:"VRAV", resultado:"R"},
 
-    {sequencia:"VRRA", resultado:"R"},
-    {sequencia:"VRRR", resultado:"R"},
-    {sequencia:"VRRV", resultado:"R"},
+    {sequencia:"RAAA",resultado:"R"},
+    {sequencia:"RAAR",resultado:"R"},
+    {sequencia:"RAAV",resultado:"R"},
 
-    {sequencia:"VRVA", resultado:"V"},
-    {sequencia:"VRVR", resultado:"V"},
-    {sequencia:"VRVV", resultado:"V"},
+    {sequencia:"RARA",resultado:"A"},
+    {sequencia:"RARR",resultado:"R"},
+    {sequencia:"RARV",resultado:"R"},
 
-    {sequencia:"VVAA", resultado:"V"},
-    {sequencia:"VVAR", resultado:"V"},
-    {sequencia:"VVAV", resultado:"V"},
+    {sequencia:"RAVA",resultado:"V"},
+    {sequencia:"RAVR",resultado:"V"},
+    {sequencia:"RAVV",resultado:"V"},
 
-    {sequencia:"VVRA", resultado:"V"},
-    {sequencia:"VVRR", resultado:"V"},
-    {sequencia:"VVRV", resultado:"V"},
 
-    {sequencia:"VVVA", resultado:"V"},
-    {sequencia:"VVVR", resultado:"V"},
-    {sequencia:"VVVV", resultado:"V"}
+    {sequencia:"RRAA",resultado:"R"},
+    {sequencia:"RRAR",resultado:"R"},
+    {sequencia:"RRAV",resultado:"R"},
+
+    {sequencia:"RRRA",resultado:"R"},
+    {sequencia:"RRRR",resultado:"R"},
+    {sequencia:"RRRV",resultado:"R"},
+
+    {sequencia:"RRVA",resultado:"A"},
+    {sequencia:"RRVR",resultado:"R"},
+    {sequencia:"RRVV",resultado:"R"},
+
+
+    {sequencia:"RVAA",resultado:"R"},
+    {sequencia:"RVAR",resultado:"R"},
+    {sequencia:"RVAV",resultado:"R"},
+
+    {sequencia:"RVRA",resultado:"A"},
+    {sequencia:"RVRR",resultado:"R"},
+    {sequencia:"RVRV",resultado:"R"},
+
+    {sequencia:"RVVA",resultado:"A"},
+    {sequencia:"RVVR",resultado:"R"},
+    {sequencia:"RVVV",resultado:"R"},
+
+
+    {sequencia:"VAAA",resultado:"V"},
+    {sequencia:"VAAR",resultado:"V"},
+    {sequencia:"VAAV",resultado:"V"},
+
+    {sequencia:"VARA",resultado:"R"},
+    {sequencia:"VARR",resultado:"R"},
+    {sequencia:"VARV",resultado:"R"},
+
+    {sequencia:"VAVA",resultado:"V"},
+    {sequencia:"VAVR",resultado:"V"},
+    {sequencia:"VAVV",resultado:"V"},
+
+
+    {sequencia:"VRAA",resultado:"R"},
+    {sequencia:"VRAR",resultado:"R"},
+    {sequencia:"VRAV",resultado:"R"},
+
+    {sequencia:"VRRA",resultado:"R"},
+    {sequencia:"VRRR",resultado:"R"},
+    {sequencia:"VRRV",resultado:"R"},
+
+    {sequencia:"VRVA",resultado:"V"},
+    {sequencia:"VRVR",resultado:"V"},
+    {sequencia:"VRVV",resultado:"V"},
+
+
+    {sequencia:"VVAA",resultado:"V"},
+    {sequencia:"VVAR",resultado:"V"},
+    {sequencia:"VVAV",resultado:"V"},
+
+    {sequencia:"VVRA",resultado:"V"},
+    {sequencia:"VVRR",resultado:"V"},
+    {sequencia:"VVRV",resultado:"V"},
+
+    {sequencia:"VVVA",resultado:"V"},
+    {sequencia:"VVVR",resultado:"V"},
+    {sequencia:"VVVV",resultado:"V"}
 
 ];
 
 
 /* =========================================================
-   ELEMENTOS
-========================================================= */
-
-const $ = id => document.getElementById(id);
-
-const entrada = $("entrada");
-const resultado = $("resultado");
-const resultadoSequencia = $("resultadoSequencia");
-const resultadoLetra = $("resultadoLetra");
-const resultadoDescricao = $("resultadoDescricao");
-const listaPadroes = $("listaPadroes");
-const contador = $("contador");
-const historicoEl = $("historico");
-const statusTabela = $("statusTabela");
-
-
-/* =========================================================
    ÍNDICE DE BUSCA
-   BUSCA O PADRÃO EM TEMPO CONSTANTE
 ========================================================= */
 
 const indicePadroes = new Map();
 
-for(const item of padroesDefinidos){
-    indicePadroes.set(item.sequencia, item);
-}
+padroesDefinidos.forEach(item => {
 
-
-/* =========================================================
-   VALIDAÇÃO DA TABELA
-========================================================= */
-
-function validarTabela(){
-
-    const duplicados = [];
-    const vistos = new Set();
-
-    for(const item of padroesDefinidos){
-
-        if(vistos.has(item.sequencia)){
-            duplicados.push(item.sequencia);
-        }
-
-        vistos.add(item.sequencia);
-    }
-
-
-    const esperados = [];
-
-    for(const a of ["A","R","V"]){
-        for(const b of ["A","R","V"]){
-            for(const c of ["A","R","V"]){
-                for(const d of ["A","R","V"]){
-
-                    esperados.push(a+b+c+d);
-
-                }
-            }
-        }
-    }
-
-
-    const faltantes = esperados.filter(
-        seq => !vistos.has(seq)
+    indicePadroes.set(
+        item.sequencia,
+        item.resultado
     );
 
-
-    if(duplicados.length){
-
-        statusTabela.className =
-            "status erro";
-
-        statusTabela.textContent =
-            "ERRO: existem padrões duplicados: " +
-            duplicados.join(", ");
-
-        return false;
-    }
-
-
-    if(faltantes.length){
-
-        statusTabela.className =
-            "status erro";
-
-        statusTabela.textContent =
-            "ATENÇÃO: faltam " +
-            faltantes.length +
-            " combinações: " +
-            faltantes.join(", ");
-
-        return false;
-    }
-
-
-    statusTabela.className =
-        "status ok";
-
-    statusTabela.textContent =
-        "✓ Tabela validada: " +
-        padroesDefinidos.length +
-        " combinações sem duplicação.";
-
-    return true;
-}
-
-
-/* =========================================================
-   NORMALIZAÇÃO
-========================================================= */
-
-function normalizar(valor){
-
-    return String(valor)
-        .toUpperCase()
-        .replace(/[^ARV]/g,"")
-        .slice(0,4);
-
-}
-
-
-/* =========================================================
-   MOSTRAR RESULTADO
-========================================================= */
-
-function mostrarResultado(item){
-
-    resultado.style.display = "block";
-
-    resultadoSequencia.textContent =
-        item.sequencia;
-
-    resultadoLetra.textContent =
-        item.resultado;
-
-    resultadoLetra.className =
-        "resultado-letra estado-" +
-        item.resultado.toLowerCase();
-
-    resultadoDescricao.textContent =
-        "Resultado encontrado na tabela de padrões.";
-
-}
-
-
-/* =========================================================
-   MOSTRAR ERRO
-========================================================= */
-
-function mostrarErro(mensagem){
-
-    resultado.style.display = "block";
-
-    resultadoSequencia.textContent =
-        "ATENÇÃO";
-
-    resultadoLetra.textContent =
-        "—";
-
-    resultadoLetra.className =
-        "resultado-letra erro";
-
-    resultadoDescricao.textContent =
-        mensagem;
-
-}
-
-
-/* =========================================================
-   BUSCA PRINCIPAL
-========================================================= */
-
-function buscar(){
-
-    const sequencia =
-        normalizar(entrada.value);
-
-    entrada.value = sequencia;
-
-
-    if(sequencia.length !== 4){
-
-        mostrarErro(
-            "Digite exatamente 4 caracteres usando somente A, R ou V."
-        );
-
-        return;
-    }
-
-
-    /*
-       Busca direta pelo Map.
-       Não usa Array.find().
-    */
-
-    const item =
-        indicePadroes.get(sequencia);
-
-
-    if(!item){
-
-        mostrarErro(
-            "Essa sequência não está cadastrada na tabela."
-        );
-
-        return;
-    }
-
-
-    mostrarResultado(item);
-
-    adicionarHistorico(item);
-
-}
-
-
-/* =========================================================
-   LIMPAR
-========================================================= */
-
-function limpar(){
-
-    entrada.value = "";
-
-    resultado.style.display = "none";
-
-    entrada.focus();
-
-}
-
-
-/* =========================================================
-   CONSULTA RÁPIDA
-========================================================= */
-
-function usar(sequencia){
-
-    entrada.value = sequencia;
-
-    buscar();
-
-}
-
-
-/* =========================================================
-   ESTATÍSTICAS
-========================================================= */
-
-function atualizarEstatisticas(){
-
-    let v = 0;
-    let a = 0;
-    let r = 0;
-
-
-    for(const item of padroesDefinidos){
-
-        if(item.resultado === "V") v++;
-        else if(item.resultado === "A") a++;
-        else if(item.resultado === "R") r++;
-
-    }
-
-
-    $("total").textContent =
-        padroesDefinidos.length;
-
-    $("totalV").textContent = v;
-    $("totalA").textContent = a;
-    $("totalR").textContent = r;
-
-}
-
-
-/* =========================================================
-   RENDERIZAÇÃO DOS PADRÕES
-========================================================= */
-
-function renderizarPadroes(tipo="TODOS"){
-
-    listaPadroes.replaceChildren();
-
-
-    const lista =
-        tipo === "TODOS"
-            ? padroesDefinidos
-            : padroesDefinidos.filter(
-                item => item.resultado === tipo
-            );
-
-
-    contador.textContent =
-        `${lista.length} padrão(s) exibido(s) de ${padroesDefinidos.length}.`;
-
-
-    const fragment =
-        document.createDocumentFragment();
-
-
-    for(const item of lista){
-
-        const card =
-            document.createElement("div");
-
-        card.className = "card";
-
-        card.dataset.sequencia =
-            item.sequencia;
-
-
-        const seq =
-            document.createElement("div");
-
-        seq.className = "seq";
-
-        seq.textContent =
-            item.sequencia;
-
-
-        const res =
-            document.createElement("div");
-
-        res.className =
-            "res estado-" +
-            item.resultado.toLowerCase();
-
-        res.textContent =
-            item.resultado;
-
-
-        card.append(seq,res);
-
-        fragment.appendChild(card);
-
-    }
-
-
-    listaPadroes.appendChild(fragment);
-
-}
-
-
-/* =========================================================
-   FILTROS
-========================================================= */
-
-document
-    .querySelector(".filtros")
-    .addEventListener("click", event => {
-
-        const botao =
-            event.target.closest("button");
-
-        if(!botao) return;
-
-
-        document
-            .querySelectorAll(".filtros button")
-            .forEach(b =>
-                b.classList.remove("ativo")
-            );
-
-
-        botao.classList.add("ativo");
-
-
-        renderizarPadroes(
-            botao.dataset.filtro
-        );
-
-    });
+});
 
 
 /* =========================================================
    HISTÓRICO
 ========================================================= */
 
-const CHAVE_HISTORICO =
-    "historico_var_v1";
-
-let historicoDados =
-    JSON.parse(
-        localStorage.getItem(CHAVE_HISTORICO) || "[]"
-    );
-
-
-function salvarHistorico(){
-
-    localStorage.setItem(
-        CHAVE_HISTORICO,
-        JSON.stringify(historicoDados)
-    );
-
-}
-
-
-function adicionarHistorico(item){
-
-    historicoDados =
-        historicoDados.filter(
-            h =>
-                h.sequencia !== item.sequencia
-        );
-
-
-    historicoDados.unshift({
-
-        sequencia:item.sequencia,
-
-        resultado:item.resultado
-
-    });
-
-
-    historicoDados =
-        historicoDados.slice(0,10);
-
-
-    salvarHistorico();
-
-    renderizarHistorico();
-
-}
+let historico = [];
 
 
 /* =========================================================
-   RENDERIZAR HISTÓRICO
+   CLICAR NA COR
 ========================================================= */
 
-function renderizarHistorico(){
+function clicarCor(cor){
 
-    historicoEl.replaceChildren();
-
-
-    if(!historicoDados.length){
-
-        const vazio =
-            document.createElement("div");
-
-        vazio.className = "vazio";
-
-        vazio.textContent =
-            "Nenhuma consulta realizada.";
-
-        historicoEl.appendChild(vazio);
-
+    if(!CORES[cor]){
         return;
     }
 
 
-    const fragment =
-        document.createDocumentFragment();
+    historico.push(cor);
 
 
-    for(const item of historicoDados){
+    /*
+       Mantém as últimas 20 cores.
+    */
 
-        const linha =
-            document.createElement("div");
+    if(historico.length > 20){
 
-        linha.className =
-            "hist-item";
-
-        linha.dataset.sequencia =
-            item.sequencia;
-
-
-        const seq =
-            document.createElement("span");
-
-        seq.className =
-            "hist-seq";
-
-        seq.textContent =
-            item.sequencia;
-
-
-        const res =
-            document.createElement("span");
-
-        res.className =
-            "hist-res estado-" +
-            item.resultado.toLowerCase();
-
-        res.textContent =
-            item.resultado;
-
-
-        linha.append(seq,res);
-
-        fragment.appendChild(linha);
+        historico.shift();
 
     }
 
 
-    historicoEl.appendChild(fragment);
+    atualizarHistorico();
+
+    analisar();
 
 }
 
 
 /* =========================================================
-   CLIQUE NO HISTÓRICO
+   MOSTRAR HISTÓRICO
 ========================================================= */
 
-historicoEl.addEventListener(
-    "click",
-    event => {
+function atualizarHistorico(){
 
-        const item =
-            event.target.closest(".hist-item");
-
-        if(!item) return;
+    const elemento =
+        document.getElementById("historico");
 
 
-        usar(
-            item.dataset.sequencia
-        );
+    elemento.replaceChildren();
 
-    }
-);
+
+    historico.forEach(cor => {
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "bolinha " +
+            CORES[cor].classe;
+
+
+        div.title =
+            CORES[cor].nome;
+
+
+        elemento.appendChild(div);
+
+    });
+
+}
 
 
 /* =========================================================
-   CLIQUE NOS PADRÕES
+   BUSCA DO PADRÃO
 ========================================================= */
 
-listaPadroes.addEventListener(
-    "click",
-    event => {
+function buscarPadrao(sequencia){
 
-        const card =
-            event.target.closest(".card");
+    return indicePadroes.get(sequencia) || null;
 
-        if(!card) return;
-
-
-        usar(
-            card.dataset.sequencia
-        );
-
-    }
-);
+}
 
 
 /* =========================================================
-   BOTÕES RÁPIDOS
+   ANALISAR ÚLTIMAS 4 CORES
 ========================================================= */
 
-document
-    .querySelector(".quick")
-    .addEventListener("click", event => {
+function analisar(){
 
-        const botao =
-            event.target.closest("button");
-
-        if(!botao) return;
+    const elemento =
+        document.getElementById("analise");
 
 
-        usar(
-            botao.dataset.seq
+    /*
+       Ainda não existem 4 cores.
+    */
+
+    if(historico.length < 4){
+
+        const faltam =
+            4 - historico.length;
+
+
+        elemento.innerHTML = `
+
+            <div class="sequencia-box">
+
+                Ainda faltam
+                <strong>${faltam}</strong>
+                cor(es) para formar uma sequência de 4.
+
+            </div>
+
+        `;
+
+
+        limparPrevisao();
+
+        return;
+
+    }
+
+
+    /*
+       SOMENTE AS ÚLTIMAS 4
+    */
+
+    const ultimas4 =
+        historico.slice(-4);
+
+
+    const sequencia =
+        ultimas4.join("");
+
+
+    /*
+       CONSULTA EXATA NA TABELA
+    */
+
+    const resultado =
+        buscarPadrao(sequencia);
+
+
+    const nomes =
+        ultimas4.map(
+            cor => CORES[cor].nome
+        );
+
+
+    /*
+       PADRÃO ENCONTRADO
+    */
+
+    if(resultado){
+
+        const info =
+            CORES[resultado];
+
+
+        elemento.innerHTML = `
+
+            <div class="sequencia-box">
+
+                <div>
+
+                    Sequência:
+                    <strong>${sequencia}</strong>
+
+                </div>
+
+
+                <div>
+
+                    1ª: ${nomes[0]}
+                    |
+                    2ª: ${nomes[1]}
+                    |
+                    3ª: ${nomes[2]}
+                    |
+                    4ª: ${nomes[3]}
+
+                </div>
+
+
+                <div class="resultado">
+
+                    PRÓXIMA COR:
+                    ${info.nome}
+
+                </div>
+
+
+                <div class="regra">
+
+                    Regra encontrada na tabela:
+                    <strong>
+                        ${sequencia} → ${resultado}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        mostrarPrevisao(
+            sequencia,
+            resultado
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       NÃO ENCONTRADO
+    */
+
+    elemento.innerHTML = `
+
+        <div class="sequencia-box">
+
+            <div>
+
+                Sequência:
+                <strong>${sequencia}</strong>
+
+            </div>
+
+
+            <div class="resultado">
+
+                PRÓXIMA COR: NÃO DEFINIDA
+
+            </div>
+
+
+            <div class="regra">
+
+                Essa sequência não possui
+                resultado cadastrado.
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    limparPrevisao();
+
+}
+
+
+/* =========================================================
+   MOSTRAR PREVISÃO
+========================================================= */
+
+function mostrarPrevisao(
+    sequencia,
+    cor
+){
+
+    const info =
+        CORES[cor];
+
+
+    document.getElementById(
+        "previsaoSeq"
+    ).textContent =
+        sequencia;
+
+
+    const previsao =
+        document.getElementById(
+            "previsaoCor"
+        );
+
+
+    previsao.textContent =
+        "PRÓXIMA: " + info.nome;
+
+
+    previsao.className =
+        "previsao-cor " +
+        info.texto;
+
+
+    /*
+       ZERA BARRAS
+    */
+
+    resetBarras();
+
+
+    /*
+       A barra representa
+       a previsão determinística
+       da tabela.
+
+       Não é uma probabilidade estatística.
+    */
+
+    const barra =
+        document.getElementById(
+            "barra" + cor
+        );
+
+
+    const porcentagem =
+        document.getElementById(
+            "porcentagem" + cor
+        );
+
+
+    if(barra && porcentagem){
+
+        barra.style.width =
+            "100%";
+
+        porcentagem.textContent =
+            "100%";
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET BARRAS
+========================================================= */
+
+function resetBarras(){
+
+    ["A","R","V"].forEach(cor => {
+
+        const barra =
+            document.getElementById(
+                "barra" + cor
+            );
+
+
+        const porcentagem =
+            document.getElementById(
+                "porcentagem" + cor
+            );
+
+
+        barra.style.width =
+            "0%";
+
+
+        porcentagem.textContent =
+            "—";
+
+    });
+
+}
+
+
+/* =========================================================
+   LIMPAR PREVISÃO
+========================================================= */
+
+function limparPrevisao(){
+
+    document.getElementById(
+        "previsaoSeq"
+    ).textContent =
+        "----";
+
+
+    const previsao =
+        document.getElementById(
+            "previsaoCor"
+        );
+
+
+    previsao.textContent =
+        "PRÓXIMA: NÃO DEFINIDA";
+
+
+    previsao.className =
+        "previsao-cor";
+
+
+    resetBarras();
+
+}
+
+
+/* =========================================================
+   RESET HISTÓRICO
+========================================================= */
+
+function resetHist(){
+
+    historico = [];
+
+
+    atualizarHistorico();
+
+
+    document.getElementById(
+        "analise"
+    ).replaceChildren();
+
+
+    limparPrevisao();
+
+}
+
+
+/* =========================================================
+   GERAR TODAS AS COMBINAÇÕES
+========================================================= */
+
+function gerarCombinacoes(){
+
+    const resultado = [];
+
+
+    const cores = [
+        "A",
+        "R",
+        "V"
+    ];
+
+
+    for(const a of cores){
+
+        for(const b of cores){
+
+            for(const c of cores){
+
+                for(const d of cores){
+
+                    resultado.push(
+                        a+b+c+d
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    return resultado;
+
+}
+
+
+/* =========================================================
+   VALIDAR TABELA
+========================================================= */
+
+function validarTabela(){
+
+    const esperados =
+        gerarCombinacoes();
+
+
+    const existentes =
+        new Set(
+            padroesDefinidos.map(
+                item => item.sequencia
+            )
+        );
+
+
+    const duplicados = [];
+
+
+    const controle =
+        new Set();
+
+
+    padroesDefinidos.forEach(item => {
+
+        if(controle.has(item.sequencia)){
+
+            duplicados.push(
+                item.sequencia
+            );
+
+        }
+
+
+        controle.add(
+            item.sequencia
         );
 
     });
 
 
-/* =========================================================
-   BOTÃO BUSCAR
-========================================================= */
-
-$("btnBuscar").addEventListener(
-    "click",
-    buscar
-);
+    const faltantes =
+        esperados.filter(
+            seq => !existentes.has(seq)
+        );
 
 
-/* =========================================================
-   BOTÃO LIMPAR
-========================================================= */
-
-$("btnLimpar").addEventListener(
-    "click",
-    limpar
-);
+    const status =
+        document.getElementById(
+            "statusTabela"
+        );
 
 
-/* =========================================================
-   ENTER
-========================================================= */
+    if(
+        duplicados.length === 0 &&
+        faltantes.length === 0 &&
+        padroesDefinidos.length === 81
+    ){
 
-entrada.addEventListener(
-    "keydown",
-    event => {
+        status.textContent =
+            "✓ Tabela completa: 81 sequências cadastradas, sem duplicações.";
 
-        if(event.key === "Enter"){
-
-            event.preventDefault();
-
-            buscar();
-
-        }
+        return true;
 
     }
-);
+
+
+    let mensagem =
+        "ATENÇÃO: tabela incompleta.";
+
+
+    if(duplicados.length){
+
+        mensagem +=
+            " Duplicados: " +
+            duplicados.join(", ") +
+            ".";
+
+    }
+
+
+    if(faltantes.length){
+
+        mensagem +=
+            " Faltando: " +
+            faltantes.join(", ") +
+            ".";
+
+    }
+
+
+    status.textContent =
+        mensagem;
+
+
+    return false;
+
+}
 
 
 /* =========================================================
-   ENTRADA
-   Permite somente A/R/V.
+   MOSTRAR PADRÕES
 ========================================================= */
 
-entrada.addEventListener(
-    "input",
-    () => {
+function mostrarPadroes(){
 
-        const valor =
-            normalizar(entrada.value);
+    const caixa =
+        document.getElementById(
+            "listaPadroes"
+        );
 
-        if(entrada.value !== valor){
 
-            entrada.value = valor;
+    /*
+       Alterna abrir/fechar.
+    */
 
-        }
+    if(
+        caixa.style.display === "block"
+    ){
+
+        caixa.style.display =
+            "none";
+
+        return;
 
     }
-);
+
+
+    const conteudo =
+        document.getElementById(
+            "padroesConteudo"
+        );
+
+
+    conteudo.replaceChildren();
+
+
+    /*
+       Mostra TODOS os padrões
+       cadastrados na tabela.
+    */
+
+    padroesDefinidos.forEach(
+        item => {
+
+            adicionarPadrao(
+                conteudo,
+                item.sequencia,
+                item.resultado
+            );
+
+        }
+    );
+
+
+    validarTabela();
+
+
+    caixa.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   ADICIONAR PADRÃO
+========================================================= */
+
+function adicionarPadrao(
+    container,
+    sequencia,
+    resultado
+){
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "padrao";
+
+
+    /*
+       As quatro bolinhas.
+    */
+
+    for(
+        const letra of sequencia
+    ){
+
+        const mini =
+            document.createElement("div");
+
+
+        mini.className =
+            "mini " +
+            CORES[letra].classe;
+
+
+        mini.title =
+            CORES[letra].nome;
+
+
+        div.appendChild(
+            mini
+        );
+
+    }
+
+
+    /*
+       Texto do padrão.
+    */
+
+    const texto =
+        document.createElement("strong");
+
+
+    texto.textContent =
+        `${sequencia} → ${CORES[resultado].nome}`;
+
+
+    div.appendChild(
+        texto
+    );
+
+
+    container.appendChild(
+        div
+    );
+
+}
 
 
 /* =========================================================
    INICIALIZAÇÃO
 ========================================================= */
 
+atualizarHistorico();
+
+limparPrevisao();
+
 validarTabela();
-
-atualizarEstatisticas();
-
-renderizarPadroes();
-
-renderizarHistorico();
-
-entrada.focus();
-
-
-/* =========================================================
-   DIAGNÓSTICO NO CONSOLE
-========================================================= */
-
-console.log(
-    "Padrões carregados:",
-    padroesDefinidos.length
-);
-
-console.log(
-    "Índice de busca:",
-    indicePadroes.size
-);
 
 </script>
 
