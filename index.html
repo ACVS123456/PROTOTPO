@@ -890,7 +890,7 @@ V = Rosa
 
 
 <!-- =====================================================
-     LISTA DOS 81 PADRÕES
+     PADRÕES
 ===================================================== -->
 
 <div
@@ -964,12 +964,11 @@ PRÓXIMA: —
 
 </div>
 
-
 </div>
 
 
 <!-- =====================================================
-     BARRA AZUL
+     BARRAS
 ===================================================== -->
 
 <div class="barra-area">
@@ -997,10 +996,6 @@ class="fill fill-azul">
 </div>
 
 
-<!-- =====================================================
-     BARRA ROXA
-===================================================== -->
-
 <div class="barra-item">
 
 <div class="barra-titulo">
@@ -1022,10 +1017,6 @@ class="fill fill-roxo">
 
 </div>
 
-
-<!-- =====================================================
-     BARRA ROSA
-===================================================== -->
 
 <div class="barra-item">
 
@@ -1158,147 +1149,74 @@ let hist = [];
 
 
 /* =========================================================
-   80 REGRAS CADASTRADAS
+   TABELA ÚNICA DE REGRAS
+   81 COMBINAÇÕES
+   SEM REPETIÇÕES
 ========================================================= */
 
 const regrasEspecificas = {
 
-"AAAR":"R",
-"AAAV":"A",
-"AARA":"A",
-"AARR":"A",
-"AARV":"V",
-"AAVA":"R",
-"AAVR":"R",
-"AAVV":"A",
-
-"ARAR":"A",
-"ARAV":"V",
-"ARRA":"R",
-"ARRR":"R",
-"ARRV":"V",
-"ARVA":"A",
-"ARVR":"R",
-"ARVV":"V",
-
-"AVAA":"A",
-"AVAR":"R",
-"AVAV":"A",
-"AVRA":"R",
-"AVRR":"A",
-"AVRV":"R",
-"AVVA":"A",
-"AVVR":"R",
-"AVVV":"R",
-
-"RAAR":"R",
-"RAAV":"R",
-"RARA":"A",
-"RARR":"R",
-"RARV":"A",
-"RAVA":"A",
-"RAVR":"R",
-"RAVV":"A",
-
-"RRAA":"A",
-"RRAV":"R",
-"RRRA":"V",
-"RRRV":"A",
-"RRVA":"A",
-"RRVR":"A",
-"RRVV":"A",
-
-"RVAA":"A",
-"RVAR":"A",
-"RVAV":"A",
-"RVRA":"R",
-"RVRR":"A",
-"RVRV":"R",
-"RVVA":"A",
-"RVVR":"A",
-"RVVV":"A"
-
-    "AARV":"V",
-    "ARVV":"V",
-    "RVVV":"A",
-    "VVVA":"R",
-    "VVAR":"A",
-    "VARA":"A",
-    "ARAA":"A",
-    "RAAA":"A",
-    "AAAA":"A",
-    "ARRA":"R",
-    "RAAV":"R",
-    "ARAA":"V",
-    "AAVR":"R",
-    "RRRR":"V",
-    "RRRV":"R",
-    "AAAV":"A",
-    
-    
-    "RAAR":"R",
-    "AAAA":"A",
-    "AAAA":"R",
-    "RAAA":"V",
-    "ARAA":"R",
-    "AARA":"A",
-    "AAAR":"R",
-    "RRRR":"R",
-    "ARRR":"R",
-    "RARR":"R",
-    "RRAR":"A",
-
-    "RRRA":"A",
-    "VAAA":"R",
-    "AVAA":"R",
-    "AAVA":"R",
+    "AAAA":"V",
+    "AAAR":"A",
     "AAAV":"R",
-    "VVVV":"A",
-    "AVVV":"A",
-    "VAVV":"A",
-    "VVAV":"A",
+    "AARA":"R",
+    "AARR":"A",
+    "AARV":"R",
+    "AAVA":"A",
+    "AAVR":"A",
+    "AAVV":"A",
 
-    "VVVA":"A",
-    "RRRR":"A",
+    "ARAA":"A",
+    "ARAR":"A",
+    "ARAV":"A",
+    "ARRA":"A",
+    "ARRR":"A",
+    "ARRV":"A",
+    "ARVA":"R",
+    "ARVR":"A",
+    "ARVV":"A",
+
+    "AVAA":"A",
+    "AVAR":"A",
     "AVAV":"A",
     "AVRA":"R",
     "AVRR":"A",
     "AVRV":"R",
     "AVVA":"A",
-
-    /* AVVR ainda não definido */
+    "AVVR":"A",
+    "AVVV":"A",
 
     "RAAA":"R",
     "RAAR":"A",
     "RAAV":"A",
     "RARA":"R",
     "RARR":"A",
-    "RARV":"A",
-    "RAVA":"R",
+    "RARV":"R",
+    "RAVA":"A",
     "RAVR":"A",
     "RAVV":"A",
 
     "RRAA":"R",
     "RRAR":"A",
     "RRAV":"A",
-    "RRRA":"V",
-    "RRRR":"V",
+    "RRRA":"A",
+    "RRRR":"A",
     "RRRV":"A",
     "RRVA":"A",
     "RRVR":"A",
     "RRVV":"A",
 
-    "RVAA":"A",
+    "RVAA":"R",
     "RVAR":"A",
     "RVAV":"A",
     "RVRA":"R",
     "RVRR":"A",
-    "RVRV":"R",
-    "RVVA":"A",
+    "RVRV":"A",
+    "RVVA":"R",
     "RVVR":"A",
     "RVVV":"A",
 
-    "VAAA":"R",
+    "VAAA":"A",
     "VAAR":"A",
     "VAAV":"R",
     "VARA":"R",
@@ -1306,121 +1224,53 @@ const regrasEspecificas = {
     "VARV":"A",
     "VAVA":"R",
     "VAVR":"A",
-    "VAVV":"R",
+    "VAVV":"A",
 
     "VRAA":"R",
     "VRAR":"A",
     "VRAV":"A",
-    "VRRA":"R",
+    "VRRA":"A",
     "VRRR":"A",
     "VRRV":"A",
     "VRVA":"A",
     "VRVR":"A",
     "VRVV":"A",
 
-    "VVAA":"R",
+    "VVAA":"A",
     "VVAR":"A",
     "VVAV":"A",
     "VVRA":"R",
-    "VVRR":"R",
+    "VVRR":"A",
+    "VVRV":"A",
+    "VVVA":"A",
+    "VVVR":"A",
     "VVVV":"A"
 
 };
 
 
 /* =========================================================
-   TODAS AS 81 COMBINAÇÕES
+   GERAR LISTA DE PADRÕES A PARTIR DA TABELA
+
+   IMPORTANTE:
+   Não existe mais uma segunda tabela manual.
+   Assim não haverá duplicação.
 ========================================================= */
 
-const padroesDefinidos = [
+const padroesDefinidos =
+    Object.entries(
+        regrasEspecificas
+    ).map(
+        ([sequencia, resultado]) => ({
 
-    {sequencia:"AAAA",resultado:"V"},
-    {sequencia:"AAAR",resultado:"A"},
-    {sequencia:"AAAV",resultado:"R"},
-    {sequencia:"AARA",resultado:"R"},
-    {sequencia:"AARR",resultado:"A"},
-    {sequencia:"AARV",resultado:"R"},
-    {sequencia:"AAVA",resultado:"A"},
-    {sequencia:"AAVR",resultado:"A"},
-    {sequencia:"AAVV",resultado:"A"},
+            sequencia:
+                sequencia,
 
-    {sequencia:"ARAA",resultado:"A"},
-    {sequencia:"ARAR",resultado:"A"},
-    {sequencia:"ARAV",resultado:"A"},
-    {sequencia:"ARRA",resultado:"A"},
-    {sequencia:"ARRR",resultado:"A"},
-    {sequencia:"ARRV",resultado:"A"},
-    {sequencia:"ARVA",resultado:"R"},
-    {sequencia:"ARVR",resultado:"A"},
-    {sequencia:"ARVV",resultado:"A"},
+            resultado:
+                resultado
 
-    {sequencia:"AVAA",resultado:"A"},
-    {sequencia:"AVAR",resultado:"A"},
-    {sequencia:"AVAV",resultado:"A"},
-    {sequencia:"AVRA",resultado:"R"},
-    {sequencia:"AVRR",resultado:"A"},
-    {sequencia:"AVRV",resultado:"R"},
-    {sequencia:"AVVA",resultado:"A"},
-    {sequencia:"AVVR",resultado:"A"},
-
-    {sequencia:"RAAA",resultado:"R"},
-    {sequencia:"RAAR",resultado:"A"},
-    {sequencia:"RAAV",resultado:"A"},
-    {sequencia:"RARA",resultado:"R"},
-    {sequencia:"RARR",resultado:"A"},
-    {sequencia:"RARV",resultado:"R"},
-    {sequencia:"RAVA",resultado:"A"},
-    {sequencia:"RAVR",resultado:"A"},
-    {sequencia:"RAVV",resultado:"A"},
-
-    {sequencia:"RRAA",resultado:"R"},
-    {sequencia:"RRAR",resultado:"A"},
-    {sequencia:"RRAV",resultado:"A"},
-    {sequencia:"RRRA",resultado:"A"},
-    {sequencia:"RRRR",resultado:"A"},
-    {sequencia:"RRRV",resultado:"A"},
-    {sequencia:"RRVA",resultado:"A"},
-    {sequencia:"RRVR",resultado:"A"},
-    {sequencia:"RRVV",resultado:"A"},
-
-    {sequencia:"RVAA",resultado:"R"},
-    {sequencia:"RVAR",resultado:"A"},
-    {sequencia:"RVAV",resultado:"A"},
-    {sequencia:"RVRA",resultado:"R"},
-    {sequencia:"RVRR",resultado:"A"},
-    {sequencia:"RVRV",resultado:"A"},
-    {sequencia:"RVVA",resultado:"R"},
-    {sequencia:"RVVR",resultado:"A"},
-    {sequencia:"RVVV",resultado:"A"},
-
-    {sequencia:"VAAA",resultado:"A"},
-    {sequencia:"VAAR",resultado:"A"},
-    {sequencia:"VAAV",resultado:"R"},
-    {sequencia:"VARA",resultado:"R"},
-    {sequencia:"VARR",resultado:"A"},
-    {sequencia:"VARV",resultado:"A"},
-    {sequencia:"VAVA",resultado:"R"},
-    {sequencia:"VAVR",resultado:"A"},
-    {sequencia:"VAVV",resultado:"A"},
-
-    {sequencia:"VRAA",resultado:"R"},
-    {sequencia:"VRAR",resultado:"A"},
-    {sequencia:"VRAV",resultado:"A"},
-    {sequencia:"VRRA",resultado:"A"},
-    {sequencia:"VRRR",resultado:"A"},
-    {sequencia:"VRRV",resultado:"A"},
-    {sequencia:"VRVA",resultado:"A"},
-    {sequencia:"VRVR",resultado:"A"},
-    {sequencia:"VRVV",resultado:"A"},
-
-    {sequencia:"VVAA",resultado:"A"},
-    {sequencia:"VVAR",resultado:"A"},
-    {sequencia:"VVAV",resultado:"A"},
-    {sequencia:"VVRA",resultado:"R"},
-    {sequencia:"VVRR",resultado:"A"},
-    {sequencia:"VVVV",resultado:"A"}
-
-];
+        })
+    );
 
 
 /* =========================================================
@@ -1480,7 +1330,7 @@ function calcularPrevisao(sequencia){
 
 
 /* =========================================================
-   CLICAR NA COR
+   REGISTRAR COR
 ========================================================= */
 
 function userClick(cor){
@@ -1510,7 +1360,7 @@ function userClick(cor){
 
 
 /* =========================================================
-   HISTÓRICO
+   RENDERIZAR HISTÓRICO
 ========================================================= */
 
 function renderHist(){
@@ -1946,7 +1796,8 @@ function showPatterns(){
 
     if(area.style.display === "block"){
 
-        area.style.display = "none";
+        area.style.display =
+            "none";
 
         return;
 
@@ -1995,6 +1846,10 @@ function showPatterns(){
                 i++
             ){
 
+                const codigo =
+                    padrao.sequencia.charAt(i);
+
+
                 const bolinha =
                     document.createElement(
                         "span"
@@ -2004,7 +1859,7 @@ function showPatterns(){
                 bolinha.className =
                     "mini-cor " +
                     CORES[
-                        padrao.sequencia.charAt(i)
+                        codigo
                     ].classe;
 
 
@@ -2097,21 +1952,26 @@ function showPatterns(){
        CONTADOR
     ===================================================== */
 
+    const total =
+        padroesDefinidos.length;
+
+
+    const naoDefinidos =
+        total -
+        cadastrados;
+
+
     document.getElementById(
         "contadorPadroes"
     ).textContent =
 
-        padroesDefinidos.length +
+        total +
         " combinações | " +
 
         cadastrados +
         " definidas | " +
 
-        (
-            padroesDefinidos.length -
-            cadastrados
-        ) +
-
+        naoDefinidos +
         " não definida";
 
 
